@@ -26,3 +26,32 @@ The corpus is researched in **waves** so that no wave hits the shared web-search
 | 3 | Folding carton design (new) | `styles/folding-carton-design-rules.md` | Carton design rules, glue flaps, tuck friction locks, crease and print registration tolerances |
 
 After each wave: run `python tools/validate_corpus.py`, then `python tools/review_queue.py`, then commit and push.
+
+## Status log
+
+### Wave 1: complete (2026-11-09). 81 of 135 budgeted searches used
+
+| Agent | Searches | Result |
+|---|---|---|
+| Strength & freight rules | 12 | Item 222 single/double/triple-wall tables completed from the FBA-hosted Walmart spec; FBA time/RH multipliers confirmed (70 %RH = 0.80); FBA 2021 stacking-pattern study; overhang ranges from the FBA/Virginia Tech reports; ECT methods resolved (T 811 waxed ≈ ISO 13821; T 839 clamp; T 838/T 839 ≈ ISO 3037); T 820 withdrawn → T 836 |
+| Standards & testing | 44 | Standards index VERIFY 57 → 9; ISTA 3A drops 9+8 / 9+7 and 0.53/0.46 Grms; 6-Amazon SIOC A–H; Over Boxing revised Mar 2026, PFP cut-off 1 Aug 2026; ASTM/ISO/TAPPI current editions |
+| Sustainability & print | 25 | All SOURCE PENDING sections filled; PPWR checked against the EUR-Lex text (grades, Art. 24 empty space, Art. 29 cardboard exclusion, labelling); FBA 2025 repulpability standard; Cepi v3; LCA figures; US EPR dates; GS1 ITF-14 |
+
+Review queue: 320 → 218 items.
+
+**Carried to wave 3** (needs the hosts added after wave 1):
+- Kellicutt (FPL R1911-A on ir.library.oregonstate.edu)
+- Urbanik–Frank
+- handhole/vent factors (Singh et al. 2008)
+- print strength loss (MDPI 2021 crush study)
+- NMFC Item 222 current status
+
+**Needs purchased standards:**
+- ASTM D4169-23e1 tables (cycles, assurance-level drop heights, schedules D/F/G, vibration Grms)
+
+**Hosts that still block automated reads:**
+- iso.org and astm.org (bot walls)
+- www.fpl.fs.usda.gov (502)
+- amazon.com, Lansmont, state agency sites
+
+### Wave 2: running
