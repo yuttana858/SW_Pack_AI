@@ -169,7 +169,7 @@ sources:
 
 ## Corrugator process overview
 
-The wet end makes single-face web. The double backer adds the second liner. The dry end slits, scores and cuts the board into sheets.
+The wet end makes single-face web. The double backer adds the second liner. The dry end slits, scores and cuts the board into sheets [S2].
 
 1. **Roll stands and splicers**: feed the liner and medium reels continuously.
 2. **Preheaters**: heated drums raise the web temperature before bonding. The wrap angle around the drum controls how much heat goes in [S7].
@@ -188,7 +188,7 @@ The wet end makes single-face web. The double backer adds the second liner. The 
    - A rotary knife (shear) cuts the web across into sheets [S3].
    - Sheets are stacked so that fibres can dry and the adhesive can cure [S3].
 
-**Take-up factor**: the length of medium used per length of board. FEFCO gives about 1.50–1.55 for A flute, 1.30–1.35 for B, 1.40–1.45 for C and 1.20–1.35 for E [S1]. A typical C-flute value of 1.43 means 1.43 m² of medium makes 1 m² of board [S1]. Worked example: 815.5 m² of board (1000 RSCs, see `dimensional/blank-size-formulas.md`) × 1.43 = **1166 m²** of C-flute medium [12 553 ft²].
+**Take-up factor**: the length of medium used per length of board. FEFCO gives about 1.50–1.55 for A flute, 1.30–1.35 for B, 1.40–1.45 for C and 1.20–1.35 for E [S1]. A typical C-flute value of 1.43 means 1.43 m² of medium makes 1 m² of board [S1]. Worked example: 815.5 m² of board (1000 RSCs, see `dimensional/blank-size-formulas.md`) × 1.43 = **1166 m²** of C-flute medium [12 552 ft²].
 
 ## Starch adhesive (Stein-Hall type)
 
