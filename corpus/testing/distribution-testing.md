@@ -320,21 +320,34 @@ Pass/fail is defined by the shipper (product damage tolerance and package condit
 | Tier 2 | Ships in Own Container (SIOC) — ships in its own package without overbox | No | ISTA 6-Amazon.com-SIOC |
 | Tier 3 | Prep-Free Packaging (PFP) — needs no Amazon prep but is shipped inside an Amazon box | Yes | ISTA 6-Amazon.com-Over Boxing |
 
-Amazon has renamed the vendor programme "Ships in Product Packaging" (**SIPP**); the FFP/SIOC/PFP terms still appear in programme documents [S11][S12]. Amazon also publishes form-factor guidelines (2024) that set minimum and maximum dimensions and weights for each tier; packages below the SIOC minimum size can qualify only for PFP [S12][S13].
+Amazon now markets certified own-container packaging as "Ships in Product Packaging" (**SIPP**); the FFP/SIOC/PFP terms still appear in programme documents [S11][S12]. **VERIFY — tier mapping.** Secondary sources disagree on whether SIPP replaces only FFP or is the umbrella name for FFP and SIOC (both still use ISTA 6-Amazon.com-SIOC); confirm against the current Amazon packaging page (amazon-packaging.com could not be reached in this pass) [S12][S14]. Amazon also publishes form-factor guidelines (2024) that set minimum and maximum dimensions and weights for each tier; packages below the SIOC minimum size can qualify only for PFP [S12][S13].
 
 **"SPS" — VERIFY.** No Amazon tier called "SPS" was found in the sources consulted on 2026-11-09. If a customer document uses "SPS", ask which programme it means (possibly SIPP).
 
 **Other 2025–2026 points**
 - Hazmat items cannot be FFP or SIOC certified but can be PFP certified [S12].
 - If an ASIN loses certification, Amazon waives the related chargeback for 60 days [S12].
-- One secondary source states that the 2026 version of ISTA 6-Amazon.com-OVERBOX becomes mandatory for **new PFP enrolments from 1 August 2026** [S14]. **VERIFY** in Amazon Vendor Central / Amazon packaging pages; single source.
-- Chargeback amounts for uncertified items vary by source and changed in 2025. **VERIFY** current figures in Amazon Vendor Central before quoting them.
+- **ISTA 6-Amazon.com-Over Boxing 2026 (PFP).** ISTA revised the Over Boxing project in March 2026: air pillows removed and kraft paper dunnage (max 12 in [305 mm] wide, 30–50 lb basis weight, manually dispensed) made the only allowed dunnage; a formula for dunnage quantity; updated hazard (dummy) package sizes and weights and over-box sizes; more multi-item configurations and a larger sample size. Test intensities and durations did not change [S38][S39][S40]. Amazon gave a four-month grace period with a cut-off of **1 August 2026**, after which new PFP enrolments must be tested to the 2026 version [S14][S39]. The scope is a retail packaged-product of 32 kg (70 lb) or less placed by Amazon into an over-box [S1][S38]. Top load has not been a required part of the Over Boxing vibration block since April 2018 [S40].
+- Chargeback and packaging-fee amounts for uncertified items vary by source and changed in 2025–2026. **VERIFY** current figures in Amazon Vendor Central before quoting them.
 
-**ISTA 6-Amazon.com-SIOC test types.** The protocol defines eight types, A to H, set by Amazon outbound shipment method, fulfilment centre handling, packaged-product weight and product category [S10]. Type A covers individual packaged-products in parcel delivery with standard handling, under 50 lb (23 kg) and within a girth limit [S9]. Secondary summaries of the other types disagree with each other (**VERIFY** against the procedure). Test-laboratory summaries list these elements: optional atmospheric conditioning, compression, stability/tilt, random vibration (with and without load), shock/impact drops, and for larger types clamp handling and forklift handling. **VERIFY** which elements apply to each type in the procedure. The latest official overview found is the 2018 edition [S10]; check ISTA for any later edition.
+**ISTA 6-Amazon.com-SIOC test types.** The 2018 edition (still the current overview on ista.org) defines eight types set by Amazon outbound shipment method, fulfilment-centre handling method, packaged-product weight and product category [S10]. Girth here means length + 2 × (width + height) [S10].
+
+| Type | Outbound shipment | FC handling | Weight / size |
+|---|---|---|---|
+| A | Parcel, individual packaged-product | Standard (floor loaded) | < 50 lb (23 kg) and girth ≤ 165 in (4.19 m) [S9] |
+| B | Parcel | Standard | 50 lb (23 kg) to < 100 lb (45 kg), girth ≤ 165 in |
+| C | Parcel | Standard | ≥ 100 lb (45 kg), girth ≤ 165 in |
+| D | LTL, individual packaged-product | Standard | < 100 lb (45 kg) or girth > 165 in |
+| E | LTL | Standard | ≥ 100 lb (45 kg) or girth > 165 in |
+| F | LTL | Pallet handling (received on its own pallet) | no weight or size limit |
+| G | Parcel — TV/monitor | Standard | < 150 lb (68 kg), girth ≤ 165 in |
+| H | LTL — TV/monitor | Standard | ≥ 150 lb (68 kg) or girth > 165 in |
+
+Types G and H (TVs and monitors) were added in March 2018, together with a compression-machine alternative for clamp testing and clamp-before-stack ordering [S40]. Fragile items need five samples; non-fragile items need one (TVs and monitors count as non-fragile) [S10]. Type A follows a 3A-like sequence: 12-hour ambient preconditioning, optional conditioning, 9 drops, random vibration (0.53 Grms overall level is the first stated), 8 drops, then rotational, bridge and concentrated impacts for the relevant package shapes and a leak test for liquids [S10]. Heavier types add elements such as tip/tip-over (22° tip angle for tall packages), clamp handling and vertical compression [S10][S40]. The per-type element list and heights are in the purchased procedure.
 
 ## ASTM D4169: distribution cycles
 
-ASTM D4169 (current edition D4169-23e1, published March 2024 per secondary sources) is a standard practice for performance testing of shipping containers and systems [S15][S16]. It defines 18 distribution cycles, 10 test schedules (A–J) and 3 assurance levels [S18]. Distribution cycles are defined by transport mode and load type, not by product type [S16].
+ASTM D4169 (current edition D4169-23e1, listed Active on the ASTM store and last updated 27 March 2024; no later edition found on 2026-11-09) is a standard practice for performance testing of shipping containers and systems [S15][S16][S43]. It defines 18 distribution cycles, 10 test schedules (A–J) and 3 assurance levels [S18]. Distribution cycles are defined by transport mode and load type, not by product type [S16].
 
 Distribution cycles confirmed by more than one secondary source:
 
@@ -347,7 +360,15 @@ Distribution cycles confirmed by more than one secondary source:
 | DC 13 | Air and motor freight (small parcel), single package 150 lb (68 kg) or less — the most common choice for medical devices [S16][S17] |
 | DC 18 | Non-commercial government shipments, protection levels from MIL-STD-2073-1 [S19] |
 
-Other cycles (DC 4 to DC 11, DC 14 to DC 17) cover truckload, rail, unitised loads and other combinations. One source lists DC 11 as rail; other secondary sources number the cycles differently. **VERIFY** against Table 1 of the current D4169 before writing a protocol.
+Cycles seen in a single secondary source only (keep as **VERIFY** until checked against Table 1):
+
+| DC | Description reported |
+|---|---|
+| DC 6 | Motor freight, truckload or LTL, unitised (palletised) [S44] |
+| DC 7 | Rail only, bulk loaded [S44] |
+| DC 8 | Rail only, unitised [S44] |
+
+Other cycles (DC 4, DC 5, DC 9 to DC 11, DC 14 to DC 17) cover truckload, rail, rail-plus-motor, air, export and other combinations. Lab summaries group them loosely (one groups DC 7–11 as rail) and disagree on details: one describes DC 12 as air and motor freight for heavy or unitised loads, another as motor freight only, and one calls DC 2 an LTL cycle although DC 2 is the user-specified cycle [S17][S44][S45]. **VERIFY** every cycle against Table 1 of D4169-23e1 before writing a protocol. Lab guidance also differs on the default assurance level for sterile medical devices (AL II per the standard's general recommendation; some labs advise AL I) [S44].
 
 ## ASTM D4169: assurance levels and test schedules
 
@@ -386,7 +407,7 @@ Assurance Level I example for manual handling of cartons [S20]:
 | 40–60 lb (18.1–27.2 kg) | 18 in (457 mm) |
 | 60–80 lb (27.2–36.3 kg) | 15 in (381 mm) |
 
-Assurance Levels II and III use lower heights for the same weight bands. **VERIFY** — a secondary source gives metric bands of 76 cm (30 in) up to 10 kg, 61 cm (24 in) for 10–20 kg and 46 cm (18 in) over 20 kg at AL II [S21], which does not match the band structure above. For mechanically handled (unitised) loads, the standard uses separate, lower heights. Read the drop-height table in the current D4169; do not use these values for a compliance test.
+Assurance Levels II and III use lower heights for the same weight bands. **VERIFY** — a secondary source gives metric bands of 76 cm (30 in) up to 10 kg, 61 cm (24 in) for 10–20 kg and 46 cm (18 in) over 20 kg at AL II [S21], which does not match the band structure above. For mechanically handled (unitised) loads, the standard uses separate, lower heights. A third lab summary gives an overall Schedule A range of 18–48 in across levels and weights, which fits neither structure exactly; the weight-band table could not be confirmed from any source citing D4169-23e1 in this pass. Read the drop-height table in the current D4169; do not use these values for a compliance test.
 
 ## Box compression testing: ASTM D642 / ISO 12048 / TAPPI T 804
 
@@ -450,8 +471,8 @@ Variables: `PSD(f)` in g²/Hz; `f` in Hz; `Grms` in g (1 g = 9.80665 m/s² [386.
 **Worked example.** A flat PSD of 0.01 g²/Hz from 1 Hz to 200 Hz: area = 0.01 × 199 = 1.99 g², so `Grms = sqrt(1.99) = 1.41 g` (13.8 m/s² rms [544 in/s² rms]). Grms is the same in SI and US because it is expressed in g.
 
 **Published profile levels.**
-- ASTM D4169 truck, Assurance Level II: 0.52 Grms, comparable to the 95th percentile field intensity of 0.50 Grms in the FPL-22 data used for the original profile [S22]. ASTM has since revised the truck profiles into a set of three (low, medium, high) with similar shapes and different Grms levels, run in sequence [S23]. **VERIFY** current levels in D4169.
-- ISTA 3A: 0.53 Grms and 0.46 Grms (with/without top load, older edition) [S4]; ISTA 3B and 3E: 0.54 Grms [S7][S8].
+- ASTM D4169 truck, Assurance Level II: 0.52 Grms, comparable to the 95th percentile field intensity of 0.50 Grms in the FPL-22 data used for the original profile [S22]. ASTM has since revised the truck profiles into a set of three (low, medium, high) with similar shapes and different Grms levels, run in sequence [S23]. **VERIFY** current low/medium/high Grms levels and their durations per assurance level in D4169-23e1; no source quoting them was reachable in this pass.
+- ISTA 3A (2018 edition) and ISTA 6-Amazon.com-SIOC Type A: overall levels 0.53 Grms and 0.46 Grms for the with- and without-top-load blocks [S3][S10]; ISTA 3B (2017) and 3E (2026): 0.54 Grms [S8][S41]; ISTA 3K (2011) mixed load: 0.28 Grms [S42].
 - Air and rail profiles exist in D4169 Schedule E; their Grms values were not confirmed in this pass — **VERIFY**.
 
 Limitations: Grms alone does not describe a profile; two PSDs with equal Grms can damage a product differently if the energy is near a product resonance. Always compare the PSD shape with the product's and the cushion system's natural frequencies (see `cushioning/cushion-design.md`).
@@ -463,9 +484,13 @@ Limitations: Grms alone does not describe a profile; two PSDs with equal Grms ca
 - **ISO 187** (current edition 2022): standard atmosphere 23 °C / 50 % RH; 27 °C / 65 % RH is permitted in tropical countries [S26]. The 1990 edition gave tolerances of ± 1 °C and ± 2 % RH for both [S27]. India's adoption uses 27 ± 2 °C and 65 ± 5 % RH [S28].
 
 **Complete packages.**
-- **ASTM D4332** gives standard and special atmospheres, including frozen −18 ± 2 °C [0 ± 4 °F] (humidity uncontrolled) and tropical 40 ± 2 °C [104 ± 4 °F] at 90 ± 5 % RH [S29][S31].
-- ISTA 2A/3A list a hot-humid condition of 38 °C [100 °F] at 85 % RH [S30].
-- **VERIFY** — one secondary source gives a D4332 "tropical" condition of 38 °C at 90 % RH [S31], conflicting with 40 °C / 90 % RH above. Check Table 1 of the current D4332.
+- **ASTM D4332** (current edition D4332-22 [S46]) gives standard and special atmospheres. Values reported consistently by several test laboratories [S29][S31][S47]:
+  - standard: 23 ± 1 °C [73.4 ± 1.8 °F], 50 ± 2 % RH, normally at least 72 h; preconditioning at 20–40 °C, 10–35 % RH;
+  - frozen: −18 ± 2 °C [0 ± 4 °F], humidity uncontrolled;
+  - tropical: 40 ± 2 °C [104 ± 4 °F], 90 ± 5 % RH;
+  - desert: 60 ± 2 °C [140 ± 4 °F], 15 ± 5 % RH (the standard warns that constant 60 °C can affect some materials in ways cyclic field exposure would not).
+  Durations at special conditions vary by laboratory (24–72 h, sometimes longer); the specifying document sets them. For box compression at standard atmosphere, D4332 points to D685 (= TAPPI T 402) conditioning [S46].
+- ISTA 2A/3A list a hot-humid condition of 38 °C [100 °F] at 85 % RH [S30]. An isolated secondary mention of a D4332 "tropical" 38 °C / 90 % RH condition [S31] appears to mix this ISTA condition with D4332; the D4332 tropical value used here is 40 °C / 90 % RH.
 
 Corrugated board loses compression strength as moisture content rises, so a box tested after tropical conditioning will show a much lower BCT than one tested at 23 °C / 50 % RH. Always state the conditioning atmosphere and time with any test result.
 
@@ -477,3 +502,20 @@ Corrugated board loses compression strength as moisture content rises, so a box 
 4. Choose conditioning (standard 23 °C / 50 % RH, plus climate extremes if the route requires).
 5. Run in an ISTA-certified or accredited laboratory when certification (e.g. Amazon) is required.
 6. Record procedure edition, platen type, PSD/Grms, drop heights, conditioning and sample count in the report.
+
+## Research log
+
+**Resolved this wave (2026-11-09):**
+- ISTA 3A drop count and sequence, from the ISTA 2018 overview: 9 drops + 8 drops (standard, flat, elongated) and 9 + 7 (small); 0.53 / 0.46 Grms vibration; package-type definitions [S3].
+- Correction: the 2018 ISTA change-log entry dropping top load from random vibration applies to **6-Amazon.com-Over Boxing**, not to 3A [S40]. The earlier text was wrong.
+- Correction: in ISTA 3E the "calculated test force × 1.4" factor applies to the machine apply-and-release **compression** test, not to vibration top load (3E 2026 overview) [S41].
+- ISTA 6-Amazon.com-SIOC types A–H, from the 2018 overview [S10][S40].
+- ISTA 6-Amazon.com-Over Boxing 2026 revision and the 1 August 2026 cut-off for new PFP enrolments, from ISTA primary pages [S38][S39][S40].
+- FedEx 6-Series tests withdrawn; new ISTA 3L/3M/3N/3P [S1][S40].
+- ASTM D4169-23e1 confirmed as the active edition [S43]; ASTM D4332-22 current, with the tropical condition taken as 40 °C / 90 % RH [S46][S47].
+
+**Still open (best lead):**
+- D4169 Table 1 (all 18 DCs), Schedule A drop-height table per assurance level and weight band, schedules D/F/G names, truck low/medium/high and air/rail Grms per level: buy D4169-23e1 (https://store.astm.org/d4169-23e01.html), or a lab summary that cites -23e1, e.g. https://www.lansmont.com/astm-d10-updates-d4169-truck-random-vibration-profile (blocked in this environment).
+- Amazon tier mapping (SIPP vs FFP/SIOC), chargeback and fee amounts: Amazon's 2026 PFP announcement https://cdn.amazon-packaging.com/90/1b/921e524544e89c955b494e37bde2/2026-announcement-prep-free-packaging-pfp-test-procedure-revision.pdf and https://www.amazon-packaging.com/ (both blocked in this environment).
+- Per-type test elements and drop heights for SIOC types B–H: ISTA procedure (ISTA store).
+- BCT environmental multipliers (overhang, 90 % RH): FBA Fibre Box Handbook, see `performance/environmental-factors.md`.
