@@ -1,0 +1,27 @@
+id: lib.style.fefco-0201
+type: box_style
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: reference
+title: FEFCO 0201 regular slotted container (RSC)
+notes: >-
+  Style flags from the FEFCO Code 12th edition (2022). The FEFCO Code itself has only numbers, erection
+  flags and drawings; the description is our own wording. Joint type for 02 styles is chosen in the order,
+  not by the code (suffix -G / -S). Default allowance factors k_s = [1, 1, 2] per lib.allowance.fefco-0201.default.
+provenance:
+  method: published
+  sources: [kb.styles.fefco-codes#S12, kb.styles.fefco-codes#S20, kb.styles.fefco-codes#S4, kb.styles.fefco-codes#S6]
+style:
+  system: FEFCO
+  code: '0201'
+  description: One-piece slotted box; all flaps the same depth (half the width), outer flaps meet at the
+    centre, inner flaps normally do not.
+  family: 02 slotted boxes
+  erection: M/A
+  joint: [glued, stitched, taped]
+  blank_formula: lib.formula.rsc-blank
+  allowance_table: lib.allowance.fefco-0201.default
+  auto3d_generator: '0201'
+  cite: [kb.styles.fefco-codes#S6, kb.styles.fefco-codes#S12, kb.styles.fefco-codes#S4, kb.styles.fefco-codes#S20]

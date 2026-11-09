@@ -1,0 +1,30 @@
+id: lib.flute.f
+type: flute_profile
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: industry-typical
+title: F-flute profile
+notes: >-
+  FEFCO gives only F/G/N group values [S15]: height 0.5-0.8 mm, 400-550 flutes/m, take-up 1.15-1.25, glue
+  9.0-11.0 g/m2 per glue line. F-specific points: height 0.76 mm Nordstrand [S2], 0.75 mm nominal converter
+  [S17]; US table 420 +/- 13 flutes/m and thickness 0.8 mm (1/32 in) [S20]. flutes_per_ft = 125 +/- 4
+  [S20]; FBA 125 [S16] (FBA converts to approx. 410/m, below the FEFCO group's lower half). take_up_typical
+  1.25 Nordstrand [S2]. single_wall_caliper_mm approx. 0.8 mm [S5].
+provenance:
+  method: published
+  sources: [kb.materials.flutes#S15, kb.materials.flutes#S2, kb.materials.flutes#S17, kb.materials.flutes#S16,
+    kb.materials.flutes#S20, kb.materials.flutes#S5]
+flute:
+  code: F
+  flute_height_mm: [0.5, 0.8]
+  flutes_per_m: [400, 550]
+  flutes_per_ft: [121, 129]
+  take_up: [1.15, 1.25]
+  take_up_typical: 1.25
+  single_wall_caliper_mm: [0.8, 0.8]
+  glue_per_line_gsm: [9.0, 11.0]
+  typical_uses: [litho-laminated retail packaging, carton replacement]
+  cite: [kb.materials.flutes#S15, kb.materials.flutes#S2, kb.materials.flutes#S17, kb.materials.flutes#S20,
+    kb.materials.flutes#S16, kb.materials.flutes#S5]

@@ -33,7 +33,9 @@
             "print",
             "temperature",
             "dynamic",
-            "safety-factor"
+            "safety-factor",
+            "handling",
+            "score-cracking"
           ]
         },
         "rows": {
@@ -70,6 +72,15 @@
                   "type": "string"
                 },
                 "description": "corpus refs, e.g. kb.materials.flutes#S2"
+              },
+              "bound": {
+                "type": "string",
+                "enum": [
+                  "exact",
+                  "min",
+                  "max"
+                ],
+                "description": "min/max when the source gives a bound such as '>= 0.50'"
               }
             }
           }

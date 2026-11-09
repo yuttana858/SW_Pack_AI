@@ -88,7 +88,7 @@ Every calculation answer includes:
 
 Example layout: "BCT_required = F_bottom × SF / (1 − L_pattern) = 1109.4 N × 5 / 0.80 = 6934 N [1559 lbf]. SF 5 = house rule HR-02; L_pattern 0.20 for overhang, VERIFY, see palletization."
 
-Known strength penalties must be applied and named when the conditions exist. For example: pallet overhang (losses reported to grow with overhang; DHL cites more than 30 % [S1]; Virginia Tech for FBA reports a range around 14–28 % [S2]); interlocked patterns (DHL cites up to 50 % for non-rigid contents [S1]); post-print crush (one patent cites 10–20 % [S3]). Prefer measured house factors.
+Known strength penalties must be applied and named when the conditions exist. For example: pallet overhang (losses reported to grow with overhang; DHL cites more than 30 % [S1]; Virginia Tech for FBA measured roughly 2–40 % for single boxes and about 14–28 % for full overhanging layers [S2]); interlocked patterns (DHL cites up to 50 % for non-rigid contents [S1]); post-print crush (one patent cites 10–20 % [S3]). Prefer measured house factors.
 
 ## Rule 6 — Flag calculations outside a formula's validity
 

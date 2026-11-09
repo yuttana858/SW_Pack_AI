@@ -1,0 +1,54 @@
+id: lib.factors.stacking-pattern
+type: factor_set
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: industry-typical
+title: BCT multipliers for stacking pattern
+notes: >-
+  Two generations of values are kept as separate rows: the original Fibre Box Handbook factors and the
+  FBA/RIT 2021 study [S3]. FBA's 2021 study found columnar-aligned losses larger than the Handbook (use
+  0.80-0.88 for new designs); interlocked losses consistent with the Handbook; the aligned-interlocked
+  hybrid is not yet in the Handbook. Study basis: 495 x 305 x 330 mm C-flute RSCs, 32 and 44 ECT, filled
+  to about 20 kg, unit-load compression per TAPPI T 804. The ipack table's 0.80 / 0.60 multipliers for
+  40-60 % interlock loss [S2] are internally inconsistent and are NOT used. VERIFY: Kellicutt 1963 (3-high
+  column, 23 %) and the misaligned-column value (up to 50 %) are attributed through a thesis [S5] only.
+  kb.logistics.palletization notes that hybrid layouts may differ between sources (VERIFY) and cites McKee
+  1963: each 1 % of tier offset costs about 2.5 % BCT (VERIFY).
+provenance:
+  method: published
+  sources: [kb.performance.environmental-factors#S3, kb.performance.environmental-factors#S1, kb.performance.environmental-factors#S5,
+    kb.performance.environmental-factors#S2, kb.performance.stacking-load-calc#S3, kb.logistics.palletization#S28]
+factors:
+  kind: stacking-pattern
+  rows:
+  - condition: columnar, aligned - original FBA Handbook (0-8 % loss)
+    range: [0.92, 1.0]
+    basis: single-box lab BCT at 23 °C / 50 %RH; multiplier = 1 - fractional loss of the stacked unit
+    cite: [kb.performance.environmental-factors#S3]
+  - condition: columnar, aligned - FBA/RIT 2021 study (12-20 % loss)
+    range: [0.8, 0.88]
+    basis: single-box lab BCT at 23 °C / 50 %RH; multiplier = 1 - fractional loss of the stacked unit
+    cite: [kb.performance.environmental-factors#S3]
+  - condition: columnar, aligned, 3 high - Kellicutt 1963 (23 % loss; attribution VERIFY)
+    value: 0.77
+    basis: single-box lab BCT at 23 °C / 50 %RH; multiplier = 1 - fractional loss of the stacked unit
+    cite: [kb.performance.environmental-factors#S5]
+  - condition: misaligned columns - worst case, up to 50 % loss (attribution VERIFY)
+    value: 0.5
+    basis: single-box lab BCT at 23 °C / 50 %RH; multiplier = 1 - fractional loss of the stacked unit;
+      value is the lower bound (>= 0.50)
+    cite: [kb.performance.environmental-factors#S5]
+  - condition: interlocked - original FBA Handbook (40-60 % loss)
+    range: [0.4, 0.6]
+    basis: single-box lab BCT at 23 °C / 50 %RH; multiplier = 1 - fractional loss of the stacked unit
+    cite: [kb.performance.environmental-factors#S3, kb.performance.environmental-factors#S1]
+  - condition: interlocked - FBA/RIT 2021 study (49-54 % loss)
+    range: [0.46, 0.51]
+    basis: single-box lab BCT at 23 °C / 50 %RH; multiplier = 1 - fractional loss of the stacked unit
+    cite: [kb.performance.environmental-factors#S3]
+  - condition: aligned-interlocked hybrid - FBA/RIT 2021 study (45-49 % loss; not in Handbook)
+    range: [0.51, 0.55]
+    basis: single-box lab BCT at 23 °C / 50 %RH; multiplier = 1 - fractional loss of the stacked unit
+    cite: [kb.performance.environmental-factors#S3]

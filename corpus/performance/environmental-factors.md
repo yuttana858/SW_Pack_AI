@@ -237,7 +237,7 @@ each 10 points of RH changes SCT, ECT and BCT by about 10 % [S13].
 | Overhang 25 mm (1 in) on one side | 14–34 % | 0.86–0.66 | [S4] |
 | Overhang 50 mm (2 in) on one side and one end | 34–46 % | 0.66–0.54 | [S4] |
 | Overhang, current Fibre Box Handbook estimate | 20–40 % | 0.80–0.60 | [S6][S14] |
-| Overhang, Kim et al. 2023 (FBA Phase 1, measured range) | 0–40 % | 1.00–0.60 | [S6][S14] |
+| Overhang, Kim et al. 2023 (FBA Phase 1, measured range, single boxes) | about 0–41 % (quoted as 2–40 % and as 0.2–40.7 %; VERIFY exact bounds) | 1.00–0.59 | [S6][S14] |
 | Single-side overhang, short side, 32 ECT C / 48 ECT BC | 1–29 % / 0.2–33 % | 0.99–0.71 / 1.00–0.67 | [S14] |
 | Single-side overhang, long side, 32 ECT C / 48 ECT BC | 6–32 % / 4–27 % | 0.94–0.68 / 0.96–0.73 | [S14] |
 | Adjacent-side overhang (two sides, three corners unsupported) | 14–41 % / 15–40 % | 0.86–0.59 / 0.85–0.60 | [S14] |

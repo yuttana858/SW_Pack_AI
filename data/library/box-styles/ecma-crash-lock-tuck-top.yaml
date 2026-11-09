@@ -1,0 +1,25 @@
+id: lib.style.ecma-crash-lock-tuck-top
+type: box_style
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: reference
+title: ECMA tuck top with crash-lock (auto) bottom
+notes: >-
+  ECMA Code of Folding Carton Design Styles, revised edition September 2009. Trade-name to code mapping
+  is the corpus's reading of ECMA code definitions and drawings; ECMA gives codes, not names. Description
+  is our own wording. 1992 code A6020. Closure value 60 = automatic two-point glued closure. 'A55.20'
+  quoted for crash lock by one source [S13] is wrong (55 is the unglued snap-lock). Erection flag not
+  recorded in the corpus.
+provenance:
+  method: published
+  sources: &id001 [kb.styles.ecma-folding-carton#S1, kb.styles.ecma-folding-carton#S11, kb.styles.ecma-folding-carton#S13]
+style:
+  system: ECMA
+  code: A60.20.00.03
+  description: Long-seam-glued tube whose pre-glued automatic bottom forms when the flat tube is squared;
+    tuck flap closes the top.
+  family: A long-seam-glued, rectangular
+  joint: [glued]
+  cite: *id001
