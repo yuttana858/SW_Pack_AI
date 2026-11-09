@@ -130,6 +130,26 @@ sources:
     publisher: Metsä Board
     url: https://metsagroup.com/contentassets/60100de0ce4b46d48f5e1ccf4c818672/metsaboard-natural-fbb-1pe-0_18-en-iso3.pdf
     accessed: 2026-11-09
+  - id: S25
+    title: Paperboard - Grades section (DIN 19303 letter and number scheme, 2005-09 edition as summarised)
+    publisher: Wikipedia
+    url: https://en.wikipedia.org/wiki/Paperboard
+    accessed: 2026-11-09
+  - id: S26
+    title: DS Smith Paper catalogue v9 (coated recycled liners - brightness by ISO 2470-1 and ISO 2470-2, Scott bond by TAPPI T 569)
+    publisher: DS Smith
+    url: https://www.dssmith.com/globalassets/paper/pdfs/paper-catalogues/en-paper-catalogue-v9.pdf
+    accessed: 2026-11-09
+  - id: S27
+    title: Customary units to SI units (Z-direction strength, ft lbf/in2 to J/m2)
+    publisher: DS Smith
+    url: https://www.dssmith.com/globalassets/paper/pdfs/customary-units-to-si-units.pdf
+    accessed: 2026-11-09
+  - id: S28
+    title: Cepi ContainerBoard European list of corrugated base papers, 5th edition 2015 (brightness measurement conditions; cartonboard definition)
+    publisher: Cepi ContainerBoard (copy hosted by DS Smith)
+    url: https://www.dssmith.com/contentassets/84c1a31eae1c4cb183d8419e872b0745/cepi-containerboard-list-of-grades_en.pdf
+    accessed: 2026-11-09
 ---
 
 # Folding carton paperboard
@@ -155,9 +175,17 @@ DIN 19303 classifies paperboard by surface treatment, main furnish and either re
 
 - **First letter — surface:** A = cast-coated, G = pigment-coated, U = uncoated [S4].
 - **Second letter — main furnish:** Z = bleached virgin chemical pulp; C = virgin mechanical pulp; N = unbleached virgin chemical pulp; T = recycled fibre with white, cream or brown reverse; D = recycled fibre with grey reverse [S4].
-- **Number:** reverse colour for non-D grades; bulk (specific volume) band for D grades [S3]. Example: GD2 = coated recycled board with grey reverse, specific volume 1.3–1.45 cm³/g [S3]. GD1/GD3 use other bulk bands [S3] (values not retrieved — VERIFY).
-- GC1 = coated virgin-fibre board, white reverse; GC2 = coated virgin-fibre board, light-yellow/cream reverse [S3].
-- **VERIFY — conflict:** sources disagree on UT reverse colour (cream/grey vs cream/white) [S4].
+- **Number:** reverse colour for all non-D grades; bulk (specific volume) band for D grades only [S3][S25]:
+
+| Digit | Non-D grades (Z, C, N, T): reverse colour | D grades: bulk (specific volume) |
+|---|---|---|
+| 1 | white reverse | ≥ 1.45 cm³/g |
+| 2 | cream reverse | > 1.3 and < 1.45 cm³/g |
+| 3 | brown reverse | ≤ 1.3 cm³/g |
+
+  Source: DIN 19303 as summarised from the 2005-09 edition [S25]; GD2 = 1.3–1.45 cm³/g agrees with [S3]. Check the edition in force (see below) before quoting band limits.
+- Examples: GC1 = pigment-coated virgin mechanical-pulp board, white reverse; GC2 = same with cream (light-yellow) reverse [S3][S25]; GD1 / GD2 / GD3 = coated recycled board, grey reverse, high / medium / low bulk [S25].
+- **UT reverse colour (resolved):** in DIN 19303 the reverse colour is carried by the **digit**, not by the letter T. "T" only says recycled fibre with a white, cream or brown (i.e. non-grey) reverse [S25]. So "UT" alone is incomplete: UT1 = uncoated recycled board with white reverse, UT2 = cream reverse, UT3 = brown reverse (derived from [S25]). Earlier summaries that gave UT as "cream/grey" or "cream/white" were describing different digits; a grey reverse is always a D grade (UD, GD).
 - **Edition status:** DIN 19303:2011-03 is listed as the current standard; a 2025-07 draft was followed by a pre-published 2026-04 version [S1][S2]. Check the edition in force before quoting grade definitions.
 
 ## Caliper units: points, mils, micrometres
@@ -192,13 +220,16 @@ Tolerances from one FBB sheet: grammage ±2 %, thickness ±3 %, stiffness −15 
 ## Scott bond / ply bond (internal bond)
 
 - **Scott bond** (TAPPI T 569, ISO 16260): pendulum impact measures energy to delaminate the sheet in the Z-direction, reported in J/m² [S15][S16]. Not suitable below 40 g/m² [S15].
-- TAPPI T 569 current edition: om-22 [S15]. ISO 16260:2016 is listed as superseded by ISO 16260:2025 [S18] (VERIFY with ISO).
+- TAPPI T 569 current edition: om-22 [S15]. ISO 16260:2016 is listed as superseded by ISO 16260:2025 [S18] (VERIFY with ISO; iso.org not readable from the research environment).
 - Ply-bond peel tests (e.g. DIN 54516) are related but different; Z-direction tensile (TAPPI T 541 / ISO 15754) is more reproducible than Scott bond [S17].
-- Relevance: low internal bond → delamination at creases, glue-flap failure, embossing cracks. Typical Scott bond values were not retrieved — obtain from supplier.
+- Relevance: low internal bond → delamination at creases, glue-flap failure, embossing cracks.
+- Unit conversion for older North American data: 1 ft·lbf/in² = 2101.5 J/m² [S27], so 1 ft·lb/1000 in² ≈ 2.10 J/m² (derived).
+- Typical carton board Scott bond values were **not retrieved** in this review (mill hosts unreachable) — obtain from supplier. For orientation only, coated recycled containerboard liners from one mill guarantee ≥ 240–280 J/m² and kraftliner ≥ 220 J/m² by TAPPI T 569 [S26] (corrugated papers, not carton board).
 
 ## Brightness, coatings and barriers
 
-- Brightness is measured per ISO 2470-1 (method named on containerboard sheets; see `materials/paper-grades.md`). Carton board brightness values were not retrieved — *replace with supplier/house data in `company/`*.
+- Brightness is measured per ISO 2470-1 (illuminant C / 2° observer, UV adjusted to an ISO IR3 fluorescent reference) [S28] or ISO 2470-2 (D65). The two do not match on fluorescent-whitened (OBA) surfaces: one coated white liner reads 85 % by ISO 2470-1 and 89 % by ISO 2470-2 [S26]. Always state the method and illuminant in a brightness spec.
+- Typical carton board brightness values (SBS, FBB, WLC) were **not retrieved** in this review (mill hosts unreachable) — *replace with supplier/house data in `company/`*. For orientation only, the Cepi containerboard list sets white-liner minima of 65–80 % ISO 2470-1 depending on grade [S28] (corrugated liners, not carton board).
 - **Pigment (clay) coating:** "G" grades are pigment-coated on the top side; C1S/C2S = coated one/two sides [S4][S9].
 - **PE coating:** extrusion-coated variants exist, e.g. MetsäBoard Natural FBB 1PE [S24].
 - **Dispersion barrier:** e.g. MetsäBoard Prime FBB EB (barrier coated FBB, 200–350 g/m²) [S11].
@@ -206,9 +237,35 @@ Tolerances from one FBB sheet: grammage ±2 %, thickness ±3 %, stiffness −15 
 
 ## Grain direction rules for cartons
 
-- Board folds more easily and cleanly **along** the grain (fold line parallel to MD); scoring along the grain helps avoid cracking [S19].
-- Stiffness is higher in MD than CD [S10] (MD ≈ 2× CD on one sheet).
-- **VERIFY — conflicting guidance on carton orientation:**
-  - One source: for typical end-loading cartons held at the sides, keep grain **horizontal** (running around the carton, with opening flaps at top and bottom) so stiffness across the gripped side panels is preserved [S6].
-  - Another (patent): for stiffness, grain should **not** be horizontal and preferably vertical when the carton stands upright [S20].
-- Practical rule: decide from the carton's dominant load case (panel bulge when gripped vs vertical stacking vs erecting on a machine), state the grain direction on the die-line, and confirm with the converter. Record it in the material record.
+**Terms.** Grain direction = machine direction (MD) = the direction most fibres lie in [S19]. On a carton, state grain relative to two references: the **body creases** (the creases joining the side panels into a tube) and the carton's **height** when it stands in its display position. "Horizontal grain" = grain runs around the tube, perpendicular to the body creases; "vertical grain" = grain parallel to the body creases and to the height.
+
+**Facts that drive the choice.**
+- Board folds more easily and cleanly **along** the grain (fold line parallel to MD) [S19].
+- Bending stiffness is higher in MD than CD, about 2× on one FBB sheet [S10].
+- A side panel that bulges outward bends across its width, between the two vertical corner creases; its resistance is the bending stiffness in the horizontal direction, so horizontal grain gives the stiffer panel against bulge and side gripping (derived from [S10]). A carton loaded from the top bends its walls about a horizontal axis, so vertical grain gives the stiffer upright wall (derived from [S10]).
+
+**Convention used in this corpus (resolves the earlier horizontal-vs-vertical conflict).** The two published rules are not contradictory — each optimises a different load case:
+
+| Dominant requirement | Grain | Source |
+|---|---|---|
+| End-loading tuck or sleeve cartons gripped at the sides, filled on a cartoner, or holding settling contents (panel bulge) — **default** | Horizontal: around the tube, perpendicular to the body creases; opening flaps top and bottom | [S6] |
+| Upright-carton wall stiffness, top load or stacking of the carton itself governs | Vertical: parallel to the body creases (body creases then also fold more easily) | [S20][S19] |
+
+- Use the default unless the top-load case governs, and say so on the die-line.
+- Mark grain on every die-line as an arrow parallel to a named dimension, and record it in the material record. If the sheet layout (nesting) forces the other orientation, the converter must flag it before production.
+- Confirm with the converter and board supplier; panel stiffness spec should name the direction (MD/CD) being controlled [S21].
+
+## Research log
+
+Wave 2 (2026-11-09, materials agent; searches shared across the three materials files — total in `paper-grades.md` log).
+
+Resolved in this wave:
+- DIN 19303 D-grade bulk bands (GD1 ≥ 1.45, GD2 1.3–1.45, GD3 ≤ 1.3 cm³/g) and digit = reverse colour for non-D grades [S25].
+- UT reverse colour conflict: colour is set by the digit (UT1/UT2/UT3), not by "T" [S25].
+- Grain direction: horizontal-vs-vertical conflict restated as a load-case convention with a stated default (horizontal for side-gripped end-loading cartons [S6]; vertical where upright top load governs [S20]).
+- Brightness method caveat (ISO 2470-1 vs ISO 2470-2) [S26][S28]; Scott bond unit conversion [S27].
+
+Still open:
+- Typical brightness and Scott bond ranges for SBS, FBB (GC1/GC2), SUB and WLC (GD/GT) — mill data sheets (Metsä Board, Stora Enso, Iggesund/Holmen, Graphic Packaging, Clearwater, Mayr-Melnhof) were not reachable from the research environment; core.ac.uk theses are behind a bot wall.
+- DIN 19303 bands are taken from a summary of the 2005-09 edition; check against the 2011-03 edition and the 2026-04 pre-published version [S1][S2].
+- ISO 16260 current edition (VERIFY above).

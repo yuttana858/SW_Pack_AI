@@ -522,7 +522,7 @@ Sampling and conditioning for disputes: ISO 186 and ISO 187, with both parties p
 
 ## Research log
 
-Wave 2 (2026-11-09, materials agent; shared budget 16 of 45 web searches used across the three materials files).
+Wave 2 (2026-11-09, materials agent; 15 of 45 web searches used in total across the three materials files).
 
 Resolved in this wave:
 - Cepi grade definitions and limits for all liner and fluting grades, grade numbers, moisture windows, guarantee terms — read in full from the 5th edition [S8].

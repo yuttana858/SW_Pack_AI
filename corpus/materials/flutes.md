@@ -80,6 +80,36 @@ sources:
     publisher: USDA Forest Products Laboratory
     url: https://www.fpl.fs.usda.gov/documnts/pdf2001/urban01a.pdf
     accessed: 2026-11-09
+  - id: S15
+    title: European database for corrugated board life cycle studies 2021, Table 2 Flute types (height, flutes per metre, take-up factor, glue consumption)
+    publisher: FEFCO / Cepi ContainerBoard (report by RISE)
+    url: https://www.fefco.org/download/file/fid/2998
+    accessed: 2026-11-09
+  - id: S16
+    title: What is Corrugated? (flutes per foot by flute designation; combined board types)
+    publisher: Fibre Box Association
+    url: https://www.fibrebox.org/what-is-corrugated
+    accessed: 2026-11-09
+  - id: S17
+    title: Glossary of terms - common flute profiles, nominal height excluding liners
+    publisher: DS Smith Sheetfeeding
+    url: https://www.dssmith.com/sheetfeeding/insights/glossary-of-terms
+    accessed: 2026-11-09
+  - id: S18
+    title: How to specify corrugated board (liner order, flute direction as first sheet dimension)
+    publisher: DS Smith Sheetfeeding
+    url: https://www.dssmith.com/sheetfeeding/insights/about-corrugated/how-to-specify-corrugated-board
+    accessed: 2026-11-09
+  - id: S19
+    title: World standards - comparison of testing methods FEFCO / EN / ISO / TAPPI, revision October 2018
+    publisher: FEFCO Standards Committee
+    url: https://www.fefco.org/sites/default/files/documents/StandardsWorldStandardsComparisonFEFCO_EN_ISO_TAPPI_final_10_2018.pdf
+    accessed: 2026-11-09
+  - id: S20
+    title: Corrugated fiberboard (standard US corrugated flutes table, after Foster 1997, Wiley Encyclopedia of Packaging Technology)
+    publisher: Wikipedia
+    url: https://en.wikipedia.org/wiki/Corrugated_fiberboard
+    accessed: 2026-11-09
 ---
 
 # Corrugated flute profiles, take-up factors and combined board build-up
@@ -88,33 +118,39 @@ All dimensional values are **industry-typical**: flute geometry differs by corru
 
 ## Flute profile table (single flute)
 
-Sources disagree within roughly ±10 %; each value is shown with its source.
+Sources agree within roughly ± 10 %; each value is shown with its source. FEFCO's table (FEFCO/Cepi LCA database 2021) gives flute height **excluding facings** [S15].
 
-| Flute | Flute height (mm) | Flutes per metre | Flutes per foot (US) | Pitch (mm) DIN 55468 | Take-up factor |
-|---|---|---|---|---|---|
-| A (coarse) | 4.8 [S1]; 4.67 [S2]; 4.0–4.9 [S3]; 4.8 (3/16 in) [S4] | 110 [S1]; 108 ± 10 [S4] | 33 ± 3 [S4] | 8.0–9.5 [S3] | 1.50–1.55 [S1]; 1.54 [S2] |
-| C (medium) | 3.6 [S1]; 3.61 [S2]; 3.2–4.0 [S3]; 4.0 (5/32 in) [S4] | 130 [S1]; 128 ± 10 [S4] | 39 ± 3 [S4] | 6.8–8.0 [S3] | 1.40–1.45 [S1]; 1.43 [S2] |
-| B (fine) | 2.4 [S1]; 2.46 [S2]; 2.2–3.0 [S3]; 3.2 (1/8 in) [S4] | 150 [S1] | 47 ± 3 [S4] | 5.5–6.5 [S3] | 1.30–1.35 [S1]; 1.32 [S2] |
-| E (micro) | 1.2 [S1]; 1.15 [S2]; 1.6 (1/16 in) [S4] | 290 [S1] | 90 ± 4 [S4] | — | 1.20–1.35 [S1]; 1.27 [S2] |
-| F, G, N (micro/fine micro) | 0.5–0.8 (group) [S1]; F 0.76 [S2] | 400–550 (group) [S1] | — | — | 1.15–1.25 (group) [S1]; F 1.25 [S2] |
-| K (extra-coarse) | ≈ 6 [S5] | — | — | — | not retrieved |
-| O / other micro | not retrieved | — | — | — | — |
+| Flute | Flute height (mm) | Flutes per metre | Flutes per foot (US) | Pitch (mm) DIN 55468 | Take-up factor | Glue per glue line (g/m²) |
+|---|---|---|---|---|---|---|
+| A (coarse) | 4.8 [S1][S15]; 4.67 [S2]; 4.0–4.9 [S3]; US thickness 4.8 (3/16 in) [S20] | 110 [S15]; 108 ± 10 [S20] | 33 [S16]; 33 ± 3 [S20] | 8.0–9.5 [S3] | 1.50–1.55 [S15]; 1.54 [S2] | 4.5–5.0 [S15] |
+| C (medium) | 3.6 [S1][S15]; 3.61 [S2]; 3.2–4.0 [S3]; US thickness 4.0 (5/32 in) [S20] | 130 [S15]; 128 ± 10 [S20] | 38 [S16]; 39 ± 3 [S20] | 6.8–8.0 [S3] | 1.40–1.45 [S15]; 1.43 [S2] | 5.0–5.5 [S15] |
+| B (fine) | 2.4 [S1][S15]; 2.46 [S2]; 2.2–3.0 [S3]; 2.9 nominal [S17]; US thickness 3.2 (1/8 in) [S20] | 150 [S15]; 154 ± 10 [S20] | 47 [S16]; 47 ± 3 [S20] | 5.5–6.5 [S3] | 1.30–1.35 [S15]; 1.32 [S2] | 5.5–6.0 [S15] |
+| R (DS Smith proprietary) | 1.7 nominal [S17] | — | — | — | — | — |
+| E (micro) | 1.2 [S1][S15][S17]; 1.15 [S2]; US thickness 1.6 (1/16 in) [S20] | 290 [S15]; 295 ± 13 [S20] | 90 [S16]; 90 ± 4 [S20] | — | 1.20–1.35 [S15]; 1.27 [S2] | 6.0–6.5 [S15] |
+| F | 0.5–0.8 (F/G/N group) [S15]; 0.76 [S2]; 0.75 nominal [S17]; US thickness 0.8 (1/32 in) [S20] | 400–550 (F/G/N group) [S15]; 420 ± 13 [S20] | 125 [S16]; 125 ± 4 [S20] | — | 1.15–1.25 (group) [S15]; 1.25 [S2] | 9.0–11.0 (group) [S15] |
+| N, G (fine micro) | N 0.50 nominal [S17]; group 0.5–0.8 [S15] | 400–550 (group) [S15] | — | — | 1.15–1.25 (group) [S15] | 9.0–11.0 (group) [S15] |
+| K (extra-coarse) | ≈ 6 [S5] — **VERIFY** (no primary source retrieved) | — | — | — | not retrieved | — |
+| O (superfine micro) | not retrieved — **VERIFY** | — | — | — | — | — |
 
-**VERIFY — conflicts:**
-- US sources state flute *thickness* (approximately the single-face caliper) while FEFCO/DIN state *flute height*; US values (e.g. B = 3.2 mm, C = 4.0 mm [S4]) are therefore larger than FEFCO heights (B = 2.4 mm, C = 3.6 mm [S1]).
-- Take-up factors sometimes quoted as B ≈ 1.42 or C ≈ 1.48 were **not** supported by the sources retrieved: FEFCO gives B 1.30–1.35 and C 1.40–1.45 [S1]; Nordstrand gives B 1.32, C 1.43 [S2].
+Reading the table:
+- **Height vs thickness (resolved):** FEFCO/DIN state flute *height excluding facings* [S15]; the US table states flute *thickness* [S20], which is closer to single-face caliper and therefore larger (B 3.2 vs 2.4 mm; C 4.0 vs 3.6 mm). They are different quantities, not conflicting values.
+- **Flutes per metre (resolved):** FEFCO's per-metre counts and the US per-foot counts agree within the ± 10 tolerance of the US table: converting FBA counts, 33 / 47 / 38 / 90 / 125 per foot × 3.281 = 108 / 154 / 125 / 295 / 410 per metre (derived from [S16]) against FEFCO 110 / 150 / 130 / 290 / 400–550 [S15]. The FBA notes that profiles within one designation vary by roll maker and that counting flutes per length identifies the flute more reliably than caliper [S16][S20].
+- **Take-up per flute (resolved):** Nordstrand's single values (A 1.54, C 1.43, B 1.32, E 1.27, F 1.25) [S2] all fall inside the FEFCO ranges [S15]. Values sometimes quoted as B ≈ 1.42 or C ≈ 1.48 were not supported by any retrieved source.
 - FEFCO's E-flute take-up range (1.20–1.35) is wide; Nordstrand gives 1.27 [S2].
-- Letters reflect the order of introduction, not size order (A > C > B > E > F in height) [S4].
+- Letters reflect the order of introduction, not size order (A > C > B > E > F in height) [S20].
+- The B-flute height published by one converter (2.9 mm) [S17] is higher than FEFCO's indicative 2.4 mm [S15] — profiles are plant-specific.
 
 *Replace with supplier/house data in `company/` — corrugator roll profiles are plant-specific; ask the plant for its actual take-up per flute.*
 
-## Take-up factor: definition
+## Take-up factor: definition and measurement
 
-The take-up factor (also take-up ratio) is the length of fluting paper consumed per unit length of finished board: α = L_medium / L_board. It governs how much fluting paper is required; FEFCO gives C-flute ≈ 1.43 as a typical value [S1]. A higher take-up (taller, more flutes per length of paper) gives more caliper and flat crush but uses more fibre [S1][S2].
+The take-up factor (also take-up ratio) is the length of fluting paper consumed per unit length of finished board: α = L_medium / L_board. It governs how much fluting paper is required: a typical C-flute take-up of 1.43 means 1.43 m² of fluting (measured flat) per 1 m² of board [S15]. A higher take-up (taller flute, more flutes per length of paper) gives more caliper and flat crush but uses more fibre [S1][S2].
+
+Measurement: FEFCO recommendation R 102 (2002) determines the take-up factor from the difference in length between the separated fluting paper (separated per FEFCO TM 10 / ISO 3039) and the board sample before separation [S19].
 
 ## Combined basis weight (grammage) formula
 
-**Equation (derived from [S1]):**
+**Equation (derived from [S15]):**
 
 G_combined = Σ G_liner,i + Σ (G_medium,j × α_j) + G_adhesive
 
@@ -125,11 +161,14 @@ G_combined = Σ G_liner,i + Σ (G_medium,j × α_j) + G_adhesive
 | α_j | take-up factor of flute j | dimensionless |
 | G_adhesive | dry starch adhesive, summed over all glue lines | g/m² [lb/MSF] |
 
-**Adhesive allowance:** FEFCO lists glue consumption per glue line of about 4.5–5.0 g/m² for A-flute and 5.5–6.0 g/m² for B-flute, and uses 2 glue lines × 5 g/m² = 10 g/m² for a single-wall C-flute example [S1]. Single wall has 2 glue lines; double wall 4; triple wall 6 (count follows from construction). Starch per glue line can be measured by TAPPI T 531 [S12]. Allowance is plant-specific — *replace with supplier/house data in `company/`*.
+**Adhesive allowance:** FEFCO lists indicative glue consumption per glue line of 4.5–5.0 g/m² (A), 5.0–5.5 (C), 5.5–6.0 (B), 6.0–6.5 (E) and 9.0–11.0 g/m² (F/G/N) [S15], and uses 2 glue lines × 5 g/m² = 10 g/m² in its single-wall C-flute example [S15]. Single wall has 2 glue lines; double wall 4; triple wall 6 (count follows from construction). Starch per glue line can be measured by TAPPI T 531 [S12]. Allowance is plant-specific — *replace with supplier/house data in `company/`*.
 
 **Valid range:** any flute/wall combination, if α is the plant's actual take-up and grammages are at the same moisture basis.
 
-**Worked example (SI):** 125K / C-flute 112 g/m² fluting / 125T, α = 1.43 [S1], adhesive 2 × 5 g/m² [S1]
+**Worked example (SI, FEFCO):** kraftliner 175 g/m² / C-flute recycled fluting 140 g/m² / testliner 175 g/m², α = 1.43, glue 2 × 5 g/m² [S15]
+G = 175 + 1.43 × 140 + 175 + 10 = 175 + 200.2 + 175 + 10 = **560.2 g/m²** (FEFCO rounds to 560) [S15].
+
+**Worked example (SI):** 125K / C-flute 112 g/m² fluting / 125T, α = 1.43, adhesive 2 × 5 g/m² [S15]
 G = 125 + 125 + 112 × 1.43 + 10 = 125 + 125 + 160.2 + 10 = **420.2 g/m²**.
 
 **Worked example (US):** 42 lb liner / 26 lb medium C-flute / 42 lb liner, α = 1.43; adhesive 10 g/m² ÷ 4.8824 ≈ 2.0 lb/MSF [S13]
@@ -139,25 +178,32 @@ G = 42 + 42 + 26 × 1.43 + 2.0 = 42 + 42 + 37.2 + 2.0 = **123.2 lb/MSF** (≈ 60
 
 ## Combined caliper ranges (single, double, triple wall)
 
-Industry-typical nominal calipers (uncrushed). *Replace with supplier/house data in `company/`.*
+Industry-typical nominal calipers (uncrushed). "Excl. liners" = sum of flute heights only; the combined caliper adds the thickness of every liner (take liner caliper from the mill sheet). *Replace with supplier/house data in `company/`.*
 
-| Construction | Nominal caliper | Source |
-|---|---|---|
-| Single wall A | ≈ 4.8–5 mm | [S4][S7] |
-| Single wall C | ≈ 3.5–4 mm | [S7] |
-| Single wall B | ≈ 2.5–3 mm | [S7] |
-| Single wall E | ≈ 1.0–1.8 mm (sources vary) | [S5] |
-| Single wall F | ≈ 0.8 mm | [S5] |
-| Double wall BC | 6 mm [S6]; 6–7 mm [S7] — VERIFY |
-| Double wall EB | ≈ 4.0–4.5 mm | [S6][S7] |
-| Triple wall (e.g. AAA, ACA) | up to ≈ 12.7 mm (½ in) — VERIFY, no AAA-specific value retrieved | [S6] |
-| Double wall AC, EE | not retrieved — VERIFY |
+| Construction | Flute heights excl. liners | Published combined caliper | Source |
+|---|---|---|---|
+| Single wall A | 4.8 mm [S15] | ≈ 4.8–5 mm | [S4][S7] |
+| Single wall C | 3.6 mm [S15] | ≈ 3.5–4 mm | [S7] |
+| Single wall B | 2.4 mm [S15]; 2.9 mm [S17] | ≈ 2.5–3 mm | [S7] |
+| Single wall E | 1.2 mm [S15][S17] | ≈ 1.0–1.8 mm (sources vary) | [S5] |
+| Single wall F | 0.75 mm [S17] | ≈ 0.8 mm | [S5] |
+| Double wall BC | 2.4 + 3.6 = 6.0 mm (derived from [S15]) | 6 mm [S6]; 6–7 mm [S7] | consistent: 6.0 mm + three liners |
+| Double wall EB | 4.2 mm [S17]; 1.2 + 2.4 = 3.6 mm (derived from [S15]) | ≈ 4.0–4.5 mm | [S6][S7] |
+| Double wall EE | 2.5 mm [S17]; 1.2 + 1.2 = 2.4 mm (derived from [S15]) | not published in retrieved sources | — |
+| Double wall NE | 1.8 mm [S17] | not published in retrieved sources | — |
+| Double wall AC | 4.8 + 3.6 = 8.4 mm (derived from [S15]) | not published in retrieved sources | — |
+| Triple wall AAA | 3 × 4.8 = 14.4 mm (derived from [S15]) | not published in retrieved sources | — |
+| Triple wall ACA | 4.8 + 3.6 + 4.8 = 13.2 mm (derived from [S15]) | — | — |
+| Triple wall, general | — | "up to ≈ 12.7 mm (½ in)" [S6] | applies to lighter triple-wall builds; AAA flute heights alone exceed it (derived) |
 
-Caliper = Σ flute heights + Σ paper thicknesses, minus crush; measure combined caliper per ISO 3034 / TAPPI T 411 (standards named for orientation; not retrieved in this review — VERIFY).
+- BC conflict resolved: 6 mm [S6] and 6–7 mm [S7] are consistent with 6.0 mm of flute height plus three liners (derived from [S15]).
+- AC, EE and AAA calipers: no published combined caliper was found; use the derived flute-height sum plus measured liner calipers, then confirm on the plant's board.
+
+Caliper = Σ flute heights + Σ paper thicknesses, minus crush. Measure combined caliper per ISO 3034 / FEFCO TM 3 (identical) or TAPPI T 411 (different plunger size and measuring pressure, so results are not interchangeable) [S19].
 
 ## Flute selection: typical uses and trade-offs
 
-Qualitative summary from [S1][S4][S7]; values in the table above.
+Qualitative summary from [S1][S4][S7][S16]; values in the table above.
 
 | Flute | Strengths | Weaknesses | Typical use |
 |---|---|---|---|
@@ -168,6 +214,7 @@ Qualitative summary from [S1][S4][S7]; values in the table above.
 | F / G / N / micro | Very smooth print surface, carton replacement | Lowest compression | Litho-laminated retail packaging |
 | BC (double) | High stacking and puncture | Thick, costly | Heavy and export shipping |
 | EB (double) | Good print (E outside) plus strength (B inside) | Thinner than BC | Printed shelf-ready packs |
+| EE / NE (double) | Fine print surface with added strength | Lower stacking than BC | Image-plus-performance packs [S17] |
 | Triple wall | Bulk/heavy-duty | Hard to score and fold | Bulk bins, heavy industrial |
 
 ## Flute crush effects
@@ -183,4 +230,24 @@ Qualitative summary from [S1][S4][S7]; values in the table above.
 - In a regular slotted container (FEFCO 0201 / RSC) the corrugation direction is normally **vertical**, parallel to the top-to-bottom stacking load [S8].
 - ECT is measured with load parallel to the flutes, which is why flutes vertical maximises stacking strength [S8].
 - Board properties (ECT, stiffness, tensile) differ parallel versus perpendicular to the flute [S8].
-- On a blank drawing, the flute direction is shown by an arrow or by stating "flutes" relative to the blank length; marking convention is **house-specific** (not confirmed by a retrieved standard — VERIFY with your CAD standard). In the material record, `fluteDirectionDegrees` records it numerically (see `materials/material-record-schema.md`).
+- **Sheet ordering convention (one published converter rule):** the first dimension of a sheet size is the flute direction (width) and the second is the chop (length); e.g. 1040 × 1550 mm means the flutes run parallel to the 1040 mm side [S18]. Liners are listed outside first, and in a double-wall code the first flute letter is the outer flute (EB = E outside) [S18].
+- No standard-wide drawing symbol for flute direction was found. State the flute direction on every blank drawing (arrow or "flutes" note relative to a named dimension) and record it numerically as `fluteDirectionDegrees` in the material record (see `materials/material-record-schema.md`).
+
+## Research log
+
+Wave 2 (2026-11-09, materials agent; searches shared across the three materials files — total in `paper-grades.md` log).
+
+Resolved in this wave:
+- FEFCO flute table read from the primary PDF [S15] (the FEFCO LCA web page [S1] now returns "access denied"); adds glue consumption for C and E flutes.
+- Flutes per metre: FEFCO [S15] vs FBA [S16] vs US table [S20] reconciled (agree within ± 10).
+- Take-up per flute: Nordstrand values sit inside FEFCO ranges; no source for B 1.42 / C 1.48.
+- Height vs thickness explained; BC caliper reconciled; EE/EB/NE nominal heights from a converter [S17]; AC/AAA given as derived flute-height sums.
+- Caliper test standards confirmed (ISO 3034 = FEFCO TM 3; TAPPI T 411 differs) and take-up method FEFCO R 102 [S19].
+- Flute direction ordering convention from a converter [S18].
+
+Still open (VERIFY):
+- K flute: only a secondary source (≈ 6 mm [S5]); trade search extracts (not retrievable here) describe K as a "maxi" flute with height ≥ 5 mm and pitch > 10 mm — confirm with DIN 55468-1 or a roll maker.
+- O flute: search extracts suggest a superfine profile of roughly 0.25–0.35 mm height, finer than N, from an unreadable roll-maker page — not confirmed.
+- Measured combined calipers for AC, EE and AAA boards.
+
+Hosts that could not be reached: corrugator roll makers and packaging retailers (packaging-warehouse.com, tis-gdv.de, lth.se), www.mdpi.com (bot wall), core.ac.uk downloads (bot wall), pmc.ncbi.nlm.nih.gov.

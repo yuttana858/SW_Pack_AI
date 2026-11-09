@@ -54,4 +54,14 @@ Review queue: 320 → 218 items.
 - www.fpl.fs.usda.gov (502)
 - amazon.com, Lansmont, state agency sites
 
-### Wave 2: running
+### Wave 2: complete (2026-11-09). 33 of 135 budgeted searches used
+
+| Agent | Searches | Result |
+|---|---|---|
+| Styles & terminology | 1 | Read the official FEFCO 12th-edition, FEFCO/ESBO 11th-edition and ECMA 2009 PDFs; FEFCO VERIFY 28 → 5, ECMA 14 → 0; family 08 (retail/e-commerce 0801–0887) confirmed; ECMA style codes confirmed from the drawings |
+| Dimensions & tooling | 17 | RSC `k_s = [1,1,2]` confirmed (FEFCO/VDW Quality Catalogue, Atlantic table); PMMI TR2.1 tolerances, warp limits, FEFCO R110 warp factor; CITO creasing formulas; BC caliper corrected to 6.6 mm; 38 → 16 VERIFY |
+| Materials | 15 | Full Cepi grade list (5th ed.) limit tables; kraftliner burst conflict resolved; DS Smith typical values; RCT-from-SCT (L&W); DIN 19303 bulk bands; carton grain-direction convention |
+
+Technique note: reading the primary PDFs directly with `curl` + `pdftotext` costs no searches and gives far better data. Most mill websites (SCA, Saica, Mondi, Smurfit Westrock, Stora Enso, Metsä, Billerud, IP, PCA) are still blocked.
+
+### Wave 3: running
