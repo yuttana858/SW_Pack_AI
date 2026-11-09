@@ -70,16 +70,44 @@ sources:
     publisher: MDPI Applied Sciences 14(2):819
     url: https://www.mdpi.com/2076-3417/14/2/819
     accessed: 2026-11-09
+  - id: S13
+    title: Effects of Moisture Content on Box Compression Strength - FBA BCT Loss Factors (R. Popil, 2018, updated 2019)
+    publisher: Georgia Tech Renewable Bioproducts Institute
+    url: https://research.gatech.edu/sites/default/files/2021-06/effects-of-moisture-content-on-box-compression-strength.pdf
+    accessed: 2026-11-09
+  - id: S14
+    title: Effect of Pallet Overhang on Box Compression Strength - Final Report (Phase 1)
+    publisher: Virginia Tech Center for Packaging and Unit Load Design, for Fibre Box Association
+    url: https://www.fibrebox.org/assets/2025/07/Pallet_Overhang_Phase_1.pdf
+    accessed: 2026-11-09
+  - id: S15
+    title: Container compression test
+    publisher: Wikipedia
+    url: https://en.wikipedia.org/wiki/Container_compression_test
+    accessed: 2026-11-09
+  - id: S16
+    title: The Tech Box - May 2022 (FBA Technical Committee research programme on environmental factors)
+    publisher: Fibre Box Association
+    url: https://www.fibrebox.org/news/the-tech-box-may-2022
+    accessed: 2026-11-09
+  - id: S17
+    title: The Tech Box - November 2022 (effect of flap score profiles on BCT)
+    publisher: Fibre Box Association
+    url: https://www.fibrebox.org/news/the-tech-box-november-2022
+    accessed: 2026-11-09
 ---
 
 # BCT Reduction (Environmental) Factors
 
 > *Industry-typical values — replace with supplier/house data in `company/`.*
 >
-> **Source access note (2026-11-09):** values were taken from web-search extracts of the sources
-> listed; the Fibre Box Handbook itself was not consulted. Most multiplier tables in circulation
-> are secondary reproductions of FBA data and **disagree in places (marked VERIFY)**. Where an
-> extract cited a value to a document in a list of results, the attribution is marked VERIFY.
+> **Source access note (2026-11-09, wave 1 update):** the Fibre Box Handbook itself (FBA, 24th
+> edition, sold by FBA) was not consulted. The RH and storage-time multipliers are now confirmed
+> from a reproduction of the FBA table in a Georgia Tech RBI paper [S13]. The stacking-pattern and
+> pallet-overhang values are confirmed from FBA's own research reports [S3][S6][S14]. Values that
+> could only be attributed through search extracts are still marked **VERIFY**.
+> FBA first published these factors in the mid-1990s, based on older data, and has been updating
+> them through a research programme since 2017 [S3][S16].
 
 ## How reduction factors are used
 
@@ -113,53 +141,84 @@ generic, not board-specific.
 
 | Condition (equilibrium, under load) | Loss | Multiplier | Source |
 |---|---|---|---|
-| 50 %RH | 0 % (reference) | 1.00 | [S1][S2] |
-| 60 %RH | 10 % | 0.90 | [S1][S2] |
-| 80 %RH | 32 % | 0.68 | [S2] |
-| 90 %RH | 52 % | 0.48 | [S1][S2] |
-| 100 %RH | 85 % | 0.15 | [S2] |
-| Cyclic RH | loss increases (no single value) | – | [S1] |
+| 50 %RH | 0 % (reference) | 1.00 | [S13][S1][S2] |
+| 60 %RH | 10 % | 0.90 | [S13][S1][S2] |
+| 70 %RH | 20 % | 0.80 | [S13] |
+| 80 %RH | 32 % | 0.68 | [S13][S2] |
+| 90 %RH | 52 % | 0.48 | [S13][S1][S2] |
+| 100 %RH | 85 % | 0.15 | [S13][S2] |
+| Cyclic RH | loss increases further (no single value) | – | [S13][S1] |
+
+[S13] reproduces this table as the FBA BCT loss factors; the table credits USDA Forest Products
+Laboratory as its source. The factors apply to RH **under load** [S13].
+In 2019 FBA finished a Clemson University study of RH under load on modern containerboard and
+used it to update the Handbook numbers [S16]. That study's values were not retrieved, so check the
+current Handbook edition.
 
 - Secondary statement: about 50 % loss when RH rises from 50 % to 90 % [S7] — consistent with
   the 52 % table value.
 - Michigan State work found strength declines as a second-order polynomial with RH and that rising
   board moisture content lowers both dynamic and constant-load compression strength [S8]
   (attribution VERIFY).
-- Intermediate RH (e.g. 70 %RH) — not retrieved; do not interpolate without a source. **VERIFY**.
+- **Resolved (2026-11-09):** 70 %RH → 20 % loss, multiplier 0.80 [S13]. Between table points, do
+  not interpolate without a source.
+
+### First-order RH model (Popil)
+
+```
+SCT50 / SCT_RH = 0.00945 · RH + 0.51        (RH in %, 23 °C, unbleached softwood kraft)
+```
+
+Popil derives this from M = 0.135·RH + 0.59 (equilibrium moisture content M in %, wet basis) and
+SCT50/SCT_M = 0.07·M + 0.47 [S13]. Because ECT and BCT scale linearly with SCT through the
+Maltenfort and simplified McKee equations, BCT changes in proportion to SCT [S13]. Rule of thumb:
+each 10 points of RH changes SCT, ECT and BCT by about 10 % [S13].
+
+- Validity: virgin softwood unbleached kraft linerboard at 23 °C [S13]. Hardwood, recycled and
+  mechanical pulps are less moisture-sensitive [S13]. Single-wall only; multi-wall is not confirmed
+  [S13].
+- Worked example (80 %RH): 0.00945 × 80 + 0.51 = 1.266, so strength retained = 1 / 1.266 = 0.79,
+  a **21 % loss** (derived). [S13] describes the same ratio as "a loss of 27 %", which is
+  1.27 − 1, and says it agrees with the table's 32 %. With 1/ratio, the model is **less
+  conservative** than the FBA table at 80 %RH (0.79 vs 0.68). Use the table for design.
 
 ## Storage time under load (creep)
 
 | Time under load | Loss | Multiplier | Source |
 |---|---|---|---|
-| 10 days | 37 % | 0.63 | [S1][S2] |
-| 30 days | 40 % | 0.60 | [S1][S2] |
-| 90 days | 45 % | 0.55 | [S1][S2] |
-| 180 days | 50 % | 0.50 | [S1][S2] |
+| 10 days | 37 % | 0.63 | [S13][S1][S2] |
+| 30 days | 40 % | 0.60 | [S13][S1][S2] |
+| 90 days | 45 % | 0.55 | [S13][S1][S2] |
+| 180 days | 50 % | 0.50 | [S13][S1][S2] |
 
 - Moody & Skidmore (1966): containers retained only 55 % of original yield force after three
   months of storage [S5] (attribution VERIFY) — consistent with the 90-day value.
 - AICC: boxes may lose nearly 45 % of compression strength after 90 days in humid storage [S9].
-- The time factors already include the loss to time-under-load at standard conditions; they are
-  usually multiplied with the RH factor. Whether the published time factors embed some humidity is
-  **VERIFY** (original FBA table not consulted).
+- The FBA table lists "storage time under load" and "relative humidity, under load" as separate
+  factor groups [S13], and the two are usually multiplied together. Whether the storage-time factors
+  already contain some humidity is not stated in [S13] — **VERIFY** against the Handbook text.
 - Kellicutt & Landt's time-to-failure relation (log-time) was not retrieved — **VERIFY**.
 
 ## Stacking pattern
 
 | Pattern | Loss | Multiplier (best / worst) | Source |
 |---|---|---|---|
-| Columnar, aligned | negligible | ~1.0 | [S2] |
-| Columnar, aligned (original FBA) | 0–8 % | 1.00–0.92 | [S3] |
-| Columnar, aligned (FBA newer data, 2021) | 12–20 % | 0.88–0.80 | [S3] |
+| Columnar, aligned (original FBA Handbook) | 0–8 % | 1.00–0.92 | [S3] |
+| Columnar, aligned (FBA/RIT study, 2021) | 12–20 % | 0.88–0.80 | [S3] |
 | Columnar, aligned, 3 high (Kellicutt 1963) | 23 % | 0.77 | [S5] (attribution VERIFY) |
 | Misaligned columns | up to 50 % | ≥ 0.50 | [S5] (attribution VERIFY) |
-| Interlocked (ipack table) | 40–60 % | 0.80 / 0.60 — **VERIFY** (multipliers do not match the stated loss) | [S2] |
-| Interlocked (Accurate Box / FBA) | 40–60 % | 0.60 / 0.40 | [S1] |
-| Interlocked (FBA newer data, 2021) | 49–54 % | 0.51–0.46 | [S3] |
+| Interlocked (original FBA Handbook) | 40–60 % | 0.60–0.40 | [S3][S1] |
+| Interlocked (FBA/RIT study, 2021) | 49–54 % | 0.51–0.46 | [S3] |
+| Aligned-interlocked hybrid (FBA/RIT study, 2021; not yet in Handbook) | 45–49 % | 0.55–0.51 | [S3] |
 
-**VERIFY — conflict:** the 2021 FBA data [S3] show columnar-aligned loss is larger (12–20 %) than
-the "negligible / 0–8 %" in older tables [S2][S3]. For new designs use the 2021 values or your
-own tests.
+- **Resolved (2026-11-09):** FBA states that the original Handbook factors were 0–8 % loss for
+  columnar aligned and 40–60 % for interlocked [S3]. So the interlocked multipliers are
+  **0.60–0.40** [S1]. The ipack table's 0.80 / 0.60 for 40–60 % loss [S2] is internally
+  inconsistent; do not use it.
+- FBA's 2021 study found columnar-aligned losses **larger** than the Handbook values, while
+  interlocked losses were consistent with them [S3]. For new designs use 0.88–0.80 for columnar
+  stacks. Study basis: 19.5 × 12 × 13 in (495 × 305 × 330 mm) C-flute RSCs, 32 and 44 ECT, filled
+  to about 45 lb (20 kg), unit-load compression per TAPPI T 804 [S3].
 
 ## Pallet overhang and deckboard gaps
 
@@ -167,10 +226,22 @@ own tests.
 |---|---|---|---|
 | Overhang 25 mm (1 in) on one side | 14–34 % | 0.86–0.66 | [S4] |
 | Overhang 50 mm (2 in) on one side and one end | 34–46 % | 0.66–0.54 | [S4] |
-| Overhang, current Fibre Box Handbook estimate | 20–40 % | 0.80–0.60 | [S6] (attribution VERIFY) |
-| Overhang, Kim et al. 2023 | 0–40 % | 1.00–0.60 | [S6] (attribution VERIFY) |
+| Overhang, current Fibre Box Handbook estimate | 20–40 % | 0.80–0.60 | [S6][S14] |
+| Overhang, Kim et al. 2023 (FBA Phase 1, measured range) | 0–40 % | 1.00–0.60 | [S6][S14] |
+| Single-side overhang, short side, 32 ECT C / 48 ECT BC | 1–29 % / 0.2–33 % | 0.99–0.71 / 1.00–0.67 | [S14] |
+| Single-side overhang, long side, 32 ECT C / 48 ECT BC | 6–32 % / 4–27 % | 0.94–0.68 / 0.96–0.73 | [S14] |
+| Adjacent-side overhang (two sides, three corners unsupported) | 14–41 % / 15–40 % | 0.86–0.59 / 0.85–0.60 | [S14] |
+| 1 in (25 mm) single-side overhang, single box | 4–19 % | 0.96–0.81 | [S14] |
+| 1 in × 1 in adjacent overhang, single box | 22–38 % | 0.78–0.62 | [S14] |
 | Pallet deckboard gap | 10–25 % | 0.90 / 0.75 | [S2] |
 
+- **Resolved (2026-11-09):** the FBA/Virginia Tech study measured 2–40 % loss, against the
+  Handbook's 20–40 % [S14]. Loss grows with overhang. At the same overhang, loss is larger when the
+  long side overhangs. Adjacent-side overhang (three corners unsupported) causes more loss than the
+  sum of the two single-side effects [S14]. Phase 2 fitted regression models over 32 ECT B, 44 ECT C
+  and 61 ECT C boxes with 0.25–3.25 in overhang [S6].
+- The Handbook range is conservative for small single-side overhangs. It is about right for
+  adjacent overhangs [S14].
 - Any overhang removes support under the box's strongest region (corners and panel edges);
   avoid it rather than compensate for it. FEM-based estimation of overhang effect: [S12].
 
@@ -179,6 +250,14 @@ own tests.
 | Condition | Loss | Multiplier | Source |
 |---|---|---|---|
 | Excessive handling | 10–40 % | 0.90 / 0.60 | [S2] |
+
+## Scoring and score cracking
+
+FBA's study at the USDA Forest Products Laboratory used 21 × 15 × 16 in single-wall RSCs (32 and
+44 ECT). It found that flap score profile can change BCT by more than 10 %, and that **score
+cracking reduces BCT by 10 % or more** [S17]. Score geometry, score depth and slot depth all
+affected BCT, but no consistent ranking of profiles emerged [S17]. Suggested multiplier for cracked
+scores: ≤ 0.90 (derived from [S17]); confirm by test.
 
 ## Handholes, vent holes and other cut-outs
 
@@ -219,8 +298,9 @@ SF ≥ 1 / (m1 · m2 · ... · mn)
 
 - Rule of thumb: Hanlon (1984) suggests using one-fourth of the box compressive strength as the
   safe load for long-term storage, i.e. SF = 4 [S8] (attribution VERIFY).
-- The commonly quoted range SF 3–5+ is not directly sourced in this file — **VERIFY**; derive SF
-  from the multipliers above and add margin for dynamic loads.
+- **Resolved (2026-11-09):** factors of 4 or 5 are often used to estimate the allowable working
+  load from box compression strength [S15]. Prefer deriving SF from the multipliers above, then add
+  margin for dynamic loads.
 
 Worked example: F_top = 1090 N (245 lbf).
 - Multiplier route: 90 days (0.55) × 80 %RH (0.68) = 0.374 → SF = 1/0.374 = 2.67 →
@@ -230,3 +310,35 @@ Worked example: F_top = 1090 N (245 lbf).
 
 Limitations: the multiplier route can be non-conservative [S8]; neither route covers transit
 dynamics. Full stacking procedure: `kb.performance.stacking-load-calc`.
+
+## Research log
+
+**Wave 1 (2026-11-09).** Searches were shared across five files (12 in total).
+
+Resolved this wave:
+- RH multipliers confirmed, and 70 %RH = 0.80 added [S13]. Popil's first-order RH model added.
+- Storage-time multipliers confirmed (10/30/90/180 days → 0.63/0.60/0.55/0.50) [S13].
+- Stacking-pattern conflict: the original FBA values are 0–8 % (columnar) and 40–60 % (interlocked)
+  [S3]. The ipack multipliers are inconsistent. The 2021 values supersede the old ones for columnar
+  stacks, and the hybrid pattern is added.
+- Pallet-overhang attribution confirmed by reading the Phase 1 and Phase 2 reports [S14][S6], with
+  measured ranges added.
+- Safety factor 4–5 [S15]. Score-cracking loss of 10 % or more added [S17].
+
+Still open, with the best lead for each:
+- MSU findings attributed to [S8] (RH polynomial, frozen storage, Hanlon SF = 4, overestimation of
+  retention factors). Lead: https://d.lib.msu.edu/etd/32960 (the host has a bot wall).
+- Kellicutt 1963 stacking values and Moody & Skidmore 1966 [S5]. Lead: https://core.ac.uk/download/287319875.pdf
+  (blocked), or FPL reports on www.fpl.fs.usda.gov (returned HTTP 502 all session).
+- Whether the storage-time factors include humidity; the 2019 Clemson RH update values. Lead:
+  Fibre Box Handbook 24th ed. (FBA store), and the FBA webinar "How Does Ambient Humidity Affect
+  Modern Box Design" (members area).
+- Kellicutt & Landt log-time creep relation. Lead: FPL Report 1911 / R1911-A (Kellicutt, Landt,
+  Setterholm), PDF at https://ir.library.oregonstate.edu/concern/file_sets/2r36v282x (blocked).
+- Handhole and vent multipliers. Lead: Singh et al. (2008), "The Effect of Ventilation and Hand
+  Holes on Loss of Compression Strength in Corrugated Boxes", J. Applied Packaging Research
+  2(4):227–238 (repository.rit.edu / digitalcommons.calpoly.edu, both blocked); MDPI [S10][S11]
+  (blocked).
+- Print/flexo crush, temperature and dynamic multipliers: no source. Lead: Fibre Box Handbook;
+  ASTM D4169 / ISTA for dynamic loads.
+

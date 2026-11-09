@@ -195,6 +195,56 @@ sources:
     publisher: Technifold USA
     url: https://www.technifoldusa.com/bindery-success-blog/bid/98329/6-Tips-to-Improve-Palletized-Print-Shipments
     accessed: 2026-11-09
+  - id: S38
+    title: ISTA 6-Amazon.com-Over Boxing overview (March 2026 edition)
+    publisher: International Safe Transit Association
+    url: https://ista.org/docs/6AmazoncomOBOverview26-26.pdf
+    accessed: 2026-11-09
+  - id: S39
+    title: Updates to ISTA 6-Amazon.com-Over Boxing (news item; Amazon grace period to 1 August 2026)
+    publisher: International Safe Transit Association
+    url: https://ista.org/news_manager.php?page=32043
+    accessed: 2026-11-09
+  - id: S40
+    title: Are you using the most current ISTA procedures and projects? (procedure change log, 2017–2026)
+    publisher: International Safe Transit Association
+    url: https://ista.org/procedure_changes_developmen.php
+    accessed: 2026-11-09
+  - id: S41
+    title: ISTA 3E overview (2026 edition)
+    publisher: International Safe Transit Association
+    url: https://ista.org/docs/3E_26-26_Overview.pdf
+    accessed: 2026-11-09
+  - id: S42
+    title: ISTA 3F overview (2017) and ISTA 3K overview (2011)
+    publisher: International Safe Transit Association
+    url: https://ista.org/docs/3Foverview.pdf
+    accessed: 2026-11-09
+  - id: S43
+    title: ASTM D4169-23e1 (store page, Active, last updated 27 Mar 2024)
+    publisher: ASTM International
+    url: https://store.astm.org/d4169-23e01.html
+    accessed: 2026-11-09
+  - id: S44
+    title: A guide to determining the most appropriate distribution simulation for a medical or pharmaceutical device (TechTip)
+    publisher: STERIS AST
+    url: https://www.steris-ast.com/resources/techtips/a-guide-to-determining-the-most-appropriate-distribution-simulation-for-a-medical-or-pharmaceutical-device
+    accessed: 2026-11-09
+  - id: S45
+    title: How to choose the right distribution cycle (DC) for ASTM D4169 testing
+    publisher: Life Science Outsourcing (LSO)
+    url: https://lso-inc.com/news/how-to-choose-the-right-distribution-cycle-dc-for-astm-d4169-testing/
+    accessed: 2026-11-09
+  - id: S46
+    title: ASTM D4332-22 Standard Practice for Conditioning Containers, Packages, or Packaging Components for Testing (store page)
+    publisher: ASTM International
+    url: https://store.astm.org/d4332-22.html
+    accessed: 2026-11-09
+  - id: S47
+    title: ASTM D4332 environmental conditioning testing
+    publisher: Westpak
+    url: https://westpak.com/?p=3905
+    accessed: 2026-11-09
 ---
 
 # Distribution (transit) testing
@@ -218,7 +268,7 @@ Decision rule of thumb: if a customer or carrier names a procedure (e.g. Amazon 
 | 2 | Partial simulation | Series 1 elements plus at least one general-simulation element such as atmospheric conditioning; not predictive of shipping performance | Refining preliminary designs [S2] |
 | 3 | General simulation | General simulation of the hazards of a defined shipment type (parcel, LTL, truckload, DC-to-store) | Design verification for a known channel [S1] |
 | 4 | Enhanced simulation | General simulation plus at least one focused-simulation element | Channels with known field data [S2] |
-| 6 | Member performance | Protocols written by or with a member company, e.g. 6-Amazon.com, 6-SAMSCLUB, 6-FEDEX | When that company requires it [S2] |
+| 6 | Member performance | Protocols written by or with a member company: currently 6-Amazon.com (SIOC, Over Boxing) and 6-SAMSCLUB. The 6-FEDEX-A and -B tests were withdrawn in 2024 and 2025 | When that company requires it [S1][S40] |
 | 7 | Development | Development tests, mainly 7D (thermal transport packaging) | Cold-chain shipper development [S2] |
 
 Series 1 to 3 are generally limited to packaged-products of 150 lb (68 kg) or less, with separate "B" procedures for heavier items [S2].
@@ -227,29 +277,38 @@ Selection by shipment type (3-Series):
 - **Parcel delivery, ≤70 kg (150 lb)** → ISTA 3A [S5].
 - **Less-than-truckload (LTL)** → ISTA 3B [S8].
 - **Similar products unitised on pallets, truckload** → ISTA 3E [S7].
-- **Distribution centre to retail outlet, non-unitised** → ISTA 3F.
+- **Distribution centre to retail outlet, mixed pallets, ≤ 45 kg (100 lb) per package** → ISTA 3F [S1][S42].
+- Other 3-Series options listed by ISTA: 3H (mechanically handled bulk containers), 3K (European FMCG retail), 3L (generalised e-commerce retailer fulfilment), 3M (international direct import, Asia-Pacific to US), 3N (European full-truckload unit loads, new 2026) and 3P (India parcel, new 2026) [S1][S40].
 - Amazon.com fulfilment → ISTA 6-Amazon.com-SIOC or -Over Boxing (see Amazon section).
 
 ## ISTA 3A key sequence (high level)
 
-ISTA 3A covers packaged-products of 70 kg (150 lb) or less shipped through a parcel delivery system [S5]. The procedure (current edition 2018, overview at [S3]) distinguishes standard, small, flat and elongated packages. For a **standard package** the published summaries give this sequence [S4][S5]:
+ISTA 3A covers individual packaged-products of 70 kg (150 lb) or less shipped through a parcel delivery system, by air or ground [S3]. The current edition is 2018 (last technical and editorial change March 2018) [S3][S40]. It defines four package types: **standard**, **small** (under 13 000 cm³ [800 in³], longest side ≤ 350 mm [14 in], ≤ 4.5 kg [10 lb]), **flat** and **elongated**; a package that is both flat and elongated is tested as elongated [S3]. One sample is the minimum; ISTA recommends two or more for fragile or liquid products and five or more for better statistics [S3].
 
-1. **Atmospheric preconditioning** at ambient laboratory conditions.
-2. **Atmospheric conditioning** (optional, controlled temperature and humidity; see the conditioning section).
-3. **Shock — drop sequence** with drop height set by packaged-product weight.
-4. **Random vibration** with and without top load. Older (2004) and secondary sources give overall levels of 0.53 Grms and 0.46 Grms [S4]. ISTA's 2018 change log states that top load is no longer a required element of the 3A random vibration block [S6].
-5. **Low-pressure (altitude) vibration** (optional) [S5].
-6. **Final shock — drop sequence**, including a drop on a hazard (impact on a small raised object) [S5].
+Sequence for **standard, flat and elongated** packages, as summarised from the ISTA overview [S3]:
 
-**VERIFY — number of drops.** One source summarising an older edition gives 9 drops for standard packages; a later summary gives 8 drops for standard packages and 7 for small packages [S4][S5]. Use the drop table in the current procedure.
+1. **Atmospheric preconditioning** at ambient laboratory conditions (required).
+2. **Atmospheric conditioning** at a chosen temperature and humidity (optional).
+3. **Shock — first drop sequence: 9 drops**, height set by packaged-product weight (required).
+4. **Random vibration** with and without top load, overall levels **0.53 Grms and 0.46 Grms** (required).
+5. **Random vibration under low pressure** (simulated altitude; truck or truck-and-air) (optional).
+6. **Shock — second drop sequence: 8 drops**, height set by weight, including a drop onto a hazard block (required).
+7. Flat and elongated only: rotational edge drop from 200 mm (8 in) and full rotational flat drop.
+8. Flat only: concentrated impact (hazard box dropped 400 mm [16 in]); elongated only: bridge impact (hazard box dropped 400 mm [16 in]).
+9. Liquids only: leak test, 8 hours (added in 2018) [S3][S40].
 
-Pass/fail is defined by the shipper (product damage tolerance and package condition) before testing, not by ISTA.
+For **small** packages the order is the same, but the second drop sequence is **7 drops** with the package inside a bag of dunnage packages, and vibration uses a consolidation bag with a 36 kg (80 lb) top-load bag [S3].
+
+So the total is 17 drops (9 + 8) for a standard package and 16 drops (9 + 7) for a small package [S3]. Earlier secondary summaries quoting "9 drops" or "8 drops" were each describing one of the two drop blocks [S4][S5]. Drop heights and orientations are in the purchased procedure.
+
+Pass/fail is defined by the shipper (product damage tolerance and package condition) before testing, not by ISTA [S3].
 
 ## Other ISTA 3-Series parameters seen in published sources
 
-- **ISTA 3E** (unitised truckload): random vibration at an overall level of 0.54 Grms; top load in vibration is the calculated test force × 1.4; the rotational edge drop height changed from fixed to weight-dependent [S6][S7].
-- **ISTA 3B** (LTL): random vibration at 0.54 Grms overall, with top load [S8].
-- **ISTA 3F**: for individual packaged-products that may be shipped non-unitised from a distribution centre to a retail outlet [S1].
+- **ISTA 3E** (similar packaged-products in unitised loads, truckload), 2026 edition: incline or horizontal impact at 1.2 m/s (48 in/s), rotational edge drops with height set by weight, compression (machine apply-and-release at the calculated test force × 1.4, or apply-and-hold / weight and load spreader at the calculated force), random vibration at 0.54 Grms overall, then a second rotational edge drop block [S41]. The January 2026 revision returned to the earlier compression formula (largest of warehouse or vehicle stack), made the pallet on top of the sample optional and changed the impact order [S40]. The weight-dependent edge-drop height dates from the April 2017 revision [S6][S40].
+- **ISTA 3B** (LTL), 2017 edition: random vibration with top load at 0.54 Grms overall [S8].
+- **ISTA 3F** (2017): individual packaged-products of 45 kg (100 lb) or less shipped in mixed pallet loads, typically DC to retail store [S1][S42].
+- **ISTA 3K** (2011): FMCG in the European retail chain; its mixed-load random vibration is 0.28 Grms overall [S42].
 
 ## ISTA 6-Amazon.com and Amazon packaging certification (2025–2026)
 

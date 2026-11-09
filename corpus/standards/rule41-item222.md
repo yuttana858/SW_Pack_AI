@@ -100,6 +100,16 @@ sources:
     publisher: Corrugated News
     url: https://www.corrugatednews.com/blog/understanding-board-grades
     accessed: 2026-11-09
+  - id: S19
+    title: Box Performance - Mullen and ECT chart (single wall carrier-rule table)
+    publisher: (vendor chart hosted on Squarespace)
+    url: https://static1.squarespace.com/static/629904bda11c713bb044920f/t/62b37cf15d2acc69fda6b1cc/1655930097934/Mullin+and+ECT.pdf
+    accessed: 2026-11-09
+  - id: S20
+    title: Corrugated fiberboard (section Box maker's certificate)
+    publisher: Wikipedia
+    url: https://en.wikipedia.org/wiki/Corrugated_fiberboard
+    accessed: 2026-11-09
 ---
 
 # NMFC Item 222 and UFC Rule 41
@@ -108,10 +118,11 @@ sources:
 > (published by NMFTA) and the Uniform Freight Classification (UFC 6000 series). Do not certify a
 > box from this file — check the current tariff.
 >
-> **Source access note (2026-11-09):** the official NMFC/UFC tables could not be downloaded in
-> the drafting session; table values below come from secondary reproductions (converter and
-> distributor charts) consulted via web-search extracts. Cells that could not be confirmed are
-> marked **VERIFY** rather than filled in.
+> **Source access note (2026-11-09, wave 1 update):** the official NMFC/UFC texts are paid
+> publications and the NMFTA and Railinc sites could not be reached from the research session.
+> The grade tables below now come from an Item 222-derived chart in a retailer specification hosted
+> by the Fibre Box Association [S17], which was read in full. It agrees with converter charts
+> [S3][S4][S6]. Cells found only in converter charts are still marked **VERIFY**.
 
 ## What the rules are
 
@@ -132,51 +143,80 @@ sources:
 
 ## Single-wall grades (Item 222 / Rule 41 as reproduced)
 
+The 65–120 lb rows below are confirmed by an Item 222-derived chart in Walmart's corrugated board
+specification, hosted by the Fibre Box Association [S17]. That document says the chart comes from
+NMFC Item 222 and asks for the liner weights and burst tests of Rail Rule 41 [S17]. The 20–50 lb
+light-duty rows appear only in converter charts [S3][S19] and are not in [S17].
+
 | Max gross wt lb (kg) | Max united inches in (mm) | Min ECT lbf/in (kN/m) | Min burst psi (kPa) | Min combined facings lb/MSF (g/m²) |
 |---|---|---|---|---|
-| 20 (9.1) | 40 (1016) | 23 (4.03) [S3] | VERIFY | VERIFY |
-| 35 (15.9) | 50 (1270) | 26 (4.55) [S3] | VERIFY | VERIFY |
-| 50 (22.7) | 60 (1524) | 29 (5.08) [S3] | VERIFY | VERIFY |
-| 65 (29.5) | 75 (1905) | 32 (5.60) [S3][S6] | 200 (1379) [S6][S18] | 84 (410) [S6] |
-| 80 (36.3) | 85 (2159) | 40 (7.01) [S3] | 250 (1724) [S17] | VERIFY |
-| 95 (43.1) | 95 (2413) | 44 (7.71) [S3][S6] | 275 (1896) [S6][S18] | VERIFY |
-| 120 (54.4) | 105 (2667) | 55 (9.63) [S3] | VERIFY | VERIFY |
+| 20 (9.1) | 40 (1016) | 23 (4.03) [S3] | 125 (862) [S19] — VERIFY (secondary only) | 52 (254) [S19] — VERIFY (secondary only) |
+| 35 (15.9) | 50 (1270) | 26 (4.55) [S3] | 150 (1034) [S19] — VERIFY (secondary only) | 66 (322) [S19] — VERIFY (secondary only) |
+| 50 (22.7) | 60 (1524) | 29 (5.08) [S3] | 175 (1207) [S19] — VERIFY (secondary only) | 75 (366) [S19] — VERIFY (secondary only) |
+| 65 (29.5) | 75 (1905) | 32 (5.60) [S17][S3] | 200 (1379) [S17] | 84 (410) [S17] |
+| 80 (36.3) | 85 (2159) | 40 (7.01) [S17][S3] | 250 (1724) [S17] | 111 (542) [S17] |
+| 95 (43.1) | 95 (2413) | 44 (7.71) [S17][S3] | 275 (1896) [S17] | 138 (674) [S17] |
+| 120 (54.4) | 105 (2667) | 55 (9.63) [S17][S3] | 350 (2413) [S17] | 180 (879) [S17] |
 
 Notes:
-- 125 psi burst is described as a light-duty grade, rarely used [S18] (its row pairing VERIFY).
-- **VERIFY — conflict:** the 40 ECT row appears in some charts [S3][S6][S7][S18] but not in others
-  [S4][S5], which go straight to 44 ECT.
-- Walmart's automation spec sets 250 psi burst or 40 ECT as its minimum [S17] (a customer spec,
-  not the carrier rule).
+- SI values are unit conversions (derived): 1 lb = 0.45359 kg, 1 in = 25.4 mm, 1 lbf/in =
+  0.175127 kN/m, 1 psi = 6.894757 kPa, 1 lb/MSF = 4.8824 g/m².
+- 125 psi burst is described as a light-duty grade, rarely used [S18]. Its pairing with 52 lb/MSF,
+  23 ECT, 20 lb and 40 in comes from secondary charts only — VERIFY against the NMFC text.
+- **Resolved (2026-11-09):** the 40 ECT / 250 psi / 80 lb / 85 in row is part of the Item 222-derived
+  chart [S17]. Charts that jump from 32 to 44 ECT [S4][S5] simply leave that row out.
+- [S17] is a retailer specification. Its own minimum is 200 psi burst for BMC ratings and palletised
+  displays [S17]; that is the retailer's rule, not the carrier rule.
 - Common parcel/LTL practice: carriers expect at least 200 burst or 32 ECT [S2].
 
-## Double-wall and triple-wall grades (as reproduced)
+## Double-wall and triple-wall grades (Item 222-derived chart)
 
-| Max gross wt lb (kg) | Min ECT lbf/in (kN/m) | Min burst psi (kPa) | Max united inches | Source |
-|---|---|---|---|---|
-| 80 (36.3) | 42 (7.36) | 200 (1379) | 85 in (2159 mm) [S3] | [S4] |
-| 100 (45.4) | 48 (8.41) | 275 (1896) | VERIFY | [S4] |
-| 120 (54.4) | 51 (8.93) | 350 (2413) | VERIFY | [S4] |
-| 140 (63.5) | 61 (10.68) | 400 (2758) | VERIFY | [S4] |
-| 160 (72.6) | 71 (12.43) | 500 (3447) | VERIFY | [S4] |
-| 180 (81.6) | 82 (14.36) | 600 (4137) | VERIFY | [S4] |
-| 240 (108.9) | 67 (11.73) | 700 (4826) | VERIFY | [S4] |
-| 260 (117.9) | 80 (14.01) | 900 (6205) | VERIFY | [S4] |
-| 280 (127.0) | 90 (15.76) | 1100 (7584) | VERIFY | [S4] |
-| 300 (136.1) | 112 (19.61) | 1300 (8963) | VERIFY | [S4] |
+| Wall | Max gross wt lb (kg) | Max united inches in (mm) | Min combined facings lb/MSF (g/m²) | Min burst psi (kPa) / *puncture* | Min ECT lbf/in (kN/m) |
+|---|---|---|---|---|---|
+| Double | 80 (36.3) | 85 (2159) | 92 (449) | 200 (1379) | 42 (7.36) |
+| Double | 100 (45.4) | 95 (2413) | 110 (537) | 275 (1896) | 48 (8.41) |
+| Double | 120 (54.4) | 105 (2667) | 126 (615) | 350 (2413) | 51 (8.93) |
+| Double | 140 (63.5) | 110 (2794) | 180 (879) | 400 (2758) | 61 (10.68) |
+| Double | 160 (72.6) | 115 (2921) | 222 (1084) | 500 (3447) | 71 (12.43) |
+| Double | 180 (81.6) | 120 (3048) | 270 (1318) | 600 (4137) | 82 (14.36) |
+| Triple | 240 (108.9) | 110 (2794) | 168 (820) | *puncture* 700 in·oz/in (≈ 195 J/m) | 67 (11.73) |
+| Triple | 260 (117.9) | 115 (2921) | 222 (1084) | *puncture* 900 in·oz/in (≈ 250 J/m) | 80 (14.01) |
+| Triple | 280 (127.0) | 120 (3048) | 264 (1289) | *puncture* 1100 in·oz/in (≈ 306 J/m) | 90 (15.76) |
+| Triple | 300 (136.1) | 125 (3175) | 360 (1758) | *puncture* 1300 in·oz/in (≈ 361 J/m) | 112 (19.61) |
 
-- Rows 80–180 lb are double wall [S4].
-- **VERIFY — conflict:** the 240–300 lb rows (67–112 ECT, 700–1300 psi) are labelled **triple
-  wall** by [S4] but placed under double wall by [S5]; [S6] warns the 1100 and 1300 psi rows are
-  unconfirmed and must be checked against a current NMFC.
-- Minimum combined facings weights for double/triple wall: not retrieved — **VERIFY**.
+All cells: [S17]. ECT and weight pairings agree with [S4]. For double and triple wall, the facings
+weight includes the centre facings [S17]. SI conversions are derived. The puncture conversion uses
+1 in·oz per inch of tear = 0.27801 J/m.
+
+- **Resolved (2026-11-09): triple-wall test column.** In the Item 222-derived chart, the 700–1300
+  values for triple wall sit in a column headed "minimum puncture test, triple wall board (inch-ounces
+  per inch of tear)". They are **puncture** values, not burst psi [S17]. [S4] and [S5] show them as
+  burst psi, which is wrong. The 240–300 lb rows are triple wall [S17], as [S4] says; [S5] lists them
+  under double wall. Puncture is tested by TAPPI T 803 / ISO 3036 (see `kb.performance.board-tests-and-ect`).
+- **Resolved (2026-11-09):** the minimum combined facings weights and maximum united inches for
+  double and triple wall are given in the table above [S17].
+
+### Solid fibreboard boxes (same chart)
+
+| Max gross wt lb (kg) | Max united inches in (mm) | Min combined weight of plies, excl. adhesive, lb/MSF (g/m²) | Min burst psi (kPa) |
+|---|---|---|---|
+| 20 (9.1) | 40 (1016) | 114 (557) | 125 (862) |
+| 40 (18.1) | 60 (1524) | 149 (727) | 175 (1207) |
+| 65 (29.5) | 75 (1905) | 190 (928) | 200 (1379) |
+| 90 (40.8) | 90 (2286) | 237 (1157) | 275 (1896) |
+| 120 (54.4) | 100 (2540) | 283 (1382) | 350 (2413) |
+
+All cells: [S17]. There is no ECT alternative for solid fibreboard in that chart [S17].
 
 ## Compliance check — worked example (derived)
 
 Box 400 × 300 × 300 mm outside, gross mass 12 kg.
 - United inches: (400 + 300 + 300) / 25.4 = **39.37 in** (1000 mm) — fits the 40 in row.
 - Gross weight: 12 / 0.45359 = **26.46 lb** — exceeds the 20 lb limit of the 23 ECT row.
-- Lowest single-wall row meeting both: **35 lb / 50 in → 26 ECT (4.55 kN/m)** [S3].
+- Lowest single-wall row meeting both: **35 lb / 50 in → 26 ECT (4.55 kN/m)** [S3], or 150 psi
+  burst with 66 lb/MSF facings [S19]. These light-duty rows come from secondary charts only
+  (VERIFY). If you use only the rows confirmed by [S17], the lowest is **65 lb / 75 in → 32 ECT
+  (5.60 kN/m) or 200 psi + 84 lb/MSF** [S17].
 - Carrier rule compliance is a minimum: stacking strength must still be checked separately
   (`kb.performance.stacking-load-calc`).
 
@@ -185,17 +225,19 @@ humidity or transit performance [S1].
 
 ## Box maker's certificate (BMC) — stamp fields
 
-A BMC is a printed mark, usually on a bottom flap, stating the construction and rated limits.
-Fields [S13][S2]:
+A BMC is a printed seal, usually on the bottom of the box, stating the construction and rated
+limits [S20]. The certificate is optional, but using it implies the box complies with the rules it
+refers to [S20]. Fields, as shown on the sample single-wall (ECT) and double-wall (burst) seals in
+[S17] [S13][S2]:
 
 | Field | Content |
 |---|---|
-| Certifying statement | Box meets the construction requirements of the applicable freight classification (wording VERIFY) |
+| Certifying statement | Says the box meets all construction requirements of the applicable freight classification [S17] (paraphrased; see the NMFC for exact wording) |
 | Board construction | Single wall, double wall, triple wall (or solid fibre) |
 | Test rating | **Either** Bursting test (psi) **with** Min. combined weight of facings (lb/MSF), **or** Edge crush test (ECT, lbf/in) — an ECT certificate does not carry the facings weight [S2] |
 | Size limit | Maximum united inches (outside L + W + D) |
 | Gross weight limit | Maximum weight of box plus contents (lb) |
-| Box manufacturer | Name of the box maker (location usually also shown — VERIFY) |
+| Box manufacturer | Name of the box maker, with city and state [S17] |
 
 - The test stated on the certificate must not be less than the minimum for the gross weight and
   size limit [S13].
@@ -223,3 +265,32 @@ Fields [S13][S2]:
 - Many shippers no longer rely on Item 222 alone: retailers (e.g. [S17]) and parcel carriers
   publish their own minimums, and performance testing (ISTA / ASTM D4169, ASTM D5639) is used
   instead of material rules [S1][S14].
+
+## Research log
+
+**Wave 1 (2026-11-09).** Searches by this agent were shared across five files (12 in total).
+
+Resolved this wave:
+- Single-wall 80, 95 and 120 lb rows: burst and minimum combined facings (250/111, 275/138, 350/180)
+  are confirmed by the Item 222-derived chart [S17].
+- The 40 ECT conflict: the row is in the Item 222-derived chart [S17].
+- Double-wall and triple-wall maximum united inches and minimum combined facings: all 10 rows [S17].
+- Triple-wall conflict: the 240–300 lb rows are triple wall. Their 700–1300 values are
+  **puncture** (in·oz per inch of tear), not burst psi [S17].
+- Solid-fibreboard rows added [S17].
+- BMC certifying statement and maker location (city and state) [S17]. BMC is optional [S20].
+
+Still open, with the best lead for each:
+- Single-wall 20, 35 and 50 lb rows (125/150/175 psi, 52/66/75 lb/MSF): these need the NMFC Item
+  222 text. Lead: NMFTA ClassIT+ / https://nmfta.org/nmfc/packaging/ (host blocked in this session).
+  The UFC Rule 41 text is at https://public.tst.railinc.com/sites/default/files/documents/UFC_6000_M_08.pdf
+  (also blocked).
+- Item 222 still in force; status of the Docket 2026-2 Item 685 proposal; content of Docket 2022-2:
+  lead https://nmfta.org/wp-content/media/2026/08/2026_2_S32_Analysis.pdf and the NMFTA docket pages
+  (blocked).
+- Effective date of the latest UFC 6000 supplement: lead Railinc UFC page (blocked).
+- TAPPI T 810 says Rule 41 / Item 222 use a minimum burst, not an average (one low test allowed in
+  six). This was seen only in a search extract. Lead:
+  https://dev.tappi.org/globalassets/documents/sarg-2023/t810-d-3-sarg-with-changes-incorporated.pdf
+  (host blocked).
+

@@ -95,11 +95,21 @@ sources:
     publisher: NMFTA
     url: https://nmfta.org/news/packaging-and-class-how-packaging-decisions-change-density-and-your-invoice/
     accessed: 2026-11-09
+  - id: S18
+    title: Corrugated Board Specifications (Walmart supply chain standards; chart derived from NMFC Item 222)
+    publisher: Walmart, hosted by Fibre Box Association
+    url: https://www.fibrebox.org/assets/2025/09/Walmart_Corrugated-Board_Specifications_Automation_Packaging_Standards.pdf
+    accessed: 2026-11-09
+  - id: S19
+    title: World standards - comparison of testing methods FEFCO / EN / ISO / TAPPI (revision October 2018)
+    publisher: FEFCO Standards Committee
+    url: https://www.fefco.org/download/file/fid/2395
+    accessed: 2026-11-09
 ---
 
 # Combined corrugated board grades
 
-Covers North American carrier-rule grades (UFC Rule 41 for rail, NMFC Item 222 for motor freight) and European grade notation. The official rule texts are paid publications and were **not** retrieved; the tables below come from secondary sources that agree with each other, and must be checked against the current NMFC/UFC before being used for certification or a freight claim. **VERIFY**.
+Covers North American carrier-rule grades (UFC Rule 41 for rail, NMFC Item 222 for motor freight) and European grade notation. The official rule texts are paid publications and were **not** retrieved. The 65–120 lb single-wall rows and all double-wall, triple-wall and solid-fibre rows are confirmed by an Item 222-derived chart in a retailer specification hosted by the Fibre Box Association [S18]. The light-duty single-wall rows come from secondary charts only. Check every value against the current NMFC/UFC before using it for certification or a freight claim.
 
 ## What Rule 41 and Item 222 are
 
@@ -122,7 +132,7 @@ Covers North American carrier-rule grades (UFC Rule 41 for rail, NMFC Item 222 f
 
 ## Single-wall grades: burst (Table A) vs ECT (Table B)
 
-Secondary-source values; the 125–350 rows agree across [S1][S2][S3][S4]. SI values are unit conversions (1 psi = 6.895 kPa; 1 lb/in = 0.17513 kN/m [S11]; 1 lb/MSF = 4.8824 g/m²; 1 lb = 0.4536 kg; 1 in = 25.4 mm).
+The 200–350 psi rows are confirmed by the Item 222-derived chart [S18] and agree with [S1][S2][S3][S4]. The 125–175 psi rows come only from secondary charts [S1][S2]: **VERIFY** them against the NMFC. SI values are unit conversions (1 psi = 6.895 kPa; 1 lb/in = 0.17513 kN/m [S11]; 1 lb/MSF = 4.8824 g/m²; 1 lb = 0.4536 kg; 1 in = 25.4 mm).
 
 | Burst min, psi (kPa) | Min combined weight of facings, lb/MSF (g/m²) | OR min ECT, lb/in (kN/m) | Max gross wt of box + contents, lb (kg) | Max L+W+D outside, in (mm) |
 |---|---|---|---|---|
@@ -134,7 +144,7 @@ Secondary-source values; the 125–350 rows agree across [S1][S2][S3][S4]. SI va
 | 275 (1896) | 138 (674) | 44 (7.71) | 95 (43.1) | 95 (2413) |
 | 350 (2413) | 180 (879) | 55 (9.63) | 120 (54.4) | 105 (2667) |
 
-Sources: [S1] (full table), [S2] (125/52/20/40 row), [S3][S4] (ECT pairings and weights).
+Sources: [S1] (full table), [S2] (125/52/20/40 row), [S3][S4] (ECT pairings and weights), [S18] (200–350 rows, all columns).
 
 Notes:
 - "32 ECT ≈ 200# burst" is an equivalence **for carrier-rule purposes** (same max gross weight 65 lb and max dimension 75 in), not a physical conversion; burst and ECT measure different failure modes [S3][S4].
@@ -142,27 +152,45 @@ Notes:
 
 ## Double-wall grades
 
-| Burst min, psi (kPa) | OR min ECT, lb/in (kN/m) | Max gross wt, lb (kg) | Min combined facings | Max L+W+D |
+| Burst min, psi (kPa) | Min combined facings incl. centre facing, lb/MSF (g/m²) | OR min ECT, lb/in (kN/m) | Max gross wt, lb (kg) | Max L+W+D, in (mm) |
 |---|---|---|---|---|
-| 200 (1379) | 42 (7.36) | 80 (36.3) | not retrieved — VERIFY | not retrieved — VERIFY |
-| 275 (1896) | 48 (8.41) | 100 (45.4) | VERIFY | VERIFY |
-| 350 (2413) | 51 (8.93) | 120 (54.4) | VERIFY | VERIFY |
-| 400 (2758) | 61 (10.68) | 140 (63.5) | VERIFY | VERIFY |
-| 500 (3447) | 71 (12.43) | 160 (72.6) | VERIFY | VERIFY |
-| 600 (4137) | 82 (14.36) | 180 (81.6) | VERIFY | VERIFY |
+| 200 (1379) | 92 (449) | 42 (7.36) | 80 (36.3) | 85 (2159) |
+| 275 (1896) | 110 (537) | 48 (8.41) | 100 (45.4) | 95 (2413) |
+| 350 (2413) | 126 (615) | 51 (8.93) | 120 (54.4) | 105 (2667) |
+| 400 (2758) | 180 (879) | 61 (10.68) | 140 (63.5) | 110 (2794) |
+| 500 (3447) | 222 (1084) | 71 (12.43) | 160 (72.6) | 115 (2921) |
+| 600 (4137) | 270 (1318) | 82 (14.36) | 180 (81.6) | 120 (3048) |
 
-Sources: burst–ECT–weight pairings [S3][S4]; the 600#/82 ECT/180 lb row appears only in [S4] — **VERIFY**.
+Sources: all cells [S18]. The burst–ECT–weight pairings agree with [S3][S4]. **Resolved
+(2026-11-09):** the 600 psi / 82 ECT / 180 lb row is in the Item 222-derived chart [S18].
 
 ## Triple-wall grades
 
-| Burst min, psi (kPa) | OR min ECT, lb/in (kN/m) | Max gross wt | Min combined facings | Max L+W+D |
+| Min puncture, in·oz per inch of tear (J/m) | Min combined facings incl. centre facings, lb/MSF (g/m²) | OR min ECT, lb/in (kN/m) | Max gross wt, lb (kg) | Max L+W+D, in (mm) |
 |---|---|---|---|---|
-| 700 (4826) | 67 (11.73) | VERIFY | VERIFY | VERIFY |
-| 900 (6205) | 80 (14.01) | VERIFY | VERIFY | VERIFY |
-| 1100 (7584) | 90 (15.76) | VERIFY | VERIFY | VERIFY |
-| 1300 (8963) | 112 (19.61) | VERIFY | VERIFY | VERIFY |
+| 700 (≈ 195) | 168 (820) | 67 (11.73) | 240 (108.9) | 110 (2794) |
+| 900 (≈ 250) | 222 (1084) | 80 (14.01) | 260 (117.9) | 115 (2921) |
+| 1100 (≈ 306) | 264 (1289) | 90 (15.76) | 280 (127.0) | 120 (3048) |
+| 1300 (≈ 361) | 360 (1758) | 112 (19.61) | 300 (136.1) | 125 (3175) |
 
-Sources: burst–ECT pairings [S4][S5]. **VERIFY — conflict:** [S4] gives triple-wall max weights from 240 lb (700#) to 300 lb (1300#); [S13] assigns triple-wall ratings to 61 ECT (up to 300 lb) and 82 ECT (up to 500 lb) and also disagrees with [S3][S4] on several single/double-wall weight limits. Use the NMFC text.
+Sources: all cells [S18]. The J/m values are a derived conversion (1 in·oz/in = 0.27801 J/m).
+- **Resolved (2026-11-09):** for triple wall, the 700–1300 values are a **puncture** test minimum,
+  not burst psi [S18]. [S4][S5] label them burst. Puncture is tested by TAPPI T 803 / ISO 3036
+  [S19]. The max weights of 240–300 lb agree with [S4]. The different triple-wall ratings in [S13]
+  (61 ECT up to 300 lb, 82 ECT up to 500 lb) do not match the Item 222-derived chart. Treat [S13]
+  as unreliable.
+
+## Solid fibreboard grades
+
+| Burst min, psi (kPa) | Min combined weight of plies excl. adhesive, lb/MSF (g/m²) | Max gross wt, lb (kg) | Max L+W+D, in (mm) |
+|---|---|---|---|
+| 125 (862) | 114 (557) | 20 (9.1) | 40 (1016) |
+| 175 (1207) | 149 (727) | 40 (18.1) | 60 (1524) |
+| 200 (1379) | 190 (928) | 65 (29.5) | 75 (1905) |
+| 275 (1896) | 237 (1157) | 90 (40.8) | 90 (2286) |
+| 350 (2413) | 283 (1382) | 120 (54.4) | 100 (2540) |
+
+Sources: all cells [S18]. The chart gives no ECT route for solid fibreboard [S18].
 
 ## Using carrier-rule grades in design
 
@@ -174,7 +202,7 @@ Sources: burst–ECT pairings [S4][S5]. **VERIFY — conflict:** [S4] gives trip
 
 - Europe does not use carrier-rule grades; board is specified by its paper build-up and measured board properties (ECT, burst, FCT, caliper).
 - Notation: outer liner / flute / inner liner with grammage and paper-type letter, e.g. **125K/B/125T** = 125 g/m² kraft outer liner, B-flute, 125 g/m² testliner inner [S16]. See `materials/paper-grades.md` for letter codes.
-- Board ECT is measured per ISO 3037 [S15] (edge crush, kN/m). Burst per ISO 2759.
+- Board ECT is measured per ISO 3037 [S15] (edge crush, kN/m; unwaxed FEFCO-type specimen, identical to FEFCO TM 8 [S19]). Burst is measured per ISO 2759, which FEFCO lists as the same procedure as TAPPI T 810 [S19].
 - **Typical ECT (kN/m) for common European combinations was not found** in any retrievable source in this review. Do not use a generic value; obtain the corrugator's certified ECT for each grade or estimate from ply SCT (see `performance/` ECT estimation) and record it in `company/`.
 
 ## Typical ECT and caliper by construction (industry-typical)
@@ -186,7 +214,29 @@ ECT values below are the carrier-rule grade minimums converted to kN/m; calipers
 | Single wall B | 32 (5.60), 40 (7.01), 44 (7.71) [S1] | ≈ 2.5–3 mm |
 | Single wall C | 32 (5.60), 40 (7.01), 44 (7.71) [S1] | ≈ 3.5–4 mm |
 | Double wall BC | 42 (7.36), 48 (8.41), 51 (8.93), 61 (10.68) [S3] | ≈ 6–7 mm |
-| Double wall heavy | 71 (12.43), 82 (14.36) [S4] | ≈ 6–7 mm |
-| Triple wall | 67–112 (11.7–19.6) [S5] | up to ≈ 12.7 mm |
+| Double wall heavy | 71 (12.43), 82 (14.36) [S18] | ≈ 6–7 mm |
+| Triple wall | 67–112 (11.7–19.6) [S18] | up to ≈ 12.7 mm |
 
-Note: which flute is used for a given ECT grade is a converter choice; the grade list is from carrier-rule tables, the flute pairing is indicative only — VERIFY with the supplier.
+Note: the converter chooses the flute for a given ECT grade. The grade list comes from carrier-rule tables; the flute pairing is only indicative, so confirm it with the supplier. For reference, [S18] gives target calipers for burst grades: 200# single wall is 0.121 in (3.07 mm) in B flute and 0.159 in (4.04 mm) in C flute; 200# double wall BC is 0.258 in (6.55 mm). Values in mm are derived as in × 25.4. The source's own cm column is not an exact conversion of its inch column (it gives 0.310 / 0.408 / 0.662 cm). Use the supplier's measured caliper.
+
+## Research log
+
+**Wave 1 (2026-11-09).** Searches were shared across five files (12 in total).
+
+Resolved this wave:
+- Double wall: minimum combined facings and max L+W+D for all six rows; the 600/82/180 row is
+  confirmed [S18].
+- Triple wall: max gross weight, facings and L+W+D are confirmed. The conflict is resolved: the
+  700–1300 values are puncture (in·oz per inch of tear), not burst [S18].
+- Single wall 200–350 psi rows confirmed in full [S18]. Solid-fibre rows added [S18].
+- ISO 3037 / ISO 2759 relation to the FEFCO and TAPPI methods [S19].
+
+Still open, with the best lead for each:
+- Single-wall 125/150/175 psi rows (52/66/75 lb/MSF; 23/26/29 ECT; 20/35/50 lb; 40/50/60 in) are
+  secondary only. Lead: NMFC Item 222 via NMFTA (https://nmfta.org/nmfc/packaging/, blocked this
+  session).
+- Texts of Dockets 2025-2, 2026-2 and 2026-3; current status of UFC Rule 41. Lead: NMFTA docket PDFs
+  and Railinc UFC 6000 (both hosts blocked).
+- Typical ECT of European grades: no source yet. Lead: FEFCO / corrugator datasheets, or
+  `company/` data.
+
