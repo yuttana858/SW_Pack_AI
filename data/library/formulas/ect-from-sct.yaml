@@ -1,0 +1,29 @@
+id: lib.formula.ect-from-sct
+type: formula
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: derived
+title: ECT estimate from component SCT
+provenance:
+  method: published
+  sources: &id001
+  - kb.performance.board-tests-and-ect
+formula:
+  expression: ECT ≈ C · (Σ SCT_liner + Σ α · SCT_medium),  C ≈ 0.7
+  variables:
+  - symbol: SCT
+    meaning: short-span compression, CD
+    si_unit: N/mm
+    us_unit: lbf/in
+  - symbol: α
+    meaning: take-up factor
+    si_unit: '-'
+    us_unit: '-'
+  validity: Grades within the fitted range.
+  limitations: Empirical; check against measured ECT.
+  implementation: packcalc.board.ect_from_sct
+  golden_tests:
+  - tests/test_golden_examples.py::TestBoard::test_ect_from_sct_linear
+  cite: *id001

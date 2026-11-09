@@ -1,0 +1,4 @@
+pyyaml>=6.0
+jsonschema>=4.21
+referencing>=0.35
+pytest>=8.0

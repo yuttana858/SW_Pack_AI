@@ -1,0 +1,33 @@
+id: lib.formula.top-load-column
+type: formula
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: derived
+title: Top load on bottom box, single column
+provenance:
+  method: published
+  sources: &id001
+  - kb.performance.stacking-load-calc
+formula:
+  expression: F = (n − 1) · m · g
+  variables:
+  - symbol: n
+    meaning: boxes high incl. bottom
+    si_unit: '-'
+    us_unit: '-'
+  - symbol: m
+    meaning: gross box mass
+    si_unit: kg
+    us_unit: lb
+  - symbol: F
+    meaning: load on bottom box
+    si_unit: N
+    us_unit: lbf
+  validity: Column-aligned, full-face contact, no load sharing.
+  limitations: Static only.
+  implementation: packcalc.stacking.top_load_column
+  golden_tests:
+  - tests/test_golden_examples.py::TestStacking::test_column
+  cite: *id001

@@ -1,0 +1,25 @@
+id: lib.formula.combined-grammage
+type: formula
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: derived
+title: Combined board grammage
+provenance:
+  method: published
+  sources: &id001
+  - kb.materials.flutes
+formula:
+  expression: GSM = Σ liners + Σ (medium × α) + adhesive
+  variables:
+  - symbol: α
+    meaning: take-up factor
+    si_unit: '-'
+    us_unit: '-'
+  validity: Any wall count.
+  limitations: Adhesive from mill/plant data.
+  implementation: packcalc.board.combined_grammage
+  golden_tests:
+  - tests/test_golden_examples.py::TestBoard::test_combined_grammage
+  cite: *id001

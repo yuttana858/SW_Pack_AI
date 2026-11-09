@@ -1,0 +1,34 @@
+id: lib.formula.mckee-full
+type: formula
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: reference
+title: Full McKee with bending stiffness
+provenance:
+  method: published
+  sources: &id001
+  - kb.performance.box-compression#S1
+  - kb.performance.box-compression#S4
+formula:
+  expression: BCT = 2.028 · ECT^0.746 · sqrt(Dx·Dy)^0.254 · Z^0.492
+  variables:
+  - symbol: ECT
+    meaning: edge crush
+    si_unit: N/mm
+    us_unit: lbf/in
+  - symbol: Dx, Dy
+    meaning: MD/CD bending stiffness per width
+    si_unit: N·mm
+    us_unit: lbf·in
+  - symbol: Z
+    meaning: perimeter
+    si_unit: mm
+    us_unit: in
+  validity: Single-wall RSCs, tall near-square boxes buckling elastically.
+  limitations: Constants fitted on 1963 data; refit to own boxes recommended.
+  implementation: packcalc.compression.mckee_full
+  golden_tests:
+  - tests/test_golden_examples.py::TestMcKee::test_full_si_and_us
+  cite: *id001

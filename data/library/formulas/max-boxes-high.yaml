@@ -1,0 +1,29 @@
+id: lib.formula.max-boxes-high
+type: formula
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: derived
+title: Maximum boxes high
+provenance:
+  method: published
+  sources: &id001
+  - kb.performance.stacking-load-calc
+formula:
+  expression: n_max = floor(BCT·Πm / (m·g)) + 1
+  variables:
+  - symbol: BCT
+    meaning: box compression strength
+    si_unit: N
+    us_unit: lbf
+  - symbol: m
+    meaning: box mass
+    si_unit: kg
+    us_unit: lb
+  validity: As column load.
+  limitations: Round down; confirm by test.
+  implementation: packcalc.stacking.max_boxes_high
+  golden_tests:
+  - tests/test_golden_examples.py::TestStacking::test_max_boxes_high
+  cite: *id001

@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://swpack.ai/schemas/flute_profile.schema.json",
+  "title": "Corrugated flute profile",
+  "allOf": [
+    {
+      "$ref": "envelope.schema.json"
+    }
+  ],
+  "type": "object",
+  "required": [
+    "flute"
+  ],
+  "properties": {
+    "type": {
+      "const": "flute_profile"
+    },
+    "flute": {
+      "type": "object",
+      "required": [
+        "code"
+      ],
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "flute_height_mm": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "number"
+          }
+        },
+        "pitch_mm": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "number"
+          }
+        },
+        "flutes_per_m": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "number"
+          }
+        },
+        "flutes_per_ft": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "number"
+          }
+        },
+        "take_up": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "number"
+          }
+        },
+        "take_up_typical": {
+          "type": "number"
+        },
+        "single_wall_caliper_mm": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "number"
+          }
+        },
+        "glue_per_line_gsm": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "number"
+          }
+        },
+        "typical_uses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cite": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "corpus refs, e.g. kb.materials.flutes#S2"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://swpack.ai/schemas/grade_table.schema.json",
+  "title": "Board grade table (e.g. NMFC Item 222 / UFC Rule 41)",
+  "allOf": [
+    {
+      "$ref": "envelope.schema.json"
+    }
+  ],
+  "type": "object",
+  "required": [
+    "table"
+  ],
+  "properties": {
+    "type": {
+      "const": "grade_table"
+    },
+    "table": {
+      "type": "object",
+      "required": [
+        "system",
+        "rows"
+      ],
+      "properties": {
+        "system": {
+          "enum": [
+            "item222-burst",
+            "item222-ect",
+            "rule41",
+            "cepi-liner",
+            "cepi-fluting",
+            "din19303",
+            "other"
+          ]
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "wall": {
+                "enum": [
+                  "single",
+                  "double",
+                  "triple",
+                  "solid"
+                ]
+              },
+              "grade": {
+                "type": "string"
+              },
+              "burst_kpa": {
+                "type": "number"
+              },
+              "burst_psi": {
+                "type": "number"
+              },
+              "ect_kn_per_m": {
+                "type": "number"
+              },
+              "ect_lbf_per_in": {
+                "type": "number"
+              },
+              "min_facings_gsm": {
+                "type": "number"
+              },
+              "min_facings_lb_per_msf": {
+                "type": "number"
+              },
+              "max_gross_kg": {
+                "type": "number"
+              },
+              "max_gross_lb": {
+                "type": "number"
+              },
+              "max_lwh_sum_mm": {
+                "type": "number"
+              },
+              "max_lwh_sum_in": {
+                "type": "number"
+              },
+              "puncture": {
+                "type": "number"
+              },
+              "limits": {
+                "type": "object"
+              },
+              "cite": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "corpus refs, e.g. kb.materials.flutes#S2"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

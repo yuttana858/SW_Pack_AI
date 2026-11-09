@@ -1,0 +1,25 @@
+id: lib.formula.max-pallets-high
+type: formula
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: derived
+title: Maximum pallets high
+provenance:
+  method: published
+  sources: &id001
+  - kb.performance.stacking-load-calc
+formula:
+  expression: P_max = floor((BCT·Πm − (L−1)·m·g) / ((L·k·m + m_p)·g/k)) + 1
+  variables:
+  - symbol: BCT
+    meaning: box compression strength
+    si_unit: N
+    us_unit: lbf
+  validity: As pallet load.
+  limitations: 0 means a single pallet already overloads the bottom box.
+  implementation: packcalc.stacking.max_pallets_high
+  golden_tests:
+  - tests/test_golden_examples.py::TestStacking::test_max_pallets_high
+  cite: *id001

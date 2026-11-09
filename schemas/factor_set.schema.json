@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://swpack.ai/schemas/factor_set.schema.json",
+  "title": "Environmental / stacking multiplier set for BCT",
+  "allOf": [
+    {
+      "$ref": "envelope.schema.json"
+    }
+  ],
+  "type": "object",
+  "required": [
+    "factors"
+  ],
+  "properties": {
+    "type": {
+      "const": "factor_set"
+    },
+    "factors": {
+      "type": "object",
+      "required": [
+        "kind",
+        "rows"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "storage-time",
+            "relative-humidity",
+            "stacking-pattern",
+            "pallet-overhang",
+            "pallet-deck",
+            "handholes-vents",
+            "print",
+            "temperature",
+            "dynamic",
+            "safety-factor"
+          ]
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "condition"
+            ],
+            "properties": {
+              "condition": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 10
+              },
+              "range": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {
+                  "type": "number"
+                }
+              },
+              "basis": {
+                "type": "string",
+                "description": "what the multiplier is relative to, e.g. 'BCT at 50 %RH, 23 °C, short-term'"
+              },
+              "cite": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "corpus refs, e.g. kb.materials.flutes#S2"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

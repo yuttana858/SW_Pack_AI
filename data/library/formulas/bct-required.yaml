@@ -1,0 +1,35 @@
+id: lib.formula.bct-required
+type: formula
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: derived
+title: Required BCT with factors
+provenance:
+  method: published
+  sources: &id001
+  - kb.performance.stacking-load-calc
+  - kb.performance.environmental-factors
+formula:
+  expression: BCT_req = F_top / Π m_i   or   F_top × SF
+  variables:
+  - symbol: F_top
+    meaning: static top load
+    si_unit: N
+    us_unit: lbf
+  - symbol: m_i
+    meaning: environmental multipliers
+    si_unit: '-'
+    us_unit: '-'
+  - symbol: SF
+    meaning: safety factor
+    si_unit: '-'
+    us_unit: '-'
+  validity: Multipliers from lib.factors.*; use multipliers or a safety factor, not
+    both.
+  limitations: Multiplier values vary by source; see factor-set notes.
+  implementation: packcalc.stacking.bct_required
+  golden_tests:
+  - tests/test_golden_examples.py::TestStacking::test_required_bct
+  cite: *id001

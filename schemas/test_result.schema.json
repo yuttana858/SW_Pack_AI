@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://swpack.ai/schemas/test_result.schema.json",
+  "title": "Lab test result linked to a material or design",
+  "allOf": [
+    {
+      "$ref": "envelope.schema.json"
+    }
+  ],
+  "type": "object",
+  "required": [
+    "test"
+  ],
+  "properties": {
+    "type": {
+      "const": "test_result"
+    },
+    "test": {
+      "type": "object",
+      "required": [
+        "method",
+        "property",
+        "n",
+        "mean"
+      ],
+      "properties": {
+        "method": {
+          "type": "string",
+          "description": "e.g. TAPPI T 839, ASTM D642"
+        },
+        "property": {
+          "type": "string",
+          "description": "e.g. ect, bct, caliper, burst"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "n": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "mean": {
+          "type": "number"
+        },
+        "sd": {
+          "type": "number"
+        },
+        "cov_pct": {
+          "type": "number"
+        },
+        "conditioning": {
+          "type": "string"
+        },
+        "material_ref": {
+          "type": "string"
+        },
+        "design_ref": {
+          "type": "string"
+        },
+        "lab": {
+          "type": "string"
+        },
+        "tested_on": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    }
+  }
+}
