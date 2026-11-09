@@ -131,7 +131,7 @@ Field names are exact; do not rename. Lengths in mm.
 | scoreToleranceMm | number | ± tolerance on score position |
 | processToleranceMm | number | ± overall converting tolerance (slotting, die-cut, glue joint) |
 
-**Allowance factor semantics (to confirm against the Auto3D command schema):** each factor is a multiplier of `caliperMm` that converts between the CAD reference dimension and the inside/outside dimension for that axis, i.e. `inside_L = ref_L − insideFactors[0] × caliperMm`. The exact sign and reference convention must be checked against Auto3D's `packaging.materials.update` documentation before a record is marked `calibrated: true`. See `dimensional/` for how allowances are derived for each FEFCO style.
+**Allowance factor semantics (working convention, to confirm against Auto3D):** factors are multiples of `caliperMm` measured from the **score line**, per axis [L, W, H]: `inside = score − insideFactors ⊙ caliperMm` and `outside = score + outsideFactors ⊙ caliperMm`. This matches the RSC defaults in `dimensional/dimensions-and-allowances.md` (`insideFactors = k_s = [1, 1, 2]`, `outsideFactors = k_o − k_s = [1, 1, 2]`) and the example payload in Auto3D's own `packaging.materials.update` command catalog (`insideFactors: [1, 1, 2]`). Confirm with `packaging.measurements.inspect` (which reports the allowance formulas) on a paired Auto3D window before a record is marked `calibrated: true`. See `dimensional/` for how allowances are derived for each FEFCO style.
 
 ## Validation rules
 
@@ -213,8 +213,8 @@ auto3d:                           # packaging.materials.update payload
   flute: C
   provenance: industry-typical
   calibrated: false
-  insideFactors: [2.0, 2.0, 4.0]  # illustrative, convention to be confirmed
-  outsideFactors: [1.0, 1.0, 2.0] # illustrative, convention to be confirmed
+  insideFactors: [1.0, 1.0, 2.0]  # score→inside, RSC default; illustrative
+  outsideFactors: [1.0, 1.0, 2.0] # score→outside, RSC default; illustrative
   outsideLinerGrade: kraftliner
   insideLinerGrade: testliner-2
   mediumGrade: semichemical

@@ -228,6 +228,7 @@ basis = "outside": O given  →  I = O − k_o ⊙ t ;  S = O − (k_o − k_s) 
 ```
 
 - RSC defaults: `k_s = [1, 1, 2]`, `k_o = [2, 2, 4]`, so `k_o − k_s = [1, 1, 2]`.
+- Auto3D board-record fields (working convention, confirm with `packaging.measurements.inspect`): `insideFactors = k_s` (score → inside) and `outsideFactors = k_o − k_s` (score → outside), i.e. both `[1, 1, 2]` for an RSC. See `materials/material-record-schema.md`.
 - Store the factors per style **and** per score profile in `company/` (house allowance tables). The agent must state which table it used.
 - If the house table gives fixed allowances in mm or in rather than factors, the factor is that fixed allowance divided by the caliper of the board the table was measured on. Do not carry a fixed allowance across to a different flute.
 - Worked check, SI example above: `basis=inside`, I = [400, 300, 250], t = 4.0 gives S = [404, 304, 258] and O = [408, 308, 266] mm.
