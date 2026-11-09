@@ -140,6 +140,46 @@ sources:
     publisher: Packaging Europe
     url: https://www.packagingeurope.com/hp-digital-corrugated-packaging-verified-for-standard-recycling-technology.md
     accessed: 2026-11-09
+  - id: S27
+    title: "GS1 General Specifications change notice GSCN 16-434 (Symbol Specification Tables 2 and 5; ITF-14 quality specifications; read via search summary, GS1 hosts blocked)"
+    publisher: GS1
+    url: https://ref.gs1.org/standards/genspecs/gscn/2016/GSCN_16-434_Table2and5.pdf
+    accessed: 2026-11-09
+  - id: S28
+    title: "Use ITF-14 (bearer bar, X-dimension, quiet zone; read via search summary)"
+    publisher: GS1 Sweden
+    url: https://gs1.se/en/standards-and-services/use-itf-14/
+    accessed: 2026-11-09
+  - id: S29
+    title: "ITF-14 Barcode Specifications (read via search summary)"
+    publisher: GS1 New Zealand
+    url: https://support.gs1nz.org/hc/en-us/articles/360039815091-ITF-14-Barcode-Specifications
+    accessed: 2026-11-09
+  - id: S30
+    title: "Anilox — Transfer volume (BCM/in² and cm³/m²)"
+    publisher: Wikipedia
+    url: https://en.wikipedia.org/wiki/Anilox
+    accessed: 2026-11-09
+  - id: S31
+    title: "Interleaved 2 of 5 — ITF-14 and bearer bar (cites ISO/IEC 16390 and GS1 General Specifications §5.3.2)"
+    publisher: Wikipedia
+    url: https://en.wikipedia.org/wiki/Interleaved_2_of_5
+    accessed: 2026-11-09
+  - id: S32
+    title: "Printing plates for corrugated board (US patent 4943467; read via search summary)"
+    publisher: USPTO
+    url: https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/4943467
+    accessed: 2026-11-09
+  - id: S33
+    title: "Gajewski, Garbowski, Staszak, Kuca (2021) Crushing of double-walled corrugated board and its influence on the load capacity of various boxes, Energies 14(14) 4321 (read via search summary)"
+    publisher: MDPI Energies
+    url: https://www.mdpi.com/1996-1073/14/14/4321
+    accessed: 2026-11-09
+  - id: S34
+    title: "Global packaging dieline requirements (bleed limits for paperboard and corrugated; read via search summary)"
+    publisher: 3M
+    url: https://multimedia.3m.com/mws/media/2619412O/global-packaging-dieline-requirements.pdf
+    accessed: 2026-11-09
 ---
 
 # Print processes and their effect on board performance
@@ -167,7 +207,7 @@ The anilox meters ink to the plate. It is specified by **screen** (cells per inc
 | Narrow web, wide web and pre-print (60°) | 360 to 1400 lpi | 5.0 to 1.0 BCM | [S6] |
 | Solids / type / halftones (general guide) | — | 5–9 / 3–6 / 1–4 BCM | [S7] |
 
-Conversions (derived): l/cm = lpi / 2.54. If BCM means 10⁹ µm³ of cell volume per in², then 1 BCM = 1.550003 cm³/m² (so 7.5 BCM ≈ 11.63 cm³/m²). Use the anilox supplier's chart for screen-to-volume pairing, and check the BCM definition with the supplier (VERIFY). Volume falls as cells wear, so audit rolls periodically.
+Conversions: l/cm = lpi / 2.54. **BCM** is the US unit of anilox transfer (cell) volume: one billion cubic microns (10⁹ µm³ = 0.001 cm³) per square inch of roll surface. The European unit is cm³/m², and **1 BCM/in² = 1.55 cm³/m²** [S30]. Exact value (derived): 1 m² = 1550.003 in², so 1 BCM = 1.550003 cm³/m², and 7.5 BCM ≈ 11.63 cm³/m². Screen count and volume are related but not convertible by formula, because the result depends on cell shape and depth. Use the anilox supplier's chart for screen-to-volume pairing [S30][S6]. Volume falls as cells wear or plug, while cell count stays fixed, so audit rolls periodically [S30].
 
 ## Flexo plates for corrugated post-print
 
@@ -192,13 +232,15 @@ Pattern: corrugated post-print plates sit in roughly the mid-20s to mid-30s Shor
 
 Mechanism: in post-print, the printing nip (plate pressure, anilox and feed rolls) partly crushes the flutes. That lowers caliper, which in turn lowers ECT and BCT. One patent links caliper loss from printing crush to loss of compression strength in C-flute board [S11]. Lighter and higher-recycled-content boards make it harder to achieve solid coverage without crush, and lower print pressure helps [S25].
 
-Reported magnitudes (conflicting, so VERIFY):
+Reported magnitudes. These still conflict and none is a controlled peer-reviewed measurement of post-print BCT loss, so they remain VERIFY:
 
 | Source | Finding |
 |---|---|
 | US patent 4544597 | Printing after board manufacture may cost **10 % to 20 %** of strength (industry belief cited in the patent) [S11] |
 | RIT thesis (1990) | Tested 15 % and 30 % print coverage, number of colours, panels printed and flute. *Some* printing factors had a significant effect on RSC compression strength; percentages are not in the abstract [S12] |
 | RIT thesis (1998) | Thick-plate flexo significantly reduced compression strength compared with pre-printed or thin-plate printed containers. More colours with thick plates meant more loss [S13] |
+| US patent 4943467 (plate patent) | B-flute boxes printed with a new plate against a control plate: thickness loss about 18–22 % and compression loss about 27–30 %, both *relative to the control plate*, not to unprinted board [S32] |
+| Gajewski et al. (2021), *Energies* (peer-reviewed) | Controlled crushing of double-wall board at 10–70 % levels. Measured ECT, bending, shear and torsional stiffness against residual thickness. Converting steps such as analogue flexo printing are named as the main source of crush, and stiffness loss tracked the amount of crush [S33]. Per-level ECT figures not yet read (full text host blocked) |
 | Vendor case study | About 50 % compression loss after printing that damaged the medium (anecdote, not a controlled test) [S14] |
 
 ```
@@ -206,7 +248,7 @@ BCT_printed = BCT_unprinted × (1 − L_print)
 ```
 
 - `BCT_unprinted`: predicted or measured BCT of the unprinted box (N) [lbf]
-- `L_print`: fractional loss from printing (–). Use a measured house value from `company/`. Without one, bracket 0.10–0.20 [S11] and flag it.
+- `L_print`: fractional loss from printing (–). Use a measured house value from `company/`. Without one, bracket 0.10–0.20 [S11] and flag it. Thick plates, high impression and heavy solids can push the loss above this range [S13][S32].
 
 Worked example, SI: BCT_unprinted = 5000 N; L_print = 0.10 to 0.20 gives BCT_printed = **4500 N to 4000 N**.
 Worked example, US: BCT_unprinted = 1124 lbf (5000 N); BCT_printed = **1011.6 lbf to 899.2 lbf**.
@@ -220,10 +262,18 @@ Limits: loss depends on plate thickness and hardness, impression setting, covera
 
 ## Barcode print quality: ITF-14 on corrugated
 
-- The ITF-14 nominal (100 %) X-dimension is 1.016 mm (0.040 in). 62.5 % magnification gives X = 0.635 mm (0.025 in). Symbols with X below 0.635 mm should be used only on labels or high-quality substrates [S16].
-- Print a **bearer box** when printing directly on corrugated [S16]. One retailer specification asks for horizontal bearer bars twice the X-dimension thick [S17] (VERIFY against the GS1 General Specifications).
-- ISO/IEC 15416 grades: per Axicon, the minimum pass grade is **1.5 (C)** for most symbols. For ITF-14 with X ≥ 0.635 mm, typically printed on brown board, it is **0.5 (D)** [S15]. A 3M retailer specification requires 1.5/C for labels and non-corrugated packages [S17]. **VERIFY**: confirm the current GS1 General Specifications table and your customer's requirement. Retailers may be stricter.
-- Quiet zones: one secondary source gives a 10X minimum each side, not confirmed from GS1 (VERIFY).
+GS1's own hosts (gs1.org, ref.gs1.org and member-organisation sites) could not be opened from this session. The values below come from GS1 change notices and GS1 member-organisation pages as quoted in search summaries, and they agree with each other.
+
+- **X-dimension**: the range in the GS1 symbol specification table is 0.495 mm minimum to 1.016 mm (0.040 in) maximum [S28][S27]. Nominal (100 %) is 1.016 mm, and 62.5 % magnification gives 0.635 mm (0.025 in) [S16].
+- **Below 0.635 mm**: X under 0.635 mm should **not** be printed directly on corrugated with plate-based processes. Use it only on labels or high-quality substrates [S27][S16].
+- **Minimum print quality** (ISO/IEC 15416 grade/aperture/wavelength) [S27]. Axicon's interpretation agrees [S15]:
+  - X ≥ 0.635 mm, printed directly on corrugated or on labels: **0.5/20/660**, meaning grade 0.5 (D), 0.508 mm (20 mil) aperture, 660 nm light.
+  - X around 0.495 mm on offset, thermal or laser labels: **1.5/10/660**.
+- **Retailer specifications** may be stricter. For example, a 3M specification requires 1.5/C for labels and non-corrugated packages [S17]. Check your customer's requirement.
+- **Quiet zone**: at least **10X** each side [S28][S29]. At X = 1.016 mm that is about 10.2 mm.
+- **Bearer bar**: the bar surrounds the symbol and its quiet zones. It evens out plate pressure and stops partial ("short") scans being read as valid [S31].
+  - Plate printing, including direct print on corrugated: a full bearer **box** whose bars are **4.8 mm** wide whatever the magnification [S28][S29][S16].
+  - Non-plate printing (for example label printers): top and bottom bars only, at least **2X** thick [S29][S17]. GS1 UK gives at least 1 mm for on-demand printers. The GS1 NZ page also shows "0.48 mm", which looks like a typo for 4.8 mm. VERIFY the non-plate minimum in the current GS1 General Specifications (§5.3.2 in older releases) [S31].
 - Practical points: run bars in the machine (flow) direction where possible, so flexo slur stretches bars rather than widening them. Avoid print over flute peaks, scores and flaps. Verify on press with a calibrated ISO/IEC 15416 verifier (not a scanner read test).
 
 ## Colour management basics
@@ -235,6 +285,21 @@ Limits: loss depends on plate thickness and hardness, impression setting, covera
 ## Dielines and bleed for print files
 
 - Keep the **dieline** (cut, crease or score, perforation) on its own named, non-printing layer [S24]. Use the converter's dieline for the exact board and flute, since manufacturing dimensions differ from inside dimensions (see `dimensional/`).
-- **Bleed**: about 3 mm (1/8 in) beyond the cut line is usual for folding cartons. Corrugated printers often ask for more, so confirm with the converter [S23][S24] (VERIFY with the converter's spec).
+- **Bleed**: about 3 mm (1/8 in) beyond the cut line is usual for folding cartons [S23][S24]. Corrugated-specific guides more often ask for about 6 mm (1/4 in). A 3M global dieline specification sets a 3 mm (0.125 in) bleed limit for paperboard and a larger one for corrugated, given as "8 mm (0.25 in)". Those two figures are inconsistent, since 0.25 in = 6.35 mm [S34]. The specification ties the bleed limit to print and manufacturing tolerance. Some digital corrugated printers accept 3 mm. Use the converter's dieline value (VERIFY per converter).
 - **Safe zone**: keep text and critical art at least about 3 mm (1/8 in) inside cut and score lines [S23]. Increase this on corrugated, where registration tolerance is wider.
 - State the dimension basis (inside, outside or manufacturing) and the order (L × W × D) on the artwork brief.
+
+## Research log
+
+**Resolved this wave (2026-11-09)**
+- Anilox BCM definition: 10⁹ µm³ per in², and 1 BCM/in² = 1.55 cm³/m² [S30].
+- ITF-14 X-dimension range, the rule against direct plate print below 0.635 mm, and minimum quality 0.5/20/660 (X ≥ 0.635 mm) or 1.5/10/660 (labels, X ≈ 0.495 mm) [S27][S28].
+- ITF-14 quiet zone of 10X [S28][S29], and the 4.8 mm bearer box for plate printing [S28][S29].
+- Corrugated bleed: 1/4 in (≈ 6 mm) is the typical corrugated ask, against 3 mm for folding carton [S34]. Still converter-specific.
+- Print strength loss: added plate-patent data [S32] and the peer-reviewed crush study [S33]. Magnitude remains flagged.
+
+**Still open (best lead)**
+- Print strength loss as a controlled, peer-reviewed BCT/ECT % after flexo post-print. Read the ECT tables in Gajewski et al. 2021, https://www.mdpi.com/1996-1073/14/14/4321 (host blocked). Also the RIT theses (https://repository.rit.edu/theses/642 and /6456, blocked) for measured percentages.
+- GS1 General Specifications, current release: confirm the Symbol Specification Table entries and the non-plate bearer-bar minimum. https://ref.gs1.org/standards/genspecs/ (blocked; www.gs1.org returns 403 to scripted fetch).
+- 3M dieline bleed figure inconsistency (8 mm against 0.25 in): https://multimedia.3m.com/mws/media/2619412O/global-packaging-dieline-requirements.pdf
+- Not targeted this wave and still flagged: plate durometer method, LED-UV lamp life, varnish strength effect, ISO 12647-6 edition.
