@@ -64,4 +64,24 @@ Review queue: 320 → 218 items.
 
 Technique note: reading the primary PDFs directly with `curl` + `pdftotext` costs no searches and gives far better data. Most mill websites (SCA, Saica, Mondi, Smurfit Westrock, Stora Enso, Metsä, Billerud, IP, PCA) are still blocked.
 
-### Wave 3: running
+### Wave 3: complete (2026-11-09). 81 of 135 budgeted searches used
+
+| Agent | Searches | Result |
+|---|---|---|
+| Logistics, cushioning, carry-overs | 21 | Urbanik & Frank (2006) read in full: corrected McKee refit (a = 2.186, b = 0.727) with examples; McKee over-predicts by +7.6 % on average across 409 boxes; ISO 6780 five of six sizes; EPAL ratings; EUMOS 40509; Virginia Tech/FBA overhang data; Singh 2008 handhole range (abstract only) |
+| Machine capability (new file) | 25 | `manufacturing/machine-capability-reference.md`: 10 machine kinds, BOBST/BHS/Fosber primary data, design feasibility checklist, proposed schema fields (now added to `schemas/machine_spec.schema.json`) |
+| Folding carton design rules (new file) | 35 | `styles/folding-carton-design-rules.md`: CITO creasing rules, BOBST folder-gluer limits per style, ECMA Braille rules, carton test methods, failure-mode table |
+
+Review queue: 148 → 190. The rise comes from the two new files (57 items); existing files continued to fall.
+
+## Wave 4 candidates (blocked or needing purchase)
+
+| Item | What would unblock it |
+|---|---|
+| Kellicutt equation (FPL R1911-A) | Trust the emSign Root CA for ir.library.oregonstate.edu, or get a copy from the library |
+| NMFC Item 222 in force; Item 685 disposition | Allow nmfta.org reads (currently 403) and railinc.com |
+| Machine values marked VERIFY (MHI, Heidelberg, Koenig & Bauer, Kongsberg, Zünd, EFI, HP, Göpfert) | Allow those maker hosts |
+| Mill typical values (SCA, Mondi, Smurfit Westrock, Stora Enso, Metsä, IP, PCA) | Allow mill hosts, or collect supplier data sheets into `corpus/company/` |
+| ASTM D4169 tables; DIN 55437-3; ISO texts | Buy the standards |
+| Carton flap and tuck geometry standards | The company's ArtiosCAD / Packmage standards library |
+

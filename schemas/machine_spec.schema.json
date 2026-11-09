@@ -2,44 +2,328 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://swpack.ai/schemas/machine_spec.schema.json",
   "title": "Converting / corrugating machine capability envelope (L4)",
-  "allOf": [{"$ref": "envelope.schema.json"}],
+  "allOf": [
+    {
+      "$ref": "envelope.schema.json"
+    }
+  ],
   "type": "object",
-  "required": ["machine"],
+  "required": [
+    "machine"
+  ],
   "properties": {
-    "type": {"const": "machine_spec"},
+    "type": {
+      "const": "machine_spec"
+    },
     "machine": {
       "type": "object",
-      "required": ["kind", "name"],
+      "required": [
+        "kind",
+        "name"
+      ],
       "properties": {
-        "kind": {"enum": ["corrugator", "flexo-folder-gluer", "rotary-die-cutter", "flatbed-die-cutter", "folder-gluer", "digital-press", "litho-laminator", "specialty-gluer", "taper-stitcher", "sample-cutter"]},
-        "name": {"type": "string"},
-        "make": {"type": "string"},
-        "model": {"type": "string"},
-        "sheet_min_mm": {"$ref": "#/$defs/xy"},
-        "sheet_max_mm": {"$ref": "#/$defs/xy"},
-        "caliper_range_mm": {"$ref": "#/$defs/range"},
-        "flutes": {"type": "array", "items": {"type": "string"}},
-        "max_speed_per_min": {"type": "number", "exclusiveMinimum": 0},
-        "print_units": {"type": "integer", "minimum": 0},
-        "joint_types": {"type": "array", "items": {"enum": ["glued", "stitched", "taped"]}},
-        "score_profiles": {"type": "array", "items": {"type": "string"}},
+        "kind": {
+          "enum": [
+            "corrugator",
+            "flexo-folder-gluer",
+            "rotary-die-cutter",
+            "flatbed-die-cutter",
+            "folder-gluer",
+            "digital-press",
+            "litho-laminator",
+            "specialty-gluer",
+            "taper-stitcher",
+            "sample-cutter"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "make": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "sheet_min_mm": {
+          "$ref": "#/$defs/xy"
+        },
+        "sheet_max_mm": {
+          "$ref": "#/$defs/xy"
+        },
+        "caliper_range_mm": {
+          "$ref": "#/$defs/range"
+        },
+        "flutes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "max_speed_per_min": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Deprecated: use max_speed + speed_unit"
+        },
+        "print_units": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "joint_types": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "glued",
+              "stitched",
+              "taped",
+              "none"
+            ]
+          }
+        },
+        "score_profiles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "tolerances_mm": {
           "type": "object",
           "properties": {
-            "blank_dim": {"type": "number", "minimum": 0},
-            "score_position": {"type": "number", "minimum": 0},
-            "print_register": {"type": "number", "minimum": 0},
-            "joint_gap_max": {"type": "number", "minimum": 0},
-            "fishtail_max": {"type": "number", "minimum": 0}
+            "blank_dim": {
+              "type": "number",
+              "minimum": 0
+            },
+            "score_position": {
+              "type": "number",
+              "minimum": 0
+            },
+            "print_register": {
+              "type": "number",
+              "minimum": 0
+            },
+            "joint_gap_max": {
+              "type": "number",
+              "minimum": 0
+            },
+            "fishtail_max": {
+              "type": "number",
+              "minimum": 0
+            },
+            "print_to_cut": {
+              "type": "number",
+              "minimum": 0
+            },
+            "lamination_register": {
+              "type": "number",
+              "minimum": 0
+            },
+            "lamination_register_speed_threshold": {
+              "type": "number",
+              "description": "sheets/h above which the looser register applies"
+            },
+            "cut_length": {
+              "type": "number",
+              "minimum": 0
+            },
+            "positioning": {
+              "type": "number",
+              "minimum": 0
+            },
+            "repeatability": {
+              "type": "number",
+              "minimum": 0
+            }
           }
         },
-        "allowance_table_ref": {"type": "string", "description": "id of a machine-scoped allowance_table"},
-        "notes": {"type": "string"}
+        "allowance_table_ref": {
+          "type": "string",
+          "description": "id of a machine-scoped allowance_table"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "max_speed": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "speed_unit": {
+          "enum": [
+            "m/min",
+            "sheets/h",
+            "boxes/h",
+            "m2/h"
+          ]
+        },
+        "axis_convention": {
+          "type": "string",
+          "description": "How the maker labels sheet axes, e.g. 'BOBST: width across machine x length in feed direction'"
+        },
+        "working_width_mm": {
+          "type": "number",
+          "minimum": 0
+        },
+        "cut_length_range_mm": {
+          "$ref": "#/$defs/range"
+        },
+        "min_slit_width_mm": {
+          "type": "number",
+          "minimum": 0
+        },
+        "min_score_spacing_mm": {
+          "type": "number",
+          "minimum": 0
+        },
+        "grammage_range_gsm": {
+          "$ref": "#/$defs/range"
+        },
+        "print_technology": {
+          "enum": [
+            "flexo",
+            "inkjet",
+            "offset",
+            "none"
+          ]
+        },
+        "print_area_max_mm": {
+          "$ref": "#/$defs/xy"
+        },
+        "print_repeat_mm": {
+          "$ref": "#/$defs/range"
+        },
+        "colour_set": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "print_sides": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "die_type": {
+          "enum": [
+            "rotary",
+            "flatbed",
+            "none"
+          ]
+        },
+        "gripper_margin_mm": {
+          "$ref": "#/$defs/range"
+        },
+        "cutting_force_kN": {
+          "type": "number",
+          "minimum": 0
+        },
+        "rule_height_mm": {
+          "type": "number",
+          "minimum": 0
+        },
+        "panel_limits_mm": {
+          "type": "object",
+          "properties": {
+            "small_panel": {
+              "$ref": "#/$defs/range"
+            },
+            "large_panel": {
+              "$ref": "#/$defs/range"
+            },
+            "box_height": {
+              "$ref": "#/$defs/range"
+            },
+            "slot_length": {
+              "$ref": "#/$defs/range"
+            },
+            "glue_lap": {
+              "$ref": "#/$defs/range"
+            },
+            "total_panels": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "folding_styles": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "straight-line",
+              "crash-lock",
+              "4-corner",
+              "6-corner",
+              "double-wall",
+              "specialty"
+            ]
+          }
+        },
+        "box_limits_mm": {
+          "type": "object",
+          "description": "Per folding style: maker's dimension letters (e.g. C/E/L/H) -> [min, max]",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/$defs/range"
+            }
+          }
+        },
+        "max_folded_thickness_mm": {
+          "type": "number",
+          "minimum": 0
+        },
+        "top_sheet_gsm_range": {
+          "$ref": "#/$defs/range"
+        },
+        "stitch_pitch_range_mm": {
+          "$ref": "#/$defs/range"
+        },
+        "tape_width_mm": {
+          "type": "number",
+          "minimum": 0
+        },
+        "tools": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "skip_feed_max_mm": {
+          "type": "number",
+          "minimum": 0
+        },
+        "max_outs": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "tolerances_pct": {
+          "type": "object",
+          "properties": {
+            "die_cut": {
+              "type": "number",
+              "minimum": 0
+            }
+          }
+        }
       }
     }
   },
   "$defs": {
-    "xy": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number", "exclusiveMinimum": 0}},
-    "range": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number", "minimum": 0}}
+    "xy": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "number",
+        "exclusiveMinimum": 0
+      }
+    },
+    "range": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "number",
+        "minimum": 0
+      }
+    }
   }
 }
