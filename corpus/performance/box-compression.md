@@ -55,14 +55,29 @@ sources:
     publisher: IPPTA
     url: https://ippta.co/wp-content/uploads/2024/12/114-117.pdf
     accessed: 2026-11-09
+  - id: S10
+    title: Edge crush test
+    publisher: Wikipedia
+    url: https://en.wikipedia.org/wiki/Edge_crush_test
+    accessed: 2026-11-09
+  - id: S11
+    title: World standards - comparison of testing methods FEFCO / EN / ISO / TAPPI (revision October 2018)
+    publisher: FEFCO Standards Committee
+    url: https://www.fefco.org/download/file/fid/2395
+    accessed: 2026-11-09
+  - id: S12
+    title: Effects of Moisture Content on Box Compression Strength - FBA BCT Loss Factors (R. Popil, 2018, updated 2019)
+    publisher: Georgia Tech Renewable Bioproducts Institute
+    url: https://research.gatech.edu/sites/default/files/2021-06/effects-of-moisture-content-on-box-compression-strength.pdf
+    accessed: 2026-11-09
 ---
 
 # Box Compression Strength (BCT) Prediction
 
-> **Source access note (2026-11-09):** the sources above were consulted through web-search
-> extracts; the full PDFs could not be downloaded in the drafting session (network restriction).
-> Constants below match across several extracts, but a reviewer should check them against the
-> original papers before this file moves to `reviewed`.
+> **Source access note (2026-11-09, wave 1 update):** Popil's slides [S1] and his RBI papers
+> [S6][S12] were downloaded and read in full. They confirm the McKee constants, the units and the
+> Z/7 limit. The Urbanik & Frank paper [S2], the TOPS note [S3] and the MDPI papers [S5][S7][S8]
+> were still only seen through search extracts: the hosts were blocked or the FPL server was down.
 
 ## What BCT is and why it is predicted
 
@@ -88,13 +103,16 @@ Z   = 2 · (L + W)
 | Z | box perimeter, 2·(L + W) | mm | in |
 | L, W | box length and width | mm | in |
 
-- Constant 5.87 and the form are given in [S1][S3][S4]. Z = 2·(L+W) [S4].
-- **Units handling (derived):** ECT has units of force/length and sqrt(h·Z) has units of length, so
-  the equation is dimensionally homogeneous and 5.87 is dimensionless. It can be used unchanged with
-  N/mm + mm (gives N) or lbf/in + in (gives lbf). One calculator page [S4] uses exactly
-  BCT (N) = 5.87 × ECT (N/mm) × √(mm × mm), while a search extract described 5.87 as a
-  "customary-unit fit". **VERIFY** — the dimensional check above (and the worked example below,
-  which gives identical answers in both unit systems) shows no unit conversion is hidden in 5.87.
+- Constant 5.87 and the form are given in [S1][S3][S4][S12]. Wikipedia quotes 5.876 [S10]. Z = 2·(L+W) [S4][S12].
+- **Units — resolved (2026-11-09):** Popil states the equation in US customary units: BCT in lb,
+  ECT in lb/in, Z and caliper in inches [S1][S12]. That is the "customary-unit fit" wording. The
+  equation is still dimensionally homogeneous: ECT is force per length and sqrt(h·Z) is a length,
+  so 5.87 has no units. It works unchanged with N/mm and mm (giving N), and [S4] uses it that way
+  (derived). The worked example below gives the same answer in both unit systems.
+- Popil derives the simplified form from the full form. He approximates bending stiffness as
+  proportional to ECT·h² and takes the exponent b ≈ 3/4 [S1]. The simplified form therefore loses
+  accuracy when board is crushed: crushed board recovers its caliper but not its bending stiffness
+  [S1].
 - Do **not** mix kN/m with mm unless you note that 1 kN/m = 1 N/mm.
 
 ### TOPS variant with unrounded exponents
@@ -115,7 +133,9 @@ Exponents sum to 1.0 so it is also dimensionally homogeneous (derived).
 - McKee's ECT sample heights do not define E- and F-flute; newer small flutes are outside the
   original data set [S2].
 - Single-wall RSCs in the original data; double-wall use is common practice but less validated
-  (**VERIFY** with tests).
+  (**VERIFY** with tests). Popil reports one heavy single-wall cold-storage set (12 % moisture,
+  4 °C / 80 %RH) that followed McKee within experimental agreement. He says multi-wall boards need
+  their own experimental confirmation [S12].
 
 ### Worked example — simplified McKee
 
@@ -142,7 +162,9 @@ TOPS exponents: 5.87 × 32 × 55.12^0.4924 × 0.1575^0.5076 = **529 lbf (2355 N)
 - Ignores box depth, panel aspect ratio, manufacturer's joint, print, cut-outs and handholes [S3][S8].
 - Ignores humidity, storage time, stacking pattern and pallet overhang — apply those separately
   (see `kb.performance.environmental-factors`).
-- Not a substitute for a BCT test (e.g. TAPPI T 804 / ISO 12048) on real boxes.
+- Not a substitute for a BCT test (e.g. TAPPI T 804 / ISO 12048) on real boxes. Test method
+  matters. TAPPI T 804 fixes the flaps of empty boxes, and FEFCO TM 50 tests the box simply erected.
+  FEFCO reports T 804 results roughly 5 % lower. Test speeds also differ between the methods [S11].
 
 ## Full McKee formula (with bending stiffness)
 
@@ -165,8 +187,11 @@ BCT = 2.028 · ECT^0.746 · (sqrt(Dx · Dy))^0.254 · Z^0.492
   −0.746 + 0.254 + 0.492 = 0.000, so the equation is dimensionally homogeneous: 2.028 is
   dimensionless and applies in any *consistent* set (N/m, N·m, m → N; or lbf/in, lbf·in, in → lbf).
   A numerical conversion check from US to SI returns the same constant (2.028).
-- **VERIFY:** one extract of Popil's slides quotes a different fitted constant (C ≈ 1.87,
-  b ≈ 0.791) from a different data set [S1]; constants depend on the data set fitted.
+- **Resolved (2026-11-09):** C = 1.87028 and b = 0.791213 are **not** an alternative published
+  McKee constant. They are the result of Popil's worked spreadsheet example, which re-fits C and b
+  (starting from 2.028 and 0.75) to one example set of boxes [S1]. Popil recommends fitting C and b to
+  your own boxes. McKee's constants are empirical functions of panel rigidity and size, and McKee
+  assumed a square footprint [S1].
 
 ### Validity range
 
@@ -202,6 +227,10 @@ idealised with equal sides so that panel width b = Z/4 [S5].
 **VERIFY — the exact equation and its constants (including the commonly quoted 2/3 exponent)
 could not be confirmed in the sources consulted. No worked example is given until a reviewer
 adds the equation from the original publication or [S2].** Use McKee for design estimates.
+A search extract of a Japanese paper gives the form P = β·Rx·Z^(exponent), with β a flute constant
+and Rx the overall ring crush, but the exponent was unreadable. Original publication: Kellicutt,
+Landt & Setterholm, *Basic design data for use of fiberboard in shipping containers — box strength
+calculator*, FPL Report R1911-A. Library catalogues date it to 1951, 1952 and 1958 (reprints).
 
 ## Maltenfort, Urbanik, Allerheiligen, Batelka and FEA approaches
 
@@ -215,14 +244,21 @@ adds the equation from the original publication or [S2].** Use McKee for design 
   post-buckling and numerical (FEM) models, including boxes with sidewall cut-outs [S5][S8] and
   pallet overhang [S7]. These handle geometry (cut-outs, overhang, panel aspect ratio) that McKee
   cannot.
-- **Allerheiligen, Batelka:** **VERIFY — not retrieved in this drafting session**; do not quote
-  until sourced.
+- **Allerheiligen, Batelka:** **VERIFY — formulas not retrieved.** Search extracts of review
+  papers (MDPI, blocked here) credit "Allerby et al." (1985) with re-fitting McKee's constants and
+  exponents. They credit Batelka & Smith (1993) with adding box dimensions. The Urbanik & Frank review [S2]
+  reportedly lists Wolf (1972), Batelka & Smith (1993) and Challas et al. (1994) as adding geometry
+  terms that do not agree with each other. The name "Allerheiligen" could not be matched to a
+  source. Do not quote either formula until it is sourced.
+- **Whitsitt / Maltenfort ECT input:** see `kb.performance.board-tests-and-ect`. Popil's version
+  is ECT ≈ 0.7·(2·SCT_liner + α·SCT_medium), with α ≈ 1.42–1.43 for C flute [S1][S12].
 
 ## When McKee breaks down (geometry limits)
 
 - **Short boxes:** below D ≈ Z/7 panels do not buckle before crushing, violating the McKee
-  assumption [S1]. Prediction becomes unreliable (direction of error not established in the
-  consulted sources — **VERIFY**).
+  assumption [S1]. For that case Popil gives the crush-limited form BCT ≈ C′·ECT·Z, which has no
+  caliper or stiffness term [S1]. C′ is not given. The size and direction of McKee's error for short
+  boxes are not quantified in [S1] — **VERIFY** with tests.
 - **Tall boxes / slender panels and high L/W ratio:** McKee contains no depth or L/W term, so the
   effect of panel slenderness and unequal panels is not captured [S2][S5]. Buckling-based models
   [S5] address this.
@@ -268,3 +304,28 @@ Limitations: inherits McKee's over-prediction [S2]; confirm by BCT test.
 
 Arithmetic: BCT = 5.87 × ECT(N/mm) × sqrt(4 × Z). These are *uncorrected* lab values; apply
 environmental multipliers before use.
+
+## Research log
+
+**Wave 1 (2026-11-09).** Searches were shared across five files (12 in total).
+
+Resolved this wave:
+- Units of 5.87: the source states US customary units, and the equation is dimensionally
+  homogeneous [S1][S12].
+- Popil's C = 1.87 / b = 0.79 is a spreadsheet re-fit example, not a published constant [S1].
+- Short-box alternative form BCT ≈ C′·ECT·Z [S1]. Differences between the T 804 and FEFCO 50 BCT
+  test methods [S11].
+
+Still open, with the best lead for each:
+- Kellicutt equation and constants. Lead: FPL Report R1911-A, PDF at
+  https://ir.library.oregonstate.edu/concern/file_sets/2r36v282x (blocked); Urbanik & Frank (2006)
+  at https://wfs.swst.org/index.php/wfs/article/download/437/437 or
+  https://research.fs.usda.gov/download/treesearch/25180.pdf (both blocked; www.fpl.fs.usda.gov
+  returned HTTP 502 all session).
+- Urbanik & Frank general formula: same leads.
+- Allerby et al. (1985) and Batelka & Smith (1993). Lead: MDPI Materials 13(20):4578 literature
+  review, https://www.mdpi.com/1996-1944/13/20/4578 (blocked). Also check whether "Allerheiligen"
+  is a mis-citation of Allerby.
+- Direction of McKee's error for short boxes (D < Z/7), and validity for double wall: needs tests or
+  Urbanik & Frank (2006).
+

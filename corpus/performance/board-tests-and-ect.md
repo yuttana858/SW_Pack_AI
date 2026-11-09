@@ -70,14 +70,51 @@ sources:
     publisher: opscalculators.com
     url: https://opscalculators.com/packaging-engineering/box-compression-calculator/
     accessed: 2026-11-09
+  - id: S13
+    title: TAPPI Standards - Numerical Listing (updated 20 November 2025)
+    publisher: TAPPI
+    url: https://www.tappi.org/contentassets/6d1c3fe50b9643fc9404b2f42e7b12a3/standards_numeric_index_11.2025.pdf
+    accessed: 2026-11-09
+  - id: S14
+    title: TAPPI Standards compared to Related Standards of ISO and ASTM (revised May 2015)
+    publisher: TAPPI
+    url: https://www.tappi.org/globalassets/documents/standards/related_methods_chart.pdf
+    accessed: 2026-11-09
+  - id: S15
+    title: World standards - comparison of testing methods FEFCO / EN / ISO / TAPPI (revision October 2018)
+    publisher: FEFCO Standards Committee
+    url: https://www.fefco.org/download/file/fid/2395
+    accessed: 2026-11-09
+  - id: S16
+    title: T 808 Flat Crush Test of Corrugated Board (Flexible Beam Method) - ballot draft, ten-year review of T 808 cm-15 (May 2025)
+    publisher: TAPPI
+    url: https://www.tappi.org/contentassets/58af997fbe9b4f40a7545ee183554082/2025/t808-b-2-d-1-sarg.pdf
+    accessed: 2026-11-09
+  - id: S17
+    title: Edge crush test
+    publisher: Wikipedia
+    url: https://en.wikipedia.org/wiki/Edge_crush_test
+    accessed: 2026-11-09
+  - id: S18
+    title: Guntersville Alabama presentation for Valdosta students (R. Popil - ECT models, Whitsitt and buckling fits)
+    publisher: Georgia Tech Renewable Bioproducts Institute
+    url: https://research.gatech.edu/sites/default/files/rbi/pdfs/Guntersville%20Alabama%20presentation_for%20Valdosta%20students.pdf
+    accessed: 2026-11-09
+  - id: S19
+    title: Effects of Moisture Content on Box Compression Strength - FBA BCT Loss Factors (R. Popil, 2018, updated 2019)
+    publisher: Georgia Tech Renewable Bioproducts Institute
+    url: https://research.gatech.edu/sites/default/files/2021-06/effects-of-moisture-content-on-box-compression-strength.pdf
+    accessed: 2026-11-09
 ---
 
 # Corrugated Board Tests and ECT
 
-> **Source access note (2026-11-09):** sources were consulted through web-search extracts; full
-> standards and papers could not be downloaded in the drafting session. Standards text is not
-> reproduced; consult the current TAPPI / ISO / FEFCO document for anything normative.
-> Several sub-topics below have no retrieved source yet and are marked **VERIFY**.
+> **Source access note (2026-11-09, wave 1 update):** the following were downloaded and read:
+> TAPPI's 2025 numerical index [S13], TAPPI's ISO/ASTM cross-reference [S14], FEFCO's method
+> comparison table [S15], the 2025 T 808 ballot draft [S16] and Popil's RBI papers [S5][S18][S19].
+> The full TAPPI/ISO method texts were not available. Standards text is not reproduced; consult the
+> current TAPPI / ISO / FEFCO document for anything normative. Sub-topics with no source yet are
+> still marked **VERIFY**.
 
 ## Edge crush test (ECT) — what it measures
 
@@ -88,13 +125,19 @@ prediction (see `kb.performance.box-compression`) and the basis of ECT-grade box
 
 ## ECT test methods and why values differ
 
-| Method | Specimen preparation (summary) | Notes |
+| Method (current edition) | Specimen preparation (summary) | Relation to other methods |
 |---|---|---|
-| TAPPI T 811 | Edges reinforced (wax-dipped), rectangular specimen | Reference method for many North American certificates; naming conflicts between sources — see below |
-| TAPPI T 838 | Neck-down specimen | — |
-| TAPPI T 839 | Unwaxed specimen held in clamps | Clamp method [S9] |
-| ISO 3037 | International edgewise crush method | Comparison data not retrieved — **VERIFY** |
-| FEFCO No. 8 | European method | Compared with T 838 in [S1] |
+| TAPPI T 811 om-23, "Short Column Test" [S13] | Loaded edges wax-dipped, then reconditioned [S15] | Same procedure as ISO 13821 (waxed edge method) [S15]. FEFCO calls it a "heavy" procedure because of waxing and reconditioning [S15] |
+| TAPPI T 838 cm-21, neckdown [S13] | Neck-down cut specimen | Similar results to FEFCO/ISO 3037, no advantage in cutting or precision [S15] |
+| TAPPI T 839 om-24, clamp method ("Short Column Test") [S13] | Unwaxed specimen held in clamps; the fixture needs at least 60 mm between platens [S15] | Similar results to FEFCO/ISO 3037 if the specimen is cut carefully [S15] |
+| TAPPI T 841 (withdrawn, wd-13), Morris method [S13] | 50 × 50 mm specimen in a special holder [S15] | A few % lower than T 811 [S15] |
+| ISO 3037 / EN ISO 3037 (2013; revised 2022 [S17]) | Unwaxed rectangular specimen ("unwaxed edge method") [S15][S17] | Same as FEFCO TM 8 [S15]. Results are very sensitive to cutting precision: worn or double-bevelled knives give lower values [S15]. TAPPI has no method for the FEFCO specimen [S15]. Result in kN/m = 0.01 × mean max force in N [S17] |
+| FEFCO TM 8 (1997) | As ISO 3037 | Same as ISO 3037 [S15]. Compared with T 838 in [S1] |
+
+TAPPI's cross-reference lists T 811, T 838 and T 839 as *related* to ISO 3037, and states that
+"related" does not mean equivalent [S14]. In ISO 3037 the result R (kN/m) = 0.01 × F̄max (N), so
+F̄max is the mean maximum force in N on the standard specimen width [S17]. For example, a mean
+maximum force of 560 N gives 5.60 kN/m, about 32 lbf/in (derived).
 
 Why values differ:
 - Clamp (T 839) results read clearly higher than the wax-dip method on some boards, so changing
@@ -106,9 +149,12 @@ Why values differ:
   gives the smallest gap between T 838 and T 811 as "about 15 kN/m" — **VERIFY** (this magnitude
   looks implausible for ECT; it may be 15 % or a different unit).
 - For lightweight B-flute, T 839 values exceed T 811 values; the data do not support T 811 for E-
-  and F-flute [S3].
-- **Naming conflict — VERIFY:** one supplier labels T 811 the "short column" method [S7], others
-  label T 839 the short-column test [S8][S9]. Check the current TAPPI titles.
+  and F-flute [S3]. The ECT specimen heights behind McKee's data set do not cover E and F flute
+  either [S11].
+- **Naming — resolved (2026-11-09):** both titles contain "Short Column Test". T 811 om-23 is
+  "Edgewise Compressive Strength of Corrugated Fiberboard (Short Column Test)", and T 839 om-24 adds
+  "Using the Clamp Method" [S13]. Suppliers [S7][S8][S9] are each partly right. Name the method by
+  its number, not "short column".
 
 Practical rule: always record the ECT method with the value; never compare or certify across
 methods without a correlation study.
@@ -134,8 +180,11 @@ ECT = k' · (SCT_L1 + SCT_L2 + α · SCT_M)      # short-span (SCT) form
 - Popil's empirical regressions (US units, additive constant so **not** unit-independent) [S5]:
   - ECT = 0.8 · (RCT1 + RCT2 + α·RCT_M) + 12, for linerboards above 42 lb/msf
   - ECT = 1.27 · (RCT1 + RCT2 + α·RCT_M) − 6, for linerboards below 42 lb/msf
-  - **VERIFY** the RCT units these regressions expect (lbf/in vs lbf per 6-in strip) from the
-    original slides.
+  - Popil attributes both to Whitsitt (IPC, 1983) [S5][S18]. **VERIFY** which RCT units the
+    regressions expect (lbf/in or lbf per 6-in strip). The slides do not state them [S5].
+- SCT form (Popil): ECT ≈ C·(2·SCT_liner + α·SCT_medium) with C ≈ 0.7 [S5][S19]. Fitted C ranged
+  0.695–0.766 over four data sets (R² 0.81–0.88) [S18]. Adding a liner-buckling term raised R² to
+  0.92–0.96 [S18]. With SCT in kN/m, C-flute example [S19]: ECT = 0.7·(2·SCT_l + 1.43·SCT_m).
 - Take-up factor α: B-flute 1.35, C-flute 1.45 [S6]; C-flute ≈ 1.42 [S5]. Values vary with
   corrugator and flute profile — replace with supplier/house data in `company/`.
 - RCT measures only about 50 % of the intrinsic compressive strength of paperboard [S10], which is
@@ -172,27 +221,55 @@ burst correlates poorly with stacking strength and why ECT grades exist alongsid
 (see `kb.standards.rule41-item222`). **VERIFY — no published burst-vs-liner formula was retrieved
 in this session; do not estimate burst from liner data without a sourced relation.**
 
+- Methods: TAPPI T 810 om-22 for corrugated and solid fibreboard; T 807 for linerboard [S13]. ISO
+  2759 / FEFCO TM 4 use the same procedure as T 810, with normally identical results [S15]. They
+  differ in diaphragm stiffness definition and clamping pressure [S15].
+- Triple-wall board is rated by **puncture** (TAPPI T 803 cm-20 / ISO 3036 / FEFCO TM 5 [S13][S15])
+  in the carrier-rule chart, not by burst (see `kb.standards.rule41-item222`). T 803 and ISO 3036
+  give similar but not always identical results [S15].
+
 ## Flat crush (FCT) and pin adhesion (PAT)
 
-- **FCT** — compression perpendicular to the board surface; indicates medium strength and flute
-  resistance to crushing during converting. Low FCT means caliper loss on the converting line,
-  which lowers BCT (see caliper section).
+- **FCT** — compression perpendicular to the board surface. It measures flute rigidity: a high
+  value means good flute formation and adequate medium strength. A low value can mean weak medium,
+  leaning or crushed flutes, or poorly formed flutes [S16]. FCT correlates poorly with box field
+  performance, because the box geometry stops the liners shifting sideways [S16]. Low FCT from
+  crushed board does signal caliper loss, which lowers BCT (see caliper section).
+  - Methods: TAPPI T 808 (flexible beam; cm-25 per [S13]) and T 825 om-24 (rigid support) [S13]
+    ↔ ISO 3035 / FEFCO TM 6. The procedures are the same; preferred specimen sizes differ [S15].
+  - T 808 summary [S16]: valid for single-face and single-wall board only, not double or triple
+    wall. Test at least 10 specimens of 32.3 cm² or 64.5 cm² (5 or 10 in²), cut at least 38 mm
+    from print, scores and die-cuts. Load at about 111 N/s (25 lbf/s), conditioned per T 402.
+    Failure is the peak load before the flutes collapse completely. Report in kPa (psi).
+  - Medium-only tests: CMT (T 809 / ISO 7263) [S14][S15].
 - **PAT** — force to separate liner and medium at the glue lines; indicates bond quality.
-- **VERIFY — test-method numbers, specimen details and typical values were not retrieved;** see
-  the TAPPI test-method index (T 808 / T 821 commonly cited) in `kb.testing.*` once sourced.
+  - Methods: TAPPI T 821 om-22 (dry, selective separation) and T 845 om-20 (wet) [S13]; FEFCO
+    TM 11 (dry pin method), similar to T 821 but with different specimen size and test speed [S15].
+- **VERIFY — typical FCT and PAT values were not retrieved;** get them from supplier certificates
+  and store them in `company/`.
 
 ## Bending stiffness (four-point)
 
 Four-point bending gives flexural stiffness per unit width in MD (Dx) and CD (Dy), the inputs to
 the full McKee formula (geometric mean sqrt(Dx·Dy)) [S5]. Units: N·m [lbf·in] per unit width.
-TAPPI T 820 is the commonly cited four-point method — **VERIFY** method details against the
-current TAPPI standard (not retrieved).
+
+- **Resolved (2026-11-09):** TAPPI **T 820** ("Flexural Stiffness of Corrugated Board") is
+  **withdrawn** (wd-22). The current four-point method is **T 836 om-25** "Bending Stiffness,
+  Four Point Method" [S13]. FEFCO describes T 836 as similar to T 820 with a different load
+  application, giving equivalent results, with settings recommended per board type [S15]. ISO 5628
+  covers the general 2-, 3- and 4-point principles and recommends 3- or 4-point for corrugated
+  board [S15].
+- Popil notes that a 3-point test may be more sensitive to crush damage, because it includes
+  shear [S5].
 
 ## Caliper and caliper loss
 
-Caliper (combined board thickness) is measured with a defined-pressure micrometer (TAPPI T 411 /
-ISO 3034 — **VERIFY** current method titles and pressures; not retrieved). Caliper enters McKee
-as sqrt(h) (see `kb.performance.box-compression`) [S12].
+Caliper (combined board thickness) is measured with a defined-pressure micrometer: TAPPI T 411
+om-21, "Thickness (Caliper) of Paper, Paperboard, and Combined Board" [S13]; ISO 3034 / FEFCO TM 3
+for corrugated board [S15]. FEFCO and ISO 3034 are identical. FEFCO/ISO and TAPPI differ in plunger
+size and measuring pressure [S15], so record the method with the value. Measuring pressures were
+not retrieved; consult the standards. Caliper enters McKee as sqrt(h) (see
+`kb.performance.box-compression`) [S12].
 
 ### Formula — BCT retained after caliper loss (derived from McKee)
 
@@ -211,9 +288,10 @@ Worked example: C-flute caliper 4.0 mm (0.1575 in) crushed to 3.6 mm (0.1417 in)
 - US: sqrt(0.1417 / 0.1575) = sqrt(0.90) = 0.949 → same
 - 20 % caliper loss → sqrt(0.80) = 0.894 → ≈ 10.6 % BCT loss
 
-Limitations: real flute crushing also reduces ECT and bending stiffness (damaged medium), so the
-true BCT loss is larger than the sqrt(h) term alone — **VERIFY** with BCT tests; magnitude not
-sourced.
+Limitations: real flute crushing also reduces ECT and bending stiffness (damaged medium). Crushed
+board recovers its caliper but not its bending stiffness [S5], so the true BCT loss is larger than
+the sqrt(h) term suggests. Use the full McKee form with measured Dx, Dy for crushed board [S5].
+**VERIFY** the size of the extra loss with BCT tests; it is not quantified in the sources.
 
 ## Unit conversions (exact, derived)
 
@@ -234,3 +312,30 @@ Examples: 32 ECT = 32 × 0.175127 = 5.60 kN/m; 44 ECT = 7.71 kN/m; 200 psi burst
 
 Note: grade names "32 ECT" and "200#" are certificate grades in lbf/in and psi — keep the US
 grade name alongside the SI value when communicating with US carriers.
+
+## Research log
+
+**Wave 1 (2026-11-09).** Searches were shared across five files (12 in total).
+
+Resolved this wave:
+- How ISO 3037, ISO 13821, T 811, T 838, T 839, T 841 and FEFCO TM 8 relate [S14][S15][S17].
+- T 811 vs T 839 naming, with current editions [S13].
+- FCT/PAT method numbers and T 808 specimen details [S13][S15][S16].
+- T 820 withdrawn; T 836 is the current four-point method [S13][S15].
+- Caliper method titles, and that FEFCO/ISO and TAPPI pressures differ [S13][S15].
+- Burst method relations; triple wall is rated by puncture [S13][S15].
+- Whitsitt attribution and the SCT-form constant C ≈ 0.7 [S5][S18][S19].
+
+Still open, with the best lead for each:
+- Gap between T 838 and T 811 ("about 15 kN/m", probably 15 %) from [S1]. Lead:
+  https://www.mdpi.com/2076-3417/10/19/6716 (blocked this session).
+- Which RCT units the Whitsitt regressions use. Lead: W.J. Whitsitt, IPC progress report (1982/83),
+  via smartech.gatech.edu (blocked); Popil, "Which ECT?", Corrugating International, Aug 2003
+  (TAPPI store).
+- A burst-vs-liner relation; typical FCT/PAT values. Lead: TAPPI T 810 / T 821 texts (TAPPI store);
+  supplier data in `company/`.
+- Measuring pressures for T 411 / ISO 3034. Lead: the standards themselves (TAPPI store, ISO OBP;
+  iso.org is behind a bot check).
+- The extra BCT loss from crush beyond the sqrt(h) term. Lead: FBA scoring/crush research (FBA
+  Tech Box, Nov 2022) and Popil RBI papers.
+
