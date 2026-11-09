@@ -11,7 +11,7 @@ reviewer: unreviewed
 supersedes: []
 sources:
   - id: S1
-    title: ECMA Codes (English), revised edition September 2009 (file dated 2022)
+    title: The ECMA Code of Folding Carton Design Styles, revised edition September 2009 (English PDF, 118 pp., file created January 2022)
     publisher: European Carton Makers Association (ECMA)
     url: https://ecma.org/uploads/Bestanden/ECMA%20Sales%20Toolkit/ECMA%20Support%20Tools/New%202022/ECMA%20Codes%20EN%202022.pdf
     accessed: 2026-11-09
@@ -50,11 +50,6 @@ sources:
     publisher: Onlineprinters
     url: https://www.onlineprinters.ie/p/reverse-tuck-end-boxes
     accessed: 2026-11-09
-  - id: S9
-    title: Tuck-End Boxes
-    publisher: Industry-Plaza
-    url: https://www.industry-plaza.com/tuck-end-boxes-p144387.html
-    accessed: 2026-11-09
   - id: S10
     title: Packaging dielines explained
     publisher: Morice & Co.
@@ -80,134 +75,171 @@ sources:
     publisher: World of Print
     url: https://www.worldofprint.com/?p=2319481
     accessed: 2026-11-09
+  - id: S15
+    title: ECMA Sales Toolkit (publications page listing the ECMA Code of Folding Carton Design Styles)
+    publisher: European Carton Makers Association (ECMA)
+    url: https://www.ecma.org/publications/ecma-sales-toolkit.html
+    accessed: 2026-11-09
 ---
 
 # ECMA Code of Folding Carton Styles
 
-> **Research note (2026-11-09):** sources were consulted through search-engine excerpts; the
-> official ECMA PDF [S1] could not be opened in full from the research session. Secondary
-> sources (dieline sites, online printers) disagree on several code-to-style assignments;
-> those are marked **VERIFY**. The ECMA catalogue is copyrighted and licensed: this file
-> summarises the coding logic and does not reproduce drawings or code tables.
+> **Research note (updated 2026-11-09, wave 2):** the official ECMA PDF [S1] was opened and read
+> in full this wave (coding system, matrix tables, catalogue drawings and the old-to-new
+> conversion table). The ECMA Code gives codes and drawings, not trade names such as "reverse
+> tuck end": the mapping of trade names to codes below is our reading of ECMA's own code
+> definitions and drawings. The ECMA Code is copyrighted: this file summarises the coding logic
+> and does not reproduce drawings or tables.
 
 ## What the ECMA Code is
 
-The ECMA Code of Folding Carton Styles is a catalogue of folding-carton constructions
-published by the European Carton Makers Association [S1]. Like the FEFCO Code for
-corrugated, it gives each construction an alphanumeric code so that brand owners, designers,
-converters and machine suppliers can name a carton style without drawings or translation.
-The code describes **structure only, not size or material** [S3].
+The ECMA Code of Folding Carton Design Styles is a catalogue of folding-carton constructions
+published by the European Carton Makers Association [S1]. It gives each construction an
+alphanumeric code so that brand owners, designers, converters and machine suppliers can name a
+carton style without drawings or translation [S1]. The code describes **structure only, not
+size or material** [S1][S3].
 
-- A completely revised edition was produced with EskoArtwork and presented at the ECMA
-  Annual Congress in Istanbul; it was the first digital edition, with 3D views and animated
-  folding sequences [S14][S6]. The ECMA PDF header reads "Revised edition September 2009"
-  [S1].
-- The digital release was available in six languages (English, German, French, Italian,
-  Spanish, Turkish) [S14].
-- No dated revision of the style codes after 2009 was found on 2026-11-09; the 2022 file on
-  ecma.org still carries the 2009 revision header [S1]. **VERIFY** before quoting an edition.
+- ECMA states its goals as a common language for design styles, logical grouping in a small
+  number of groups, a training tool and a reference archive for CAD/CAM structural design
+  systems [S1].
+- ECMA says the designs are generic and, as far as it knows, free of patent and copyright
+  protection as designs; the catalogue itself (text and drawings) remains ECMA copyright [S1].
+- The designs illustrated are examples; derived styles are possible [S1].
+
+## Edition
+
+- The current code is the **revised edition of September 2009**, produced with EskoArtwork and
+  presented at the ECMA Annual Congress in Istanbul (16–19 September 2009); it was the first
+  digital edition, with 3D views and folding animations [S1][S14][S6].
+- It replaced the coding of the **1992** ECMA book; the revised edition includes a conversion
+  table from every 1992 code (for example A2120) to the new code [S1].
+- ECMA's sales toolkit (presented November 2014) still lists the ECMA Code of Folding Carton
+  Design Styles as a PDF in six languages [S15]; the English PDF on ecma.org was re-issued as a
+  file in January 2022 but still carries the "Revised edition September 2009" title page [S1].
+  No later revision was found on 2026-11-09.
 
 ## Code structure: group letter plus number pairs
 
-An ECMA code is a **capital letter** (the construction group) followed by **four two-digit
-pairs**, written for example A20.20.03.01 [S2][S3]. A fifth pair is added only when an
-auxiliary device from group X is attached [S3]. The meaning of each pair depends on the group
-letter, so read the letter first [S3].
+An ECMA code is a **capital letter** (the group) followed by **four two-digit groups**, written
+for example A20.20.03.01 [S1]. A **fifth pair** is added only when a feature from group X
+(auxiliary devices) is attached; an X code on its own never describes a complete carton [S1].
+The meaning of each pair depends on the group letter [S1].
 
-| Group | Meaning |
-|---|---|
-| A | Rectangular cartons **with** a longitudinal (side) glue seam — tubes such as tuck-end, crash-lock and seal-end cartons [S1][S4] |
-| B | Rectangular cartons **without** a longitudinal glue seam, folded — trays, folders, corner-glued trays [S4][S5] |
-| C | Non-rectangular cartons with a longitudinal glue seam [S4][S5] |
-| D | Non-rectangular cartons without a longitudinal glue seam (example: a hexagonal sweet box, D20.50.20.00) [S5] |
-| E | Cartons with product reference or integration (shaped around, or integrated with, the product) [S3][S5] |
-| F | Other cartons that cannot be assigned clearly to another group [S5] |
-| X | Auxiliary devices and closures usable with groups A–E and some F designs (handles, hangers, windows, tear strips etc.); group X never codes a complete carton on its own [S3][S5] |
+| Group | Meaning (ECMA) | 1st pair | 2nd pair | 3rd pair | 4th pair |
+|---|---|---|---|---|---|
+| A | Long-seam-glued cartons with rectangular surfaces (tubes: tuck end, crash lock, seal end) | Bottom closure type | Top closure type | Panel carrying the bottom closure | Panel carrying the top closure |
+| B | Non-long-seam-glued cartons with rectangular surfaces (trays, all outer panels at 90°) | Basic tray shape | Locking-flap or corner system | Number of dust flaps | Type of cover |
+| C | Long-seam-glued cartons with non-rectangular surfaces | Body shape | Shape of the base | Bottom closure type | Top closure type |
+| D | Non-long-seam-glued cartons with non-rectangular surfaces | Glued or unglued | Shape of the base | Locking-flap system | Type of cover |
+| E | Product-related or integrated cartons (wrap-arounds, carriers, egg boxes, burger boxes) | Product type | Closure system | 00 | 00 |
+| F | Other styles not clearly in A–E; subgroups F10–F50 relate to groups A–E, F80 = separate inlays | List | List | 00 | 00 |
+| X | Auxiliary devices and features usable with all groups (handles, hangers, windows etc.) | List | — | — | — |
 
-There is **no "tube = A, tray = B" rule in the official wording**: "tube" and "tray" are
-general carton vocabulary. In practice most tube cartons fall in group A and most trays in
-group B [S1][S4].
+All rows: [S1]. Where a pair does not apply, ECMA writes 00 [S1]. ECMA's own wording does not
+use "tube" or "tray"; in practice most tube cartons are in group A and most trays in group B
+[S1][S4].
 
-## Assembly suffix (M, A, M/A, M+A)
+## Set-up (erection) flag
 
-ECMA codes may carry an assembly suffix: **M** = assembled manually, **A** = assembled
-automatically (for example on a cartoning or tray-forming machine), **M/A** = either, and
-**M+A** = partly manual, partly automatic [S5]. Check this against the customer's packing
-line when choosing a style.
+Each drawing carries an erection flag: **M** = usually manual, **A** = usually automated,
+**M+A** = needs a combination of both [S1]. The catalogue drawings also use **M/A** (either)
+[S1][S5]. The flags reflect current practice. Check them against the customer's packing line.
 
-## Group A: what each pair means
+## Group A: closure values and panel numbers
 
-For group A (side-seam-glued tubes) [S1][S2][S3]:
+For group A the 1st pair is the bottom closure and the 2nd the top closure; the 3rd and 4th
+pairs give **the panel to which the tuck flap, covering flap, extended back panel or last
+closing flap is attached**, for the bottom and the top respectively. Panels are numbered 1 to 4
+starting from the glue seam [S1]. A closure with no single carrying panel (for example an
+automatic bottom) takes 00 [S1].
 
-1. **1st pair — bottom closure system**
-2. **2nd pair — top closure system**
-3. **3rd and 4th pairs — which panel carries each closure, and glue/web options.** Sources
-   differ: one reads them as the location (panel number) of the bottom and top closures
-   [S2][S3]; the ECMA document lists corner/panel gluing and webbing options [S1]. **VERIFY**
+### Group A closure-system values (ECMA list)
 
-Panel numbering (per one guide): panels 1 and 3 are opposite each other, so closures attached
-to panels 1 and 3 are on opposite sides — a reverse tuck; the same panel number for both ends
-means a straight tuck [S3].
-
-### Group A closure-system values
-
-| Value | Closure (bottom or top) | Common name |
+| Value | ECMA closure system (paraphrased) | Common name |
 |---|---|---|
-| 01 | Without flaps (open end) [S1] | Open sleeve end |
-| 10 | Full-overlap flaps [S1][S2] | Full-overlap glued end |
-| 20 | Tuck flap (tuck-in flap) [S2][S4] | Tuck end |
-| 21 | Tuck flap with hanger system [S2] | Hang-tab tuck |
-| 40 | Side tuck flaps without dust flaps [S2]; "winged flap" in another source [S3] | — |
-| 41 | Side tuck flaps with dust flaps [S2] | — |
-| 50 | Claw-lock closure [S1][S2] | — |
-| 55 | Self-locking "envelope" closure, unglued [S1][S2]; panels fold in sequence and lock without glue [S3] | **Snap-lock / 1-2-3 bottom** |
-| 60 | Automatic closing with two-point gluing [S2]; automatic pre-glued closure [S3] | **Crash-lock / auto-lock bottom** |
-| 70 | Sealing closure [S2]; not seen in the ECMA list excerpt [S1]. **VERIFY** | Seal end (glued end) |
-| 82 | Webbed "rosette" system [S2] | — |
+| 01 | No flaps (open end) [S1] | Open sleeve end |
+| 10 | Full-overlap flaps [S1] | Full-overlap glued end |
+| 11 | Reduced flaps, one flap fully covering [S1] | — |
+| 12 | Four reduced flaps [S1] | — |
+| 15 | Full-overlap flaps with extended back panel [S1] | — |
+| 20 | Tuck-in flap [S1] | Tuck end |
+| 21 | Tuck-in flap with extended back panel [S1] | Hang-tab tuck (extended panel can carry a hanger) [S2] |
+| 30 | Tuck-in flap with scissor lock [S1] | — |
+| 40 | Winged flaps without dust flaps [S1] | — |
+| 41 | Winged flaps with dust flaps [S1] | — |
+| 45 | Winged flaps with dust-proof flaps [S1] | — |
+| 50 | Claw lock [S1] | — |
+| 55 | Self-locking envelope closure (unglued) [S1] | **Snap-lock / 1-2-3 / lock bottom** |
+| 60 | Automatic closure, glued at two points [S1] | **Crash-lock / auto-lock bottom** |
+| 61 | Automatic two-point glued closure with covering flap [S1] | — |
+| 70 | Sealed (glued) closure [S1] | Seal end |
+| 75 | Gable top with locking flap [S1] | Gable top |
+| 80 | Buffer closure with tuck-in flap [S1] | — |
+| 81 | Buffer closure without tuck-in flap [S1] | — |
+| 82 | Rosette closure [S1] | — |
+| 83 | Fold-in closure [S1] | — |
 
 ## Common carton styles mapped to ECMA codes
 
-Codes below are those that secondary sources attach to the style. Where sources conflict,
-both are shown.
+Codes are those illustrated in the ECMA catalogue; the trade-name mapping follows from the code
+definitions above and was checked against the ECMA drawings [S1].
 
-| Style (US / EU name) | Description | ECMA code(s) found | Status |
+| Style (US / EU name) | Description | ECMA code(s) | Basis |
 |---|---|---|---|
-| Straight tuck end (STE), "same-side tuck" | Top and bottom tuck flaps hinge from the same panel side | A20.20.01.01 [S7]; another source gives A20.20.03 [S10] | **VERIFY** |
-| Reverse tuck end (RTE), "airplane / reverse tuck" (US trade) | Top and bottom tuck flaps hinge from opposite panels | A20.20.03.01 [S8][S3]; another source gives A20.20.01.03 ("inverted reverse tuck end") [S12] | **VERIFY** — panel-number logic in [S3] supports A20.20.03.01 |
-| Tuck top, auto-lock / crash-lock bottom | Pre-glued bottom that sets up when the tube is squared; tuck top | A60.20.xx.xx family ("tuck to back crash lock base") [S11]; one source gives A55.20 for crash-lock [S13] | **VERIFY** — ECMA value 60 is automatic (glued) [S1][S2] |
-| Tuck top, snap-lock / 1-2-3 bottom ("lock bottom") | Unglued bottom flaps folded in sequence to lock | A55.20.01.01 [S7]; A50.20 also reported for "snap lock" [S13] | **VERIFY** — ECMA value 55 is the unglued self-locking closure [S1][S2]; 50 is claw lock |
-| Seal end (glued end, "SE" or "full flap seal end") | End flaps glued shut on a cartoning machine | Value 10 (full overlap) or 70 (sealing) depending on flap geometry [S1][S2] | **VERIFY** |
-| Sleeve (open-ended tube) | Side-seam tube without end flaps | Group A with value 01 at both ends [S1] | Logic only — **VERIFY** exact code |
-| Four-corner glued tray | Tray with glued corner webs, flat-shipped, erected on a tray former | B40.22.00.00 (in-fold variants A and B) [S7] | **VERIFY** |
-| Six-corner glued tray (tray with hinged lid) | Four corners plus two lid corners glued | Group B; code not found | **VERIFY** |
-| Hexagonal carton | Non-rectangular tube | D20.50.20.00 (example) [S5] | Example only |
-
-Packdroid's template list also cites A20.20.01.01 for a cosmetic straight-tuck carton and
-A55.20.01.01 for a retail tuck-top snap-lock carton [S7]. One online printer lists
-A20.20.03.01 as its reverse tuck end, with the top and bottom flaps on opposite sides [S8].
+| Straight tuck end (STE) | Top and bottom tuck flaps attached to the same panel | **A20.20.01.01** or **A20.20.03.03** (both illustrated; they differ only in which panel carries the tucks). 1992 codes A2320 and A2420 [S1] | Same panel number in pairs 3 and 4 [S1]. The truncated "A20.20.03" seen in one guide [S10] is incomplete |
+| Reverse tuck end (RTE) | Top and bottom tuck flaps attached to opposite panels | **A20.20.03.01** or **A20.20.01.03** (both illustrated). 1992 codes A2120 and A2220 [S1] | Different panel numbers in pairs 3 and 4 [S1]. Secondary sources quoting either code [S3][S8][S12] are both right |
+| Tuck top, crash-lock (auto) bottom | Glued automatic bottom that forms when the flat tube is squared; tuck top | **A60.20.00.03** (1992 code A6020) [S1] | Value 60 = automatic two-point glued closure [S1], consistent with the A60.20 family in a dieline catalogue [S11]. "A55.20" for crash lock [S13] is wrong: 55 is the unglued snap-lock |
+| Tuck top, snap-lock / 1-2-3 bottom | Unglued bottom flaps folded in sequence to lock | **A55.20.01.03** (1992 code A5520) [S1] | Value 55 = self-locking envelope closure [S1]. A55.20.01.01 [S7] is a valid code by the rules but is not illustrated; "A50.20" for snap lock [S13] is the claw lock (A50.20.01.03 in the conversion table) [S1] |
+| Seal end, both ends | End flaps glued shut, usually on a cartoner | **A70.70.00.00** (flag A); full-overlap glued ends are A10.10.03.03 [S1] | Values 70 and 10 [S1] |
+| Sleeve (open-ended tube) | Side-seam tube without end flaps | **A01.01.00.00** (flag M/A) [S1] | Value 01 at both ends [S1] |
+| Four-corner glued tray | Tray with four glued corners, flat-shipped, erected on a tray former | **B40.20.00.00** (glued corners, not webbed; flag A); B40.21.00.00 has webbed corners; B40.22.00.00 has corners that fold down inward (flag M) [S1] | Group B pairs [S1] |
+| Six-corner glued tray (tray with hinged lid) | Four tray corners plus two lid corners glued; lid hinged to the tray | Closest ECMA code: **B40.22.00.61** (glued tray, inward-folding glued corners, complete flap cover pre-glued at two points; flag M) [S1] | ECMA does not use the term "six-corner"; mapping is our reading of the code values and drawing |
+| Hexagonal carton | Non-rectangular tray | D20.50.20.00 (example) [S1][S5] | Group D [S1] |
 
 ## Group B (trays): what the pairs mean
 
-For group B the guide published by ECMA describes the blocks as: basic tray shape, then the
-flap-locking system (00 if not used), then the number of dust flaps (00 if not used) [S1];
-other sources read the third and fourth pairs as a fixation system and a lid [S3]. Because the
-readings differ, take group-B codes from the ECMA drawing. **VERIFY**
+For group B, ECMA defines the pairs as: (1) the basic tray shape, (2) the flap-locking or corner
+system, (3) the number of dust flaps on the basic tray, (4) the cover system; 00 where not used
+[S1]. Examples of the values [S1]:
+
+- **1st pair (basic shape):** 10–14 unglued self-locking trays (double or buffer walls); 15 unglued tray with single walls;
+  20 unglued self-locking tray with two double walls; 30–32 self-locking trays with pre-glued
+  side panels; 40 glued tray with four single walls; 42–48 glued trays with one to four double
+  walls; 49 glued tray with buffer walls.
+- **2nd pair (locking / corner system):** 01–08 locking-flap systems (fold-over ends with nib
+  locks, expansion piece, extra lock, webbed corners, scissor lock, claw lock, plain fold-over);
+  10–11 unglued corners (plain or webbed); 20–25 glued corners (plain or webbed, optionally
+  folding down inward or outward).
+- **3rd pair (dust flaps):** 81–84 = one to four dust flaps on the basic tray.
+- **4th pair (cover):** 50 tuck-in flap cover, 51 double-walled tuck cover, 52–54 winged-flap
+  covers, 55 claw-lock cover, 60 complete flap cover with closed corners, 61 complete flap cover
+  pre-glued at two points.
+
+The earlier reading of pairs 3 and 4 as "fixation system and lid" [S3] is superseded by the ECMA
+definitions.
 
 ## Dimension convention for folding cartons
 
-- Folding-carton sizes are normally given as **inside dimensions** in the order
-  **L × W × D** (length × width × depth), where L and W are the dimensions of the opening and
-  D is measured between the openings (perpendicular to them). This is the same logic as
-  FEFCO L × B × H for corrugated (see `styles/fefco-codes.md`).
-- For a tuck-end carton the "opening" is the tuck end, so a tall carton (for example a
-  toothpaste carton) has a small L × W and a large D. Confirm with the converter, because some
-  retail printers quote width × depth × height instead.
-- Inside vs outside vs manufacturing (blank) dimensions differ by the board caliper; see
-  `dimensional/` for allowances.
-- The ECMA code does not encode size [S3].
+ECMA defines carton size by three measurements **A × B × H**, in millimetres, always written in
+that order [S1]:
 
-This dimension convention is industry practice; it was not confirmed from an ECMA source
-during this review. **VERIFY**
+- Measurements are taken **from centre to centre of the crease lines**, preferably on the flat
+  blank — not as inside dimensions [S1].
+- **Cartons with top and/or bottom closures:** A = the base dimension parallel to the hinge of
+  the flap that closes last (for a tuck end, the tuck-flap hinge); B = the other base dimension;
+  H = the height between the flaps closed first at top and bottom, or between base and cover
+  [S1].
+- **Trays without a cover:** A = the longer base dimension, B = the shorter, H = the height
+  [S1].
+- Telescopic and multi-part designs are dimensioned per part [S1].
+- ECMA notes that outside dimensions also matter when cartons are packed into a transit case
+  [S1].
+
+North American practice quotes folding cartons as L × W × D (length and width of the opening,
+depth between openings), usually as inside dimensions. For a tuck-end carton L usually
+corresponds to ECMA A and D to H, but because ECMA measures at crease centres the numbers differ
+by roughly one board caliper per side. Confirm which convention a drawing uses; see
+`dimensional/` for allowances. The ECMA code itself does not encode size [S1].
 
 ## Typical paperboard choices for ECMA styles
 
@@ -224,17 +256,36 @@ ECMA requirements. Grade properties and calipers are covered in `materials/`.
 
 ## Choosing a style: quick guide
 
-- **High-speed cartoner (horizontal):** seal end or tuck end, group A [S1].
+- **High-speed cartoner (horizontal):** seal end (A70.70.00.00, flag A) or tuck end, group A
+  [S1].
 - **Hand-packed, heavier product:** crash-lock bottom (value 60) for fastest set-up; snap-lock
-  1-2-3 bottom (value 55) is cheaper to convert (no bottom gluing) but slower to erect [S2][S3].
-- **Display or shelf-ready trays:** group B corner-glued trays, often with an X-group device
+  1-2-3 bottom (value 55) needs no bottom gluing but is slower to erect [S1][S2][S3].
+- **Display or shelf-ready trays:** group B glued-corner trays, often with an X-group feature
   (window, hanger) [S1][S5].
-- **Reverse vs straight tuck:** reverse tuck usually nests better on the blank (less board);
-  straight tuck gives a clean front panel with both tucks closing to the back.
+- **Reverse vs straight tuck:** reverse tuck usually nests better on the sheet (less board);
+  straight tuck puts both tuck flaps on the same panel, which suits some cartoners and gives a
+  clean front panel. These are general practice, not ECMA statements.
 
 ## Open items
 
-- Code assignments for STE / RTE, snap-lock and crash-lock conflict between secondary
-  sources; the official ECMA catalogue [S1] must be checked.
-- Group B pair meanings and the six-corner tray code were not confirmed.
-- Whether value 70 (sealing) exists in the official group-A closure list was not confirmed.
+- None of the wave-1 code conflicts remain; trade-name-to-code mapping for the six-corner tray
+  is an interpretation (ECMA has no such name) and should be checked against a converter's
+  tray drawing before quoting.
+
+## Research log
+
+**Wave 2 (2026-11-09) — resolved from the ECMA Code PDF [S1]:**
+
+- Code structure for all groups (A–F, X), including the optional fifth pair for X features.
+- Group A pairs 3 and 4 = panel number (1–4 from the glue seam) carrying the bottom and top
+  closures; this settles STE (same panel: A20.20.01.01 / A20.20.03.03) and RTE (opposite
+  panels: A20.20.03.01 / A20.20.01.03), confirmed on the drawings.
+- Crash-lock bottom with tuck top = A60.20.00.03; snap-lock with tuck top = A55.20.01.03;
+  value 70 (sealed closure) exists, seal end both ends = A70.70.00.00.
+- Group B pair meanings; four-corner tray B40.20.00.00; six-corner (hinged-lid) tray best match
+  B40.22.00.61.
+- Dimension convention: A × B × H at crease centres (not L × W × D inside).
+- Edition: revised edition September 2009 is still the current code (ECMA toolkit page [S15]).
+
+**Still open (best lead):** confirm the six-corner tray mapping with a converter or with the
+ECMA electronic catalogue (members' area of https://www.ecma.org/publications/ecma-sales-toolkit.html).

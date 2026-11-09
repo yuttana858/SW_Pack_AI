@@ -36,7 +36,7 @@ sources:
     url: https://www.fefco.org/node/712
     accessed: 2026-11-09
   - id: S6
-    title: ECMA Codes (English), revised edition September 2009
+    title: The ECMA Code of Folding Carton Design Styles, revised edition September 2009 (English PDF)
     publisher: European Carton Makers Association (ECMA)
     url: https://ecma.org/uploads/Bestanden/ECMA%20Sales%20Toolkit/ECMA%20Support%20Tools/New%202022/ECMA%20Codes%20EN%202022.pdf
     accessed: 2026-11-09
@@ -60,15 +60,76 @@ sources:
     publisher: FEFCO
     url: https://www.fefco.org/sites/default/files/2022_03_30_FEFCO%20launches%20the%2012th%20Edition%20of%20the%20FEFCO%20Code.pdf
     accessed: 2026-11-09
+  - id: S11
+    title: International Fibreboard Case Code, 11th edition (2007), FEFCO/ESBO
+    publisher: FEFCO / ESBO
+    url: https://www.fefco.org/sites/default/files/documents/FEFCO_Codes_of_Designs.pdf
+    accessed: 2026-11-09
+  - id: S12
+    title: FEFCO Code — Design Style Library for Corrugated Board Products, 12th edition (2022), full interactive PDF
+    publisher: FEFCO
+    url: https://www.fefco.org/sites/default/files/files/FEFCO%20Code_WEB%287%29.pdf
+    accessed: 2026-11-09
+  - id: S13
+    title: Edgewise compressive strength of corrugated fiberboard (short column test), TAPPI/ANSI T 811 om-23 (catalogue page; via corpus testing/standards-index.md)
+    publisher: TAPPI
+    url: https://imisrise.tappi.org/TAPPI/Products/01/T/0104T811.aspx
+    accessed: 2026-11-09
+  - id: S14
+    title: Compression test of fiberboard shipping containers, TAPPI/ANSI T 804 om-24 (catalogue page; via corpus testing/standards-index.md)
+    publisher: TAPPI
+    url: https://imisrise.tappi.org/TAPPI/Products/01/T/0104T804.aspx
+    accessed: 2026-11-09
+  - id: S15
+    title: Bursting strength of corrugated board, TAPPI/ANSI T 810 om-22 (catalogue page; via corpus testing/standards-index.md)
+    publisher: TAPPI
+    url: https://imisrise.tappi.org/TAPPI/Products/01/T/0104T810.aspx
+    accessed: 2026-11-09
+  - id: S16
+    title: Flat crush of corrugating medium (CMT test), TAPPI/ANSI T 809 om-22 (catalogue page; via corpus testing/standards-index.md)
+    publisher: TAPPI
+    url: https://imisrise.tappi.org/TAPPI/Products/01/T/0104T809.aspx
+    accessed: 2026-11-09
+  - id: S17
+    title: Ring crush of paperboard (rigid support method), TAPPI/ANSI T 822 om-22 (catalogue page; via corpus testing/standards-index.md)
+    publisher: TAPPI
+    url: https://imisrise.tappi.org/TAPPI/Products/01/T/0104T822.aspx
+    accessed: 2026-11-09
+  - id: S18
+    title: Puncture test of container board, T 803 cm-20 (catalogue page; via corpus testing/standards-index.md)
+    publisher: TAPPI
+    url: https://imisrise.tappi.org/TAPPI/Products/01/T/0104T803.aspx
+    accessed: 2026-11-09
+  - id: S19
+    title: ANSI/TAPPI T 441 om-24 Water absorptiveness of sized paper, paperboard and corrugated fiberboard (Cobb test) (store listing; via corpus testing/standards-index.md)
+    publisher: ANSI webstore
+    url: https://webstore.ansi.org/standards/tappi/ansitappi441om24
+    accessed: 2026-11-09
+  - id: S20
+    title: ISO 3037:2022 Corrugated fibreboard — Determination of edgewise crush resistance (non-waxed edge method) (catalogue entry; via corpus testing/standards-index.md)
+    publisher: BSI Knowledge
+    url: https://knowledge.bsigroup.com/products/corrugated-fibreboard-determination-of-edgewise-crush-resistance-non-waxed-edge-method
+    accessed: 2026-11-09
+  - id: S21
+    title: ISO 2759:2014 Board — Determination of bursting strength (catalogue page; via corpus testing/standards-index.md)
+    publisher: ISO
+    url: https://www.iso.org/standard/61488.html
+    accessed: 2026-11-09
+  - id: S22
+    title: ASTM D642-20 (catalogue entry; via corpus testing/standards-index.md)
+    publisher: iTeh Standards
+    url: https://standards.iteh.ai/catalog/standards/astm/c966c930-4b5f-4f3f-81d5-8a129d37b0bc/astm-d642-20
+    accessed: 2026-11-09
 ---
 
 # Packaging engineering glossary
 
 > **How to use this file.** Definitions are working definitions in plain language, written for
 > retrieval. They are not the normative definitions in ISO, TAPPI, ASTM, EN or FEFCO
-> documents; for anything contractual, cite the standard. Test-method numbers, unit
-> conversion factors and numeric limits are deliberately **not** given here: they live in
-> `testing/`, `reference/` and `performance/` with their own citations. Where a definition
+> documents; for anything contractual, cite the standard. The main test-method numbers are
+> given as pointers in the testing table (editions and status are in
+> `testing/standards-index.md`); unit conversion factors and numeric limits are deliberately
+> **not** given here: they live in `reference/` and `performance/` with their own citations. Where a definition
 > rests on a consulted source it carries an [S#] tag; untagged definitions are general
 > industry usage and were not checked against a published glossary during this review.
 > Sources were consulted through search-engine excerpts on 2026-11-09.
@@ -97,9 +158,9 @@ Terms for naming corrugated box styles and their parts. Style codes are in
 | Bliss box | Box made of a body wrapped around two separate end panels (US term) | Compare FEFCO 06 rigid-type |
 | Wrap-around (WA) | Blank folded and glued around the product on an automatic case packer | FEFCO 0406 |
 | Tray | Open-top box with walls folded up from a base | Die-cut tray, shallow tray |
-| Mailer | One-piece die-cut box with hinged lid for postal / e-commerce shipping | Postal box; FEFCO 0427 typical |
-| Crash-lock bottom | Pre-glued bottom that forms automatically when the flat box is squared [S6][S7] | Auto-bottom, auto-lock bottom, crash bottom |
-| Snap-lock bottom | Unglued bottom whose flaps are folded in sequence to lock [S7] | 1-2-3 bottom, lock bottom |
+| Mailer | One-piece die-cut box with hinged lid for postal / e-commerce shipping | Postal box; FEFCO 0427 typical; FEFCO 12th edition adds a retail and e-commerce series 08 [S12] |
+| Crash-lock bottom | Pre-glued bottom that forms automatically when the flat box is squared [S6][S7] | Auto-bottom, auto-lock bottom, crash bottom; ECMA closure value 60 (tuck-top carton A60.20.00.03) [S6]; FEFCO ready-glued cases such as 0711–0715 [S11] |
+| Snap-lock bottom | Unglued bottom whose flaps are folded in sequence to lock [S7] | 1-2-3 bottom, lock bottom; ECMA closure value 55 (tuck-top carton A55.20.01.03) [S6] |
 | Die-cut box | Box whose blank is cut on a die cutter rather than slotted on a flexo folder-gluer | Die-cut style |
 | Slotted box | Box made by scoring and slotting a sheet, usually on a flexo folder-gluer [S9] | FEFCO family 02 |
 | Ready-glued case | One-piece case glued by the converter, shipped flat, erected by simple set-up | FEFCO family 07 |
@@ -125,9 +186,9 @@ Terms for naming corrugated box styles and their parts. Style codes are in
 | Inside dimensions (ID) | Dimensions of the inside of the closed box; FEFCO and FBA default for specifying boxes [S3][S4] | Internal dimensions |
 | Outside dimensions (OD) | Overall external dimensions; used for pallet and cube planning | External dimensions |
 | Manufacturing dimensions | Score-to-score dimensions on the blank, from which the box is made | Score dimensions, blank dimensions |
-| L × W × D order | Box size order: Length then Width (the two opening dimensions, longer first) then Depth [S1] | FEFCO L × B × H [S3] |
+| L × W × D order | Box size order: Length then Width (the two opening dimensions, longer first) then Depth [S1] | FEFCO L × B × H [S3]; FEFCO 12th edition writes L × W × H [S12]; ECMA cartons use A × B × H measured at crease centres [S6] |
 | Length (L) | Longer dimension of the opening [S3] | — |
-| Width (W), Breadth (B) | Shorter dimension of the opening [S3] | — |
+| Width (W), Breadth (B) | Shorter dimension of the opening [S3] | FEFCO 12th edition says Width [S12]; the 11th edition and Recommendations 101 say Breadth [S11][S3] |
 | Depth (D), Height (H) | Distance from the opening to the base, perpendicular to the opening [S3] | — |
 | Blank | The flat, cut and scored piece of board before folding and gluing | Sheet, die-cut blank |
 | Knocked-down (KD) | Box supplied flat with the joint made, ready to erect | KD flat, flat-folded |
@@ -198,16 +259,16 @@ Terms for cartonboard grades and folding cartons. Style codes are in
 | Machine direction (MD) | Direction of travel on the paper machine | Grain direction |
 | Cross direction (CD) | Direction perpendicular to MD in the sheet plane | Across the grain |
 | Tuck end | Carton end closed by a flap tucked inside [S7] | — |
-| STE | Straight tuck end: both tucks hinge from the same side | Same-side tuck |
-| RTE | Reverse tuck end: tucks hinge from opposite sides | Airplane tuck (US trade) |
-| Seal end | Carton end closed by gluing the flaps, typically on a cartoner | Glued end, full-flap seal end |
+| STE | Straight tuck end: both tucks hinge from the same panel | Same-side tuck; ECMA A20.20.01.01 or A20.20.03.03 [S6] |
+| RTE | Reverse tuck end: tucks hinge from opposite panels | Airplane tuck (US trade); ECMA A20.20.03.01 or A20.20.01.03 [S6] |
+| Seal end | Carton end closed by gluing the flaps, typically on a cartoner | Glued end, full-flap seal end; ECMA closure value 70 [S6] |
 | Sleeve (carton) | Open-ended carton tube | Wrap, band |
-| Four-corner tray | Tray erected by gluing four corner webs or folds | 4-corner glued tray |
-| Six-corner tray | Four-corner tray with a hinged lid needing two extra glued corners | 6-corner tray |
+| Four-corner tray | Tray erected by gluing four corner webs or folds | 4-corner glued tray; ECMA B40.20.00.00 [S6] |
+| Six-corner tray | Four-corner tray with a hinged lid needing two extra glued corners | 6-corner tray; closest ECMA code B40.22.00.61 (ECMA has no "six-corner" name) [S6] |
 | Gable-top | Liquid/food carton style with gable roof closure | — |
 | Side seam | Longitudinal glue seam of a tube carton | Manufacturer's joint (carton) |
 | Cartoner | Machine that erects, fills and closes cartons | Cartoning machine |
-| ECMA code | Alphanumeric style code of the European Carton Makers Association: group letter plus number pairs [S6][S7] | — |
+| ECMA code | Style code of the European Carton Makers Association: a group letter (A–F, X) plus four two-digit pairs, with a fifth pair for an X-group feature; current edition is the revised edition of September 2009 [S6] | — |
 
 ## Converting, die-cutting and tooling terms
 
@@ -258,17 +319,17 @@ Terms for the main tests and properties. Method numbers, conditions and units ar
 
 | Term | Definition | Synonyms / notes |
 |---|---|---|
-| ECT (edge crush test) | Edgewise compressive strength of combined board, flutes vertical | Edgewise crush resistance |
-| BCT (box compression test) | Peak compressive load a box withstands between platens | Box compression strength |
-| Burst | Pressure to rupture board in a diaphragm tester | Mullen burst, bursting strength |
+| ECT (edge crush test) | Edgewise compressive strength of combined board, flutes vertical | Edgewise crush resistance; TAPPI T 811 (waxed edge) [S13], ISO 3037 (non-waxed edge) [S20] |
+| BCT (box compression test) | Peak compressive load a box withstands between platens | Box compression strength; TAPPI T 804 [S14], ASTM D642 [S22] |
+| Burst | Pressure to rupture board in a diaphragm tester | Mullen burst, bursting strength; TAPPI T 810 (corrugated) [S15], ISO 2759 [S21] |
 | Mullen | Instrument (and trade name) for burst testing; used as a synonym for burst | Mullen test |
-| RCT (ring crush test) | Edgewise compression of a paper strip formed into a ring | Ring crush |
+| RCT (ring crush test) | Edgewise compression of a paper strip formed into a ring | Ring crush; TAPPI T 822 (rigid support) [S17] |
 | SCT (short-span compression test) | Compressive strength of paper over a very short span | STFI test |
-| CMT (Concora medium test) | Flat crush of fluted medium formed in a laboratory fluter | Concora |
+| CMT (Concora medium test) | Flat crush of fluted medium formed in a laboratory fluter | Concora; TAPPI T 809 [S16] |
 | FCT (flat crush test) | Flat crush of single-wall combined board | Flat crush resistance |
 | PAT (pin adhesion test) | Force to separate liner from medium at the flute tips | Pin adhesion |
-| Cobb | Mass of water absorbed by a paper surface in a set time | Cobb size / water absorption |
-| Puncture | Energy to puncture board with a pointed head | Puncture resistance |
+| Cobb | Mass of water absorbed by a paper surface in a set time | Cobb size / water absorption; TAPPI T 441 [S19] |
+| Puncture | Energy to puncture board with a pointed head | Puncture resistance; TAPPI T 803 [S18] |
 | Bending stiffness | Resistance of board to bending | Taber, L&W stiffness (instrument names) |
 | Tensile strength | Force per width to break a strip in tension | Tensile |
 | Tear | Force to propagate a tear | Elmendorf tear |
@@ -433,8 +494,26 @@ Same thing, different words. Use this to normalise queries.
 
 ## Open items
 
-- Test-method numbers (TAPPI, ISO, FEFCO), unit conversion factors and Item 222 / Rule 41
-  content were not verified during this review and are intentionally left to `testing/`,
-  `reference/` and `logistics/`.
+- Unit conversion factors and Item 222 / Rule 41 content are intentionally left to
+  `reference/` and `standards/`.
 - Many definitions are general industry usage without a consulted source; check them against
   a published glossary (e.g. the FBA glossary) before promoting this file to `reviewed`.
+
+## Research log
+
+**Wave 2 (2026-11-09) — resolved:**
+
+- Test-method pointers added for ECT, BCT, burst, RCT, CMT, Cobb and puncture [S13]–[S22]. The
+  numbers and editions are taken from `testing/standards-index.md` (wave 1). The TAPPI
+  catalogue host (imisrise.tappi.org) refused connections from this session, so those pages
+  were not re-opened this wave.
+- FEFCO and ECMA terms aligned with the primary codes: the FEFCO 12th edition uses L × W × H and
+  adds series 08 [S12]; ECMA codes added for STE, RTE, crash lock, snap lock, seal end, and
+  four- and six-corner trays [S6].
+
+**Still open (best lead):**
+
+- Method numbers for FCT (TAPPI T 825 / ISO 3035), SCT (T 826), PAT and bending stiffness:
+  add from `testing/standards-index.md` once those entries are settled there.
+- Many definitions still lack a consulted source; the FBA glossary (https://www.fibrebox.org)
+  is the best lead before promoting this file to `reviewed`.
