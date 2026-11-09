@@ -1,0 +1,21 @@
+id: machine.example.ffg-1
+type: machine_spec
+version: 0.1.0
+scope: machine:example/ffg-1
+tier: L4
+status: draft
+confidence: measured
+title: EXAMPLE flexo folder-gluer — values are placeholders, not real machine data
+provenance:
+  method: plant-measurement
+machine:
+  kind: flexo-folder-gluer
+  name: FFG-1
+  sheet_min_mm: [600, 250]
+  sheet_max_mm: [2800, 1600]
+  caliper_range_mm: [1.5, 8.0]
+  flutes: [E, B, C, BC]
+  print_units: 4
+  joint_types: [glued]
+  tolerances_mm: {blank_dim: 1.5, score_position: 1.0, print_register: 1.0, joint_gap_max: 3.2, fishtail_max: 4.8}
+  notes: Placeholder envelope for schema testing only.

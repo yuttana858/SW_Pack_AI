@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://swpack.ai/schemas/allowance_table.schema.json",
+  "title": "Dimension allowance factors by style, flute and score profile",
+  "allOf": [{"$ref": "envelope.schema.json"}],
+  "type": "object",
+  "required": ["rows", "convention"],
+  "properties": {
+    "type": {"const": "allowance_table"},
+    "convention": {"const": "caliper-multiples-from-score", "description": "inside = score - k_s*t ; outside = score + (k_o - k_s)*t, per [L, W, H]"},
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["style", "flute", "k_s", "k_o"],
+        "properties": {
+          "style": {"type": "string", "pattern": "^[0-9]{4}$"},
+          "flute": {"type": "string"},
+          "score_profile": {"type": "string"},
+          "k_s": {"$ref": "board_material.schema.json#/$defs/lwh"},
+          "k_o": {"$ref": "board_material.schema.json#/$defs/lwh"},
+          "joint_width_mm": {"type": "number", "exclusiveMinimum": 0},
+          "slot_width_mm": {"type": "number", "exclusiveMinimum": 0},
+          "flap_gap_mm": {"type": "number"}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://swpack.ai/schemas/plant.schema.json",
+  "title": "Plant / location record (L3)",
+  "allOf": [{"$ref": "envelope.schema.json"}],
+  "type": "object",
+  "required": ["plant"],
+  "properties": {
+    "type": {"const": "plant"},
+    "plant": {
+      "type": "object",
+      "required": ["plant_id", "name"],
+      "properties": {
+        "plant_id": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+        "name": {"type": "string"},
+        "country": {"type": "string"},
+        "units_display": {"enum": ["SI", "US"]},
+        "climate_profile": {
+          "type": "object",
+          "properties": {
+            "warehouse_rh_pct": {"type": "number", "minimum": 0, "maximum": 100},
+            "warehouse_temp_c": {"type": "number"},
+            "factor_set_ref": {"type": "string"}
+          }
+        },
+        "machines": {"type": "array", "items": {"type": "string"}, "description": "machine_spec ids"},
+        "approved_suppliers": {"type": "array", "items": {"type": "string"}},
+        "default_standards": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

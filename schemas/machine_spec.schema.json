@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://swpack.ai/schemas/machine_spec.schema.json",
+  "title": "Converting / corrugating machine capability envelope (L4)",
+  "allOf": [{"$ref": "envelope.schema.json"}],
+  "type": "object",
+  "required": ["machine"],
+  "properties": {
+    "type": {"const": "machine_spec"},
+    "machine": {
+      "type": "object",
+      "required": ["kind", "name"],
+      "properties": {
+        "kind": {"enum": ["corrugator", "flexo-folder-gluer", "rotary-die-cutter", "flatbed-die-cutter", "folder-gluer", "digital-press", "litho-laminator", "specialty-gluer", "taper-stitcher", "sample-cutter"]},
+        "name": {"type": "string"},
+        "make": {"type": "string"},
+        "model": {"type": "string"},
+        "sheet_min_mm": {"$ref": "#/$defs/xy"},
+        "sheet_max_mm": {"$ref": "#/$defs/xy"},
+        "caliper_range_mm": {"$ref": "#/$defs/range"},
+        "flutes": {"type": "array", "items": {"type": "string"}},
+        "max_speed_per_min": {"type": "number", "exclusiveMinimum": 0},
+        "print_units": {"type": "integer", "minimum": 0},
+        "joint_types": {"type": "array", "items": {"enum": ["glued", "stitched", "taped"]}},
+        "score_profiles": {"type": "array", "items": {"type": "string"}},
+        "tolerances_mm": {
+          "type": "object",
+          "properties": {
+            "blank_dim": {"type": "number", "minimum": 0},
+            "score_position": {"type": "number", "minimum": 0},
+            "print_register": {"type": "number", "minimum": 0},
+            "joint_gap_max": {"type": "number", "minimum": 0},
+            "fishtail_max": {"type": "number", "minimum": 0}
+          }
+        },
+        "allowance_table_ref": {"type": "string", "description": "id of a machine-scoped allowance_table"},
+        "notes": {"type": "string"}
+      }
+    }
+  },
+  "$defs": {
+    "xy": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number", "exclusiveMinimum": 0}},
+    "range": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number", "minimum": 0}}
+  }
+}

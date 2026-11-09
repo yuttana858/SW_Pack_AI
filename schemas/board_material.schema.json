@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://swpack.ai/schemas/board_material.schema.json",
+  "title": "Corrugated board material record (SI units)",
+  "allOf": [{"$ref": "envelope.schema.json"}],
+  "type": "object",
+  "required": ["board"],
+  "properties": {
+    "type": {"const": "board_material"},
+    "supplier": {"type": "string"},
+    "grade_code": {"type": "string", "description": "e.g. 125K/112S/125T or 32ECT C"},
+    "board": {
+      "type": "object",
+      "required": ["flute", "wall", "caliper_mm"],
+      "properties": {
+        "flute": {"type": "string", "pattern": "^(A|B|C|E|F|G|N|K|BC|EB|EC|AC|BE|AAA|ACA|BAC)$"},
+        "wall": {"enum": ["single", "double", "triple"]},
+        "outside_liner": {"$ref": "#/$defs/ply"},
+        "medium": {"type": "array", "items": {"$ref": "#/$defs/ply"}},
+        "inside_liner": {"$ref": "#/$defs/ply"},
+        "take_up": {"type": "array", "items": {"type": "number", "minimum": 1.0, "maximum": 1.8}},
+        "caliper_mm": {"$ref": "#/$defs/tolerancedValue"},
+        "grammage_gsm": {"$ref": "#/$defs/tolerancedValue"},
+        "ect_kn_per_m": {"$ref": "#/$defs/tolerancedValue"},
+        "burst_kpa": {"$ref": "#/$defs/tolerancedValue"},
+        "fct_kpa": {"$ref": "#/$defs/tolerancedValue"},
+        "moisture_pct": {"$ref": "#/$defs/tolerancedValue"},
+        "conditioning": {"type": "string", "default": "ISO 187 23 °C / 50 %RH"},
+        "flute_direction_deg": {"type": "number", "minimum": -360, "maximum": 360}
+      }
+    },
+    "auto3d": {
+      "type": "object",
+      "description": "Payload for packaging.materials.update; generated, do not hand-edit when board block exists",
+      "properties": {
+        "insideFactors": {"$ref": "#/$defs/lwh"},
+        "outsideFactors": {"$ref": "#/$defs/lwh"},
+        "scoreProcess": {"type": "string"},
+        "scoreWidthMm": {"type": "number", "exclusiveMinimum": 0},
+        "scoreToleranceMm": {"type": "number", "minimum": 0},
+        "processToleranceMm": {"type": "number", "minimum": 0},
+        "calibrated": {"type": "boolean"}
+      }
+    }
+  },
+  "$defs": {
+    "ply": {
+      "type": "object",
+      "required": ["grade", "gsm"],
+      "properties": {
+        "grade": {"type": "string"},
+        "gsm": {"type": "number", "exclusiveMinimum": 0, "maximum": 2000},
+        "thickness_mm": {"type": "number", "exclusiveMinimum": 0},
+        "sct_cd_kn_per_m": {"type": "number", "exclusiveMinimum": 0},
+        "rct_kn_per_m": {"type": "number", "exclusiveMinimum": 0}
+      }
+    },
+    "tolerancedValue": {
+      "type": "object",
+      "required": ["nominal"],
+      "properties": {
+        "nominal": {"type": "number"},
+        "min": {"type": "number"},
+        "max": {"type": "number"},
+        "tol_plus": {"type": "number", "minimum": 0},
+        "tol_minus": {"type": "number", "minimum": 0},
+        "cov_pct": {"type": "number", "minimum": 0}
+      }
+    },
+    "lwh": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "number", "minimum": 0, "maximum": 20}}
+  }
+}
