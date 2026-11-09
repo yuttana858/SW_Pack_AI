@@ -16,9 +16,9 @@ sources:
     url: https://research.gatech.edu/sites/default/files/rbi/pdfs/Predicting%20Box%20Compression%20Strength_3.pdf
     accessed: 2026-11-09
   - id: S2
-    title: Box compression analysis of world-wide data spanning 46 years (Urbanik & Frank, Wood and Fiber Science 2006)
+    title: Box compression analysis of world-wide data spanning 46 years (Urbanik & Frank, Wood and Fiber Science 38(3):399–416, 2006; full PDF read in wave 3)
     publisher: USDA Forest Service / Forest Products Laboratory (Treesearch)
-    url: https://research.fs.usda.gov/treesearch/25180
+    url: https://research.fs.usda.gov/download/treesearch/25180.pdf
     accessed: 2026-11-09
   - id: S3
     title: TOPS – Stacking Strength (technical note)
@@ -70,14 +70,20 @@ sources:
     publisher: Georgia Tech Renewable Bioproducts Institute
     url: https://research.gatech.edu/sites/default/files/2021-06/effects-of-moisture-content-on-box-compression-strength.pdf
     accessed: 2026-11-09
+  - id: S13
+    title: "Basic design data for the use of fiberboard in shipping containers; box strength calculator (FPL Report 1911-A; Kellicutt, Landt, Setterholm), repository record (PDF not opened: TLS failure in this session)"
+    publisher: Oregon State University ScholarsArchive (USDA Forest Products Laboratory report)
+    url: https://ir.library.oregonstate.edu/concern/file_sets/2r36v282x
+    accessed: 2026-11-09
 ---
 
 # Box Compression Strength (BCT) Prediction
 
 > **Source access note (2026-11-09, wave 1 update):** Popil's slides [S1] and his RBI papers
 > [S6][S12] were downloaded and read in full. They confirm the McKee constants, the units and the
-> Z/7 limit. The Urbanik & Frank paper [S2], the TOPS note [S3] and the MDPI papers [S5][S7][S8]
-> were still only seen through search extracts: the hosts were blocked or the FPL server was down.
+> Z/7 limit. The Urbanik & Frank paper [S2] was read in full in wave 3 (research.fs.usda.gov).
+> The TOPS note [S3] and the MDPI papers [S5][S7][S8] were still only seen through search
+> extracts: the hosts were blocked or the FPL server was down.
 
 ## What BCT is and why it is predicted
 
@@ -220,36 +226,136 @@ loss) from ECT.
 
 ## Kellicutt (Kellicutt & Landt) formula
 
-Kellicutt and Landt (1952) proposed one of the first BCT predictors, using the paper's ring crush
-(RCT) and a flute constant together with the box perimeter and a box constant; the panel is
-idealised with equal sides so that panel width b = Z/4 [S5].
+Kellicutt and Landt proposed one of the first BCT predictors. It uses the ring crush (RCT) of the
+component papers and a flute constant, together with the box perimeter and a box constant. The
+panel is idealised with equal sides, so that panel width b = Z/4 [S5].
 
-**VERIFY — the exact equation and its constants (including the commonly quoted 2/3 exponent)
-could not be confirmed in the sources consulted. No worked example is given until a reviewer
-adds the equation from the original publication or [S2].** Use McKee for design estimates.
-A search extract of a Japanese paper gives the form P = β·Rx·Z^(exponent), with β a flute constant
-and Rx the overall ring crush, but the exponent was unreadable. Original publication: Kellicutt,
-Landt & Setterholm, *Basic design data for use of fiberboard in shipping containers — box strength
-calculator*, FPL Report R1911-A. Library catalogues date it to 1951, 1952 and 1958 (reprints).
+What the primary literature confirms (wave 3, read in full in [S2]):
+- **Citation and date.** Urbanik & Frank cite it as Kellicutt, K. Q. and Landt, E. F. (1951),
+  "Basic design data for use of fiberboard in shipping containers", *Fibre Containers* 36(12):62–80
+  [S2]. The Forest Products Laboratory (FPL) report version with the box strength calculator is FPL
+  Report 1911 / R1911-A (Kellicutt, Landt and Setterholm). Library catalogues date it 1951, 1952
+  and 1958 (reprints) [S13].
+- **Basis.** The paper summarised FPL box work from before World War II as correlations between
+  material compression strength and panel buckling strength [S2].
+- **Flute factors.** Kellicutt and Landt used empirical flute-adjustment factors [S2].
+- **Later revision.** A "new Kellicutt equation" was published by Kawabata (1997), *J. Korea
+  TAPPI* 29(4):73–85 [S2].
 
-## Maltenfort, Urbanik, Allerheiligen, Batelka and FEA approaches
+**VERIFY: the equation and its constants (including the often-quoted 2/3 exponent) are still not
+confirmed.** The FPL R1911-A PDF is in the Oregon State repository [S13], but this session could not
+open it (TLS chain to a root CA missing from the session's trust store). This file gives no worked
+example until a reviewer copies the equation from R1911-A. Use McKee or the Urbanik–Frank refit
+below for design estimates.
+
+## Urbanik–Frank (2006) model and refit of McKee to world-wide data
+
+Urbanik & Frank went back to the panel-buckling theory behind McKee. They wrote a general
+post-buckling formula and fitted it to 19 data sources from 1943 to 2004. That covers 409
+single-wall (SW) RSC boxes plus double-wall (DW) boxes and tubes [S2].
+
+**General model (description only).** Each side panel and end panel is treated as a plate. Its
+strength ratio P_f/P_y (panel load over crush load, with P_y = edge crush P_m) depends on the panel's
+critical buckling load P_cr. The fitted prefactor is α, the exponent β, and γ is an empirical
+correction for panel aspect ratio. Box strength is P = 2·(P_fl·l + P_fw·w), with the load shared
+iteratively between panels [S2]. Each of four McKee constraints can be removed:
+- square box (S) or rectangular box (R);
+- infinitely deep box (I) or finite depth (F);
+- elastic buckling only (E) or elastic plus inelastic buckling (EI, when slenderness U = √(P_y/P_cr) ≤ 1);
+- with or without γ.
+
+Inelastic buckling (the panel crushes evenly along the loading edge without bulging) is typical
+of short or narrow panels and thick board. Elastic buckling (the panel bulges and crushing starts
+at the corners) is typical of large panels [S2]. The full model needs an iterative spreadsheet
+solution. Use the equations in [S2] directly; they are not reproduced here.
+
+**Closed form: the S I E refit (the McKee form with world-wide constants).** With all of McKee's
+constraints applied (S, I, E, γ = 0, and default twisting inputs ĉ = 1, ν = 0), the model reduces
+exactly to the McKee equation, with α = a·(64π²)^(b−1) and β = 1 − b [S2]. Fitted to all SW data:
+α = 0.376 and β = 0.273 [S2]. That gives:
+
+```
+BCT = a · ECT^b · (sqrt(Dx · Dy))^(1−b) · Z^(2b−1)
+a = α · (64π²)^β = 0.376 × 631.655^0.273 = 2.186      (derived)
+b = 1 − β = 0.727                                    (derived)
+```
+
+| Symbol | Meaning | SI unit | US unit |
+|---|---|---|---|
+| BCT | predicted top-to-bottom compression strength | N | lbf |
+| ECT | edge crush strength of the combined board (P_m) | N/m | lbf/in |
+| Dx, Dy | MD and CD flexural stiffness per unit width | N·m | lbf·in |
+| Z | box perimeter 2·(L + W) | m | in |
+| a, b | dimensionless constants (force exponent b + (1 − b) = 1; length exponent −b + (1 − b) + (2b − 1) = 0) | – | – |
+
+Check (derived): McKee's own constants a = 2.028, b = 0.746 transform to α = 0.394, β = 0.254.
+
+Validity: single-wall RSCs within the range of the world-wide data set. The fit covers several ECT
+methods (TAPPI T 811 waxed and T 839 clamped) and several labs [S2]. The constraints are the same as
+for McKee: square, tall boxes buckling elastically. Not validated for double wall or tubes, where
+the fitted prefactor differs a lot [S2].
+
+Worked example (derived; same box as the full-McKee example above: 400 × 300 mm, Z = 1400 mm =
+55.12 in, ECT 32 lbf/in, illustrative Dx = 60 lbf·in and Dy = 30 lbf·in):
+- US: sqrt(60 × 30) = 42.43 lbf·in. BCT = 2.186 × 32^0.727 × 42.43^0.273 × 55.12^0.454 =
+  **466.5 lbf**.
+- SI: ECT = 5604 N/m, sqrt(Dx·Dy) = 4.794 N·m, Z = 1.400 m. BCT = 2.186 × 5604^0.727 ×
+  4.794^0.273 × 1.400^0.454 = **2075 N** (= 466.5 lbf).
+- Full McKee for the same inputs gives 501 lbf (2230 N), so the refit is 6.9 % lower. That matches
+  the mean McKee bias in [S2].
+
+**Accuracy, as reported in [S2] (Table 4 there):**
+
+| Model and data | Average absolute error | Mean error (bias) | Standard deviation |
+|---|---|---|---|
+| Inter-laboratory round robin (Miles 1966), the floor for any model | – | 0 | 7.74 % |
+| McKee constants, McKee's own data | 6.09 % | +0.29 % | 7.75 % |
+| McKee constants, all SW data | 11.1 % | **+7.64 %** (over-prediction) | 11.9 % |
+| S I E refit, all SW data | 8.99 % | +0.62 % | 11.1 % |
+| R F EI γ (all constraints removed; α = 0.391, β = 0.312, γ = 0.359), SW data with l, w, d | 8.48 % | +0.56 % | 10.6 % |
+
+Example from [S2]: for a box whose true strength is 1000 lb (454 kg), McKee averages 1076 lb and
+can be up to about 19 % high at 1 sigma. The R F EI γ model averages 1006 lb.
+
+Limitations:
+- Linear material law only.
+- Score-line effects are not modelled. Urbanik & Frank found that the prefactor α is consistently
+  lower for boxes than for tubes, and interpret this as strength lost at the flap score [S2].
+- DW fits vary widely: some DW data sets beat the McKee estimate, others fall short [S2].
+- Even a perfect model cannot beat the about 7.7 % inter-laboratory scatter [S2]. Confirm by test.
+
+## Maltenfort, Allerby, Batelka and FEA approaches
 
 - **Maltenfort** relates board ECT to component ring crush (see
-  `kb.performance.board-tests-and-ect`); Popil recommends using the Maltenfort ECT as the McKee
+  `kb.performance.board-tests-and-ect`). Popil recommends using the Maltenfort ECT as the McKee
   input, checked against measured ECT [S1].
-- **Urbanik & Frank (2006)** analysed 46 years of world-wide data and proposed a general formula
-  that keeps McKee's underlying buckling theory but removes its constraints [S2]; a later study
-  reports two of their criteria agree with a large data set [S2]. **VERIFY — formula not retrieved.**
-- **Buckling-based / FEA models**: recent work combines critical-buckling load of each panel with
-  post-buckling and numerical (FEM) models, including boxes with sidewall cut-outs [S5][S8] and
-  pallet overhang [S7]. These handle geometry (cut-outs, overhang, panel aspect ratio) that McKee
-  cannot.
-- **Allerheiligen, Batelka:** **VERIFY — formulas not retrieved.** Search extracts of review
-  papers (MDPI, blocked here) credit "Allerby et al." (1985) with re-fitting McKee's constants and
-  exponents. They credit Batelka & Smith (1993) with adding box dimensions. The Urbanik & Frank review [S2]
-  reportedly lists Wolf (1972), Batelka & Smith (1993) and Challas et al. (1994) as adding geometry
-  terms that do not agree with each other. The name "Allerheiligen" could not be matched to a
-  source. Do not quote either formula until it is sourced.
+- **Other re-fits of the McKee constants (confirmed in [S2]).** Published exponents b vary:
+  0.746 (McKee 1963), 0.75 (Wolf 1972), 0.724 (Shick & Chari 1965, DW boxes) and 0.778
+  (Buchanan et al. 1964). Buchanan et al. and Shick & Chari found the McKee form also fits DW
+  boxes [S2]. On SW boxes with more than 20 samples, a best-fit prefactor a ranges from 0.4 to 4.0
+  once b is also free. The constants trade off against each other, so a lone "a" has no physical
+  meaning [S2].
+- **Geometry terms: Wolf (1972), Batelka & Smith (1993), Challas et al. (1994).** Each adds
+  box-geometry terms to the McKee form, but the approaches do not agree with each other [S2].
+  Sources, from the reference list of [S2]:
+  - Wolf, M. (1972), *Package Engineering*, March, 66–67.
+  - Batelka, J. J. and Smith, C. N. (1993), *Package compression model*, IPST Project 3746 final
+    report.
+  - Challas, J., Schaepe, M. and Smith, C. N. (1994), *Predicting package compression strength:
+    geometry effect*, IPST Project 3806 final report.
+
+  In the Urbanik & Frank data set the Batelka data are 108 SW **tube** samples, not boxes [S2].
+  **VERIFY: the Batelka & Smith equation itself is in an unpublished IPST report; not retrieved.**
+- **Allerby et al. (1985) and "Allerheiligen".** Review papers (seen only as search extracts,
+  hosts blocked) credit Allerby et al. (1985) with modifying McKee's constants and exponents for
+  C-flute board. No author "Allerheiligen" appears in the reference list of [S2] or in any source
+  found in waves 1–3. Treat "Allerheiligen" as a **mis-citation of Allerby** and do not cite it.
+  **VERIFY: Allerby et al. (1985) constants not retrieved.**
+- **Buckling-based and FEA models.** Recent work combines the critical buckling load of each panel
+  with post-buckling and numerical (FEM) models. This covers boxes with sidewall cut-outs [S5][S8]
+  and pallet overhang [S7]. These models handle geometry that McKee cannot: cut-outs, overhang and
+  panel aspect ratio. The Urbanik & Frank R/F/EI model above is the analytical version of the same
+  idea [S2].
 - **Whitsitt / Maltenfort ECT input:** see `kb.performance.board-tests-and-ect`. Popil's version
   is ECT ≈ 0.7·(2·SCT_liner + α·SCT_medium), with α ≈ 1.42–1.43 for C flute [S1][S12].
 
@@ -322,10 +428,43 @@ Still open, with the best lead for each:
   at https://wfs.swst.org/index.php/wfs/article/download/437/437 or
   https://research.fs.usda.gov/download/treesearch/25180.pdf (both blocked; www.fpl.fs.usda.gov
   returned HTTP 502 all session).
-- Urbanik & Frank general formula: same leads.
+- Urbanik & Frank general formula: resolved in wave 3 (see the Urbanik–Frank section).
 - Allerby et al. (1985) and Batelka & Smith (1993). Lead: MDPI Materials 13(20):4578 literature
   review, https://www.mdpi.com/1996-1944/13/20/4578 (blocked). Also check whether "Allerheiligen"
   is a mis-citation of Allerby.
 - Direction of McKee's error for short boxes (D < Z/7), and validity for double wall: needs tests or
   Urbanik & Frank (2006).
 
+
+**Wave 3 (2026-11-09).** This agent used 21 searches in total, shared across six files. Scope: the
+Kellicutt, Urbanik–Frank and newer-model sections only.
+
+Resolved this wave:
+- Urbanik & Frank (2006) was read in full from the FPL Treesearch PDF [S2]. Added:
+  - the model structure (S/R, I/F, E/EI, γ);
+  - the exact reduction to McKee (α = a·(64π²)^(b−1), β = 1 − b);
+  - the all-SW S I E refit (a = 2.186, b = 0.727, derived) with SI and US worked examples, checked
+    in Python;
+  - the accuracy table: McKee bias +7.64 % and average error 11.1 % on 409 SW boxes; R F EI γ
+    average error 8.48 %;
+  - the McKee-exponent spread (0.724–0.778) and the score-line interpretation of α.
+- Batelka & Smith (1993), Wolf (1972) and Challas et al. (1994) confirmed as geometry-term models,
+  with full citations from [S2]. Batelka data are SW tubes.
+- "Allerheiligen" is not in any source found. Treated as a mis-citation of Allerby et al. (1985).
+- Kellicutt & Landt confirmed as 1951, *Fibre Containers* 36(12):62–80, using empirical flute
+  factors [S2]. Kawabata (1997) "new Kellicutt equation" lead.
+
+Still open:
+- Kellicutt equation and constants. FPL R1911-A on ir.library.oregonstate.edu fails TLS in this
+  session: the server chains to the emSign Root CA - G1, which is not in the session trust store.
+  www.fpl.fs.usda.gov returns 502. core.ac.uk, d.lib.msu.edu and wfs.swst.org are blocked, and so
+  are the Japanese sources (gitec, Kobe) found by a Japanese-language search.
+- Allerby et al. (1985) and the Batelka & Smith equations. Lead: MDPI Materials 13(20):4578.
+  mdpi.com returns 403; the sparrow.up.poznan.pl, PMC and blob mirrors are blocked.
+- Outside this agent's sections, for the file owner:
+  - For the "Validity range" (double wall) and "When McKee breaks down" (short boxes) open markers
+    markers, [S2] now gives evidence. DW prefactors vary widely, with some DW sets above McKee and
+    others below.
+  - Inelastic buckling (low l, low w or thick board) is modelled by u = 0 in [S2].
+  - The source-access note at the top still says [S2] was seen only in extracts. That is out of
+    date.

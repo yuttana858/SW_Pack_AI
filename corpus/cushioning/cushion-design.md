@@ -125,6 +125,26 @@ sources:
     publisher: PROSOURCE (PMMI)
     url: https://www.prosource.org/category/materials-containers-and-consumables/protective-and-transport-packaging/cushioning
     accessed: 2026-11-09
+  - id: S24
+    title: Polystyrene (section Expanded polystyrene; normal EPS density range 11-32 kg/m3, citing an Australian Urethane & Styrene technical data sheet)
+    publisher: Wikipedia
+    url: https://en.wikipedia.org/wiki/Polystyrene
+    accessed: 2026-11-09
+  - id: S25
+    title: Moulded pulp (materials database entry; density range seen via search-engine extract, host blocked)
+    publisher: Spot Material
+    url: https://spotmaterial.com/material/moulded-pulp/moulded-pap-pulp/
+    accessed: 2026-11-09
+  - id: S26
+    title: Clemson University master's thesis no. 2292 on temperature effects on polyethylene foam cushioning (abstract seen via search-engine extract, host blocked)
+    publisher: Clemson University (TigerPrints)
+    url: https://open.clemson.edu/all_theses/2292
+    accessed: 2026-11-09
+  - id: S27
+    title: PE temperature cushion curves, Type 1 (peak G vs static stress, -65 F to 180 F, 36 in drop; seen via search-engine extract, host blocked)
+    publisher: US Air Force Packaging Technology & Engineering Facility (AFLCMC)
+    url: https://www.aflcmc.af.mil/Portals/79/Documents/AFPTEF/PE-temperature-curves-Type1.pdf
+    accessed: 2026-11-09
 ---
 
 # Cushion design
@@ -301,12 +321,12 @@ Limitations: the result depends entirely on the real cushion curve; the multi-dr
 
 | Material | Density (where sourced) | Typical uses and behaviour |
 |---|---|---|
-| EPS (expanded polystyrene) | about 20–30 kg/m³ [1.2–1.9 lb/ft³] per a supplier comparison [S17] — **VERIFY** with EPS moulder | Moulded end caps and trays for electronics and appliances; strength rises with density, and cushioning also depends on part geometry, bead size and processing [S16]. Mainly a single-impact (sacrificial) cushion [S18]. Nearly impervious to liquid water but moderately permeable to water vapour [S16]. |
+| EPS (expanded polystyrene) | normal range 11–32 kg/m³ [0.69–2.0 lb/ft³] [S24]; packaging parts commonly about 20–30 kg/m³ [1.2–1.9 lb/ft³] per a supplier comparison [S17] (consistent with [S24]) | Moulded end caps and trays for electronics and appliances; strength rises with density, and cushioning also depends on part geometry, bead size and processing [S16]. Mainly a single-impact (sacrificial) cushion [S18]. Nearly impervious to liquid water but moderately permeable to water vapour [S16]. |
 | EPP (expanded polypropylene) | tested at 20, 30, 45 and 60 kg/m³ [1.2–3.7 lb/ft³] in a crushing study [S15] | Reusable/returnable dunnage, multiple impacts; density had a much larger effect on energy absorption than thickness in that study [S15]. |
 | PE foam (EPE, expanded polyethylene) | typically 29–120 kg/m³ [1.8–7.5 lb/ft³], lower end most common; as low as 14 kg/m³ [0.9 lb/ft³] possible [S14] | Fabricated (cut, laminated) pads and inserts; resilient, recovers after impact, suitable for multiple impacts [S14][S18]. |
 | PU foam (polyurethane) | not confirmed in this pass — **VERIFY** with supplier | Open- or closed-cell; foam-in-place and soft pads for light, fragile items. |
-| Molded pulp | 300–500 kg/m³ [19–31 lb/ft³] per one supplier — **VERIFY** [S17] | Trays and end caps from recycled paper; recyclable [S23]. Higher density and lower resilience than foams. |
-| Paper honeycomb | not confirmed — **VERIFY** | Edge and corner protectors, heavy-item pads, pallet components; recyclable. |
+| Molded pulp | 300–500 kg/m³ [18.7–31.2 lb/ft³] per one supplier [S17]; a materials database gives a much wider 120–760 kg/m³ [7.5–47.4 lb/ft³] [S25] (seen as a search extract) — **VERIFY**: sources disagree; density depends on process (thick-wall, transfer, thermoformed) | Trays and end caps from recycled paper; recyclable [S23]. Higher density and lower resilience than foams. |
+| Paper honeycomb | no numeric density confirmed — **VERIFY**. Reported trend: the relative density of the honeycomb core strongly affects cushioning, while liner basis weight has little effect (Wang & Wang 2008, *Packaging Technology and Science*, seen as a search extract only) | Edge and corner protectors, heavy-item pads, pallet components; recyclable. |
 | Air pillows / air cushions | not applicable (air-filled film) | Very light; void fill. Inflated void-fill pillows are not suited for primary cushioning [S18][S23]. |
 | Paper-based (crumpled kraft, paper cushioning) | not applicable | Void fill and light blocking/bracing; recyclable. |
 
@@ -327,7 +347,14 @@ Cushion curves are traditionally published for the first impact, but the mechani
 
 ## Temperature effects
 
-Foam stiffness changes with temperature: in general foams get stiffer when cold and softer when hot, which moves the cushion curve. ASTM D2221 lists temperature and humidity as factors that affect creep results [S19]. No quantitative temperature correction was confirmed in this pass — **VERIFY**: ask the supplier for cushion curves measured at the route's minimum and maximum temperatures (for example, cold-chain or air-cargo holds) and design to the worst case.
+Foam stiffness changes with temperature: in general foams get stiffer when cold and softer when hot, which moves the cushion curve. ASTM D2221 lists temperature and humidity as factors that affect creep results [S19].
+
+Published work on polyethylene foam (seen only as search extracts; full texts blocked in this session) gives the size of the effect:
+- A stress-energy model predicts PE cushion curves at different temperatures and was checked against impact tests (*Packaging Technology and Science*, 2017).
+- The related Clemson thesis reports that the **optimum static stress falls by about 60 %** as temperature rises from −20 °C to 50 °C [−4 °F to 122 °F] [S26].
+- US Air Force (AFPTEF) PE cushion curves cover −54 °C to 82 °C [−65 °F to 180 °F] at a 910 mm [36 in] drop [S27].
+
+So a pad sized for the curve minimum at 23 °C can be too stiff in the cold (higher G at low static stress) and bottom out in the heat. **VERIFY**: no correction factor was confirmed. Ask the supplier for cushion curves measured at the route's minimum and maximum temperatures (for example, cold-chain or air-cargo holds) and design to the worst case.
 
 ## Vibration isolation: natural frequency and transmissibility
 
@@ -373,3 +400,33 @@ So a cushion can do nothing, amplify, or isolate vibration depending on thicknes
 - Natural frequency kept away from transport PSD peaks.
 - Temperature extremes considered.
 - Design confirmed by distribution testing.
+
+## Research log
+
+**Wave 3 (2026-11-09).** This agent used 21 searches, shared across six files.
+
+Resolved this wave:
+- EPS density: Wikipedia gives a normal range of 11–32 kg/m³ [S24], which contains the supplier
+  figure of 20–30 kg/m³ [S17]. Marker removed.
+
+Partly resolved (markers kept):
+- Molded pulp: a second, wider range of 120–760 kg/m³ [S25] conflicts with 300–500 kg/m³ [S17].
+- Paper honeycomb: the effect of core relative density on cushioning was added (search extract);
+  there is still no density figure.
+- Temperature: added the PE-foam evidence (about 60 % fall in optimum static stress from −20 °C to
+  50 °C, from search extracts); there is still no correction factor.
+
+Still open:
+- PU foam density for packaging grades. Searches returned only insulation spray-foam data sheets,
+  which are not used here.
+- Fragility-band conflicts. P.J. Bowers, pkgsolutions.co.uk and Westpak were all blocked.
+- Drop-height table conflicts (not targeted).
+
+Blocked hosts this wave:
+- Data sources: westpak.com, pjbowers.com.au, pkgsolutions.co.uk, insulfoam.com, woodencrates.org
+  (MIL-HDBK-304), everyspec.com, bioresources.cnr.ncsu.edu, spotmaterial.com.
+- Temperature studies: open.clemson.edu, tigerprints.clemson.edu, aflcmc.af.mil, apps.dtic.mil.
+- Other: doaj.org, d.lib.msu.edu.
+- Wikipedia's "Expanded polypropylene" page returned a Wikimedia error, so EPP still relies on
+  [S15].
+

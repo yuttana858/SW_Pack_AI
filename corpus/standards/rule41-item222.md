@@ -110,6 +110,16 @@ sources:
     publisher: Wikipedia
     url: https://en.wikipedia.org/wiki/Corrugated_fiberboard
     accessed: 2026-11-09
+  - id: S21
+    title: Public Docket Files (Docket 2026-2 subject list, analyses and dispositions; read via search-engine extract, host blocked)
+    publisher: NMFTA
+    url: https://nmfta.org/public-docket-files/
+    accessed: 2026-11-09
+  - id: S22
+    title: Docket 2026-2 (Fall 2026; public meeting 29 September 2026; read via search-engine extract, host blocked)
+    publisher: NMFTA
+    url: https://nmfta.org/wp-content/media/2026/08/Docket-2026-2-1.pdf
+    accessed: 2026-11-09
 ---
 
 # NMFC Item 222 and UFC Rule 41
@@ -251,6 +261,16 @@ refers to [S20]. Fields, as shown on the sample single-wall (ECT) and double-wal
   in the sources consulted (**VERIFY** against the current NMFC before relying on this).
 - Docket 2026-2 Subject 32 proposes cancelling **Item 685** (packing or packaging — alternate
   forms), not Item 222 [S9]. Status of that proposal: **VERIFY**.
+- **Docket 2026-2 (Fall 2026)** had a public meeting on 29 September 2026. Its subject list runs
+  from Subject 1 to Subject 33 [S21][S22]. The packaging-related subjects listed are:
+  - Subject 30: Item 245, definition of or specifications for crates;
+  - Subject 32: Item 685, packing or packaging, alternate forms. NMFTA's docket page links both an
+    analysis and a disposition for Subject 32 [S21].
+
+  No Item 222 subject appears in the list [S21]. These details come from search-engine extracts of
+  the NMFTA pages, because nmfta.org was blocked in the research session. The text of the
+  Subject 32 disposition and its effective date were not read. NMFTA says it now posts only the
+  most current docket documents publicly [S21].
 - **2025 overhaul was about classification, not box construction:** Docket 2025-1 (approved as
   modified in Disposition Bulletin 1371) moved many commodities from commodity-based to
   density-based classes, effective 19 July 2025, reclassifying or consolidating over 2,000 NMFC
@@ -293,4 +313,25 @@ Still open, with the best lead for each:
   six). This was seen only in a search extract. Lead:
   https://dev.tappi.org/globalassets/documents/sarg-2023/t810-d-3-sarg-with-changes-incorporated.pdf
   (host blocked).
+
+**Wave 3 (2026-11-09).** This agent used 21 searches, shared across six files. Scope: the
+"Current regulatory status" section only.
+
+Done this wave:
+- Added the Docket 2026-2 subject list (Subjects 1–33, public meeting 29 September 2026). It has no
+  Item 222 subject. Packaging-related subjects are 30 (Item 245, crates) and 32 (Item 685, alternate
+  forms), and a Subject 32 disposition exists [S21][S22].
+
+Still open:
+- The four status markers are unchanged:
+  - Item 222 in force;
+  - Item 685 disposition and its effective date;
+  - content of Docket 2022-2;
+  - date of the latest UFC supplement.
+
+  None could be read at the source. nmfta.org is refused by the session proxy (CONNECT 403), and
+  www.nmfta.org answers HTTP 403. WebFetch cannot resolve nmfta.org, and
+  public.tst.railinc.com is refused.
+- To close these, nmfta.org and railinc.com must be allowed in the session network, or a reviewer
+  with ClassIT+ access can check them.
 

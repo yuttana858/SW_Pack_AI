@@ -20,6 +20,11 @@ sources:
     publisher: Pint project (hgrecco/pint)
     url: https://github.com/hgrecco/pint/blob/0.24.4/pint/constants_en.txt
     accessed: 2026-11-09
+  - id: S3
+    title: "Paperboard (section Caliper/thickness: US caliper in thousandths of an inch or points; 0.024 in = 24 points)"
+    publisher: Wikipedia
+    url: https://en.wikipedia.org/wiki/Paperboard
+    accessed: 2026-11-09
 ---
 
 # Units and conversions
@@ -39,7 +44,7 @@ All factors are **derived** from the exact definitions below, which were read fr
 | psi | 1 psi = 1 lbf/in² = **6894.757293168 Pa** | [S1] |
 | short ton | 1 ton (US) = 2000 lb = **907.18474 kg** | [S1] |
 | metric tonne | 1 t = **1000 kg** | [S1] |
-| mil / thou / point | 1 mil = 1 thou = 0.001 in = **25.4 µm**. "Point" (caliper) is used the same way in paperboard: 1 pt = 0.001 in | [S1] (mil, thou); point by trade usage (VERIFY with the mill spec) |
+| mil / thou / point | 1 mil = 1 thou = 0.001 in = **25.4 µm**. "Point" (caliper) is used the same way in paperboard: 1 pt = 0.001 in (a 0.024 in board is 24 points) | [S1] (mil, thou); [S3] (point) |
 | °C / °F | T(°F) = T(°C) × 9/5 + 32; T(K) = T(°C) + 273.15 | [S1] |
 
 ## Basis weight (grammage): lb/MSF and g/m²
@@ -263,3 +268,17 @@ Limitations: Grms alone does not describe a vibration test, because profiles wit
 - Give SI first with US in brackets, for example "5.60 kN/m [32.0 lbf/in]".
 - State whether a value is a converted nominal (for example "32 ECT" means 32 lbf/in nominal) or a measured value.
 - Never convert a test result between different *methods* (for example Mullen burst versus ISO 2759) as if the methods were equivalent.
+
+## Research log
+
+**Wave 3 (2026-11-09).** This agent used 21 searches, shared across six files.
+
+Done this wave:
+- The caliper "point" is now sourced: in US practice, caliper is given in thousandths of an inch
+  or points [S3]. That matches `kb.materials.paperboard-carton` and the glossary.
+
+Still open:
+- Cross-check against NIST SP 811 Appendix B. nvlpubs.nist.gov, physics.nist.gov and www.nist.gov
+  were all unreachable from this session. The factors themselves are exact by definition (1959
+  yard-and-pound agreement and the CGPM value of g_n), so this only matters for a legal-metrology
+  citation.

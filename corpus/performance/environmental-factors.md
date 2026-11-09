@@ -95,6 +95,16 @@ sources:
     publisher: Fibre Box Association
     url: https://www.fibrebox.org/news/the-tech-box-november-2022
     accessed: 2026-11-09
+  - id: S18
+    title: "Singh, J., Olsen, E., Singh, S. P., Manley, J., Wallace, F. (2008) The Effect of Ventilation and Hand Holes on Loss of Compression Strength in Corrugated Boxes, J. Applied Packaging Research 2(4):227-238 (repository record; abstract seen via search extract, page blocked in this session)"
+    publisher: California Polytechnic State University, Digital Commons
+    url: https://digitalcommons.calpoly.edu/it_fac/1
+    accessed: 2026-11-09
+  - id: S19
+    title: ISTA 3E overview (2026 edition) - test sequence incl. compression apply-and-release at calculated test force x 1.4
+    publisher: International Safe Transit Association
+    url: https://ista.org/docs/3E_26-26_Overview.pdf
+    accessed: 2026-11-09
 ---
 
 # BCT Reduction (Environmental) Factors
@@ -261,28 +271,95 @@ scores: ≤ 0.90 (derived from [S17]); confirm by test.
 
 ## Handholes, vent holes and other cut-outs
 
-Sidewall cut-outs reduce BCT; the loss depends on cut-out area, shape and position (near
-corners and vertical edges is worst). Experimental and FEM models for low and high cut-out rates:
-[S10][S11]. **VERIFY — no generic multiplier was retrieved; use [S10][S11] or a BCT test.**
+Sidewall cut-outs reduce BCT. The loss depends on cut-out area, shape, orientation and position,
+and is worst near corners and vertical edges [S10][S11].
+- **Singh et al. (2008)** tested the effect of the size, shape and location of vents and handholes
+  on corrugated box compression. Their abstract reports losses of **about 10 % to 40 %**, larger
+  than previously reported [S18]. The full text was not reachable, so **VERIFY** which geometries
+  give which loss.
+- **Later handhole work** with overlapping authors found that handhole location mattered most,
+  followed by box dimensions. Handholes in the top flaps cost less BCT than handholes in the
+  vertical side panels (seen as a search extract only; check it in the same full-text read as above).
+- **MDPI cut-out studies** [S10][S11] model low and high cut-out rates experimentally and by FEM.
+  Reported findings, seen as search extracts only:
+  - compression strength falls roughly linearly as cut-out area grows;
+  - 0 % and 4 % cut-out boxes did not differ significantly;
+  - the McKee formula alone does not predict boxes with cut-outs.
+
+```
+BCT_cutout = BCT_lab × (1 − L_cutout)
+```
+
+| Symbol | Meaning | Unit |
+|---|---|---|
+| BCT_lab | BCT of the same box without cut-outs (tested or predicted) | N [lbf] |
+| L_cutout | fractional loss from the cut-outs; screening range 0.10–0.40 [S18] | – |
+| BCT_cutout | estimated BCT with cut-outs | N [lbf] |
+
+Validity: a screening estimate for single-wall RSC-type boxes with handholes or vents, within the
+10–40 % range of [S18]. Use the upper end for cut-outs near vertical edges or corners, or for
+large vent areas.
+
+Worked example (derived): BCT_lab = 2462 N (553 lbf), L_cutout = 0.10 to 0.40:
+- SI: 2462 × 0.90 = **2216 N** to 2462 × 0.60 = **1477 N**.
+- US: 553 × 0.90 = **498 lbf** to 553 × 0.60 = **332 lbf**.
+
+Limitations: the range is wide and comes from an abstract. It does not separate handholes from
+vents or position from area. For a real design, test the box with its cut-outs (BCT, TAPPI T 804 /
+ISO 12048), or use the FEM and cut-out models in [S10][S11]. ASTM D6804 is the guide for handhole
+design (see `kb.testing.standards-index`).
 
 ## Print coverage / flexo crush
 
-Heavy flexo print (high coverage, high impression) crushes flutes, reducing caliper and therefore
-BCT (see caliper-loss formula in `kb.performance.board-tests-and-ect`). **VERIFY — no published
-multiplier was retrieved in this session.**
+Heavy flexo post-print (high coverage, high impression, thick plates) crushes the flutes. That
+lowers caliper, so it lowers bending stiffness and BCT (see the caliper-loss formula in
+`kb.performance.board-tests-and-ect`). The reported magnitudes, the correction
+`BCT_printed = BCT_unprinted × (1 − L_print)` and its worked example are kept in one place, in
+`kb.printing.print-processes` (section "Effect of printing on board strength (crush)"). Use that
+file so that both files keep the same values. In summary:
+- One patent cites an industry belief that post-printing costs **10–20 %** of strength.
+- RIT theses found thick-plate and multi-colour flexo significantly reduced RSC compression
+  strength.
+- A peer-reviewed crush study (Gajewski et al. 2021, *Energies*) ties loss of stiffness to the
+  amount of crush. Its per-level ECT figures have not been read.
+
+**VERIFY: no controlled, peer-reviewed post-print BCT multiplier was retrieved in waves 1–3.** The
+MDPI and RIT full texts were blocked. Measure caliper and ECT before and after printing on the
+actual press.
 
 ## Temperature and cold-chain cycling
 
-Cold storage, condensation and thawing raise board moisture; an MSU frozen-storage study found
-thawing of frozen boxes reduced compression strength, and AICC discusses cold-weather strength
-loss [S8][S9] (attribution of the MSU finding VERIFY). Treat as a humidity case (use the high-RH
-multiplier) unless tested. **VERIFY — no temperature multiplier retrieved.**
+Temperature mainly acts through board moisture. Cold storage at high RH, condensation when a cold
+box meets warm air, and thawing all raise moisture content.
+- Popil reports one commercial single-wall set intended for cold storage of food. Equilibrated
+  to 12 % moisture at 4 °C / 80 %RH, its BCT still followed the McKee prediction within
+  experimental agreement [S13]. So at chilled temperatures, moisture content (via RH) explains
+  most of the loss. Applying the RH and moisture multipliers above at the cold-store RH is
+  derived from [S13].
+- An MSU frozen-storage study found that thawing frozen boxes reduced compression strength. AICC
+  discusses strength loss in cold weather [S8][S9] (attribution of the MSU finding VERIFY).
+
+Rule: treat chilled storage as a humidity case. Use the RH multiplier at the measured cold-store
+RH, or use moisture content with Popil's model above. Add a separate allowance for
+freeze–thaw or condensation cycles.
+
+**VERIFY: no temperature multiplier for frozen storage or freeze–thaw cycling was retrieved.** Use
+a BCT test after the actual cold-chain conditioning.
 
 ## Dynamic / transit loads
 
-Vibration and impacts in transit add load above the static stack weight and accelerate fatigue.
-No sourced dynamic factor was retrieved — cover this with the safety factor or ISTA/ASTM testing
-(see `kb.testing.*`). **VERIFY.**
+Vibration and impacts in transit add load above the static stack weight and speed up fatigue.
+Distribution test standards cover this by test, not by a published multiplier:
+- ISTA 3E (unitised loads) combines random vibration with a compression step. In the machine
+  apply-and-release option the calculated test force is multiplied by **1.4**; the
+  apply-and-hold option uses the calculated force [S19].
+
+The 1.4 is a test-method factor for a short machine compression test. It is not a measured
+transit dynamic-load multiplier, so do not reuse it as one. Cover transit dynamics with the
+overall safety factor below and confirm by ISTA or ASTM D4169 testing (see
+`kb.testing.distribution-testing`).
+
+**VERIFY: no sourced transit dynamic-load factor was retrieved.**
 
 ## Safety-factor method
 
@@ -342,3 +419,28 @@ Still open, with the best lead for each:
 - Print/flexo crush, temperature and dynamic multipliers: no source. Lead: Fibre Box Handbook;
   ASTM D4169 / ISTA for dynamic loads.
 
+
+**Wave 3 (2026-11-09).** This agent used 21 searches, shared across six files. Scope: the
+handhole/vent, print, temperature and dynamic-load sections only.
+
+Done this wave:
+- Handholes and vents: added Singh et al. (2008) with the full citation [S18]. The citation was
+  confirmed in Wikipedia's reference list for "Container compression test". Added the 10–40 % loss
+  range from the abstract, plus a screening formula with SI and US worked examples. The number
+  stays flagged until the full text is read.
+- Print: the magnitudes now point to `kb.printing.print-processes`, so the two files cannot drift
+  apart. Still flagged there.
+- Temperature: Popil's cold-storage observation [S13] (4 °C / 80 %RH; 12 % moisture follows
+  McKee) supports treating chilled storage as a moisture case. The frozen and freeze–thaw
+  multiplier is still open.
+- Dynamic: the ISTA 3E ×1.4 apply-and-release compression factor is documented as a test-method
+  factor, not a transit multiplier [S19]. A transit dynamic factor is still open.
+
+Still open (blocked hosts this wave):
+- Singh 2008 full text: digitalcommons.calpoly.edu and repository.rit.edu.
+- MDPI cut-out studies: mdpi.com returns 403; pmc.ncbi.nlm.nih.gov is blocked.
+- Print crush data: jpmtr.org, repository.up.ac.za and repository.rit.edu.
+- Cold-chain data: d.lib.msu.edu, open.clemson.edu, aflcmc.af.mil and apps.dtic.mil.
+- Kellicutt & Landt log-time creep relation: FPL R1911-A on ir.library.oregonstate.edu fails TLS
+  in this session (see `kb.performance.box-compression` research log). It is outside this agent's
+  sections.

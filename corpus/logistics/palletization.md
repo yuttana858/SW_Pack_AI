@@ -96,7 +96,7 @@ sources:
     url: https://www.dhl.com/us-en/home/global-forwarding/freight-forwarding-education-center/good-cargo-packaging.html
     accessed: 2026-11-09
   - id: S18
-    title: "Pallet Overhang Phase 1 (Center for Packaging and Unit Load Design, Virginia Tech, for FBA)"
+    title: "Effect of Pallet Overhang on Box Compression Strength - Final Report, Phase 1 (Center for Packaging and Unit Load Design, Virginia Tech, for FBA; read in full in wave 3)"
     publisher: Fibre Box Association
     url: https://www.fibrebox.org/assets/2025/07/Pallet_Overhang_Phase_1.pdf
     accessed: 2026-11-09
@@ -140,23 +140,48 @@ sources:
     publisher: CHEP UK
     url: https://www.chep.com/uk/en/blog/types-pallets-their-uses-and-functions
     accessed: 2026-11-09
+  - id: S27
+    title: "Pallet (section ISO pallets: six ISO 6780:2003 sizes with wasted container floor and region)"
+    publisher: Wikipedia
+    url: https://en.wikipedia.org/wiki/Pallet
+    accessed: 2026-11-09
+  - id: S28
+    title: "The Tech Box - July 2021 (FBA/RIT stacking-pattern study: columnar 12-20 %, interlocked 49-54 %, hybrid 45-49 % loss)"
+    publisher: Fibre Box Association
+    url: https://www.fibrebox.org/news/the-tech-box-july-2021
+    accessed: 2026-11-09
+  - id: S29
+    title: "Acceleration test (EUMOS 40509 method and certification criteria)"
+    publisher: Wikipedia
+    url: https://en.wikipedia.org/wiki/Acceleration_test
+    accessed: 2026-11-09
+  - id: S30
+    title: "Directive 2014/47/EU on the technical roadside inspection of commercial vehicles, Annex III (cargo securing; applicable standards incl. EUMOS 40509)"
+    publisher: EUR-Lex (Official Journal of the European Union)
+    url: https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014L0047
+    accessed: 2026-11-09
 ---
 
 # Palletization, unit loads and cube utilisation
 
-Values in this file are **industry-typical** unless a standard is cited. Pallet ratings depend on the specific design, timber and condition: *replace with supplier/house data in `company/`*. Formulas and worked examples are **derived**. Notes on research access: on 2026-11-09 the publishers' pages were reached through search-engine summaries only, because the session could not open the pages directly. Every value below should be checked against the cited document before release (see VERIFY markers).
+Values in this file are **industry-typical** unless a standard is cited. Pallet ratings depend on the specific design, timber and condition: *replace with supplier/house data in `company/`*. Formulas and worked examples are **derived**. Notes on research access: in waves 1–2, publishers' pages were reached through search-engine summaries only. In wave 3 (2026-11-09) the following were read directly: the EPAL product pages [S2][S3], the FBA pallet-overhang report [S18], the FBA stacking-pattern study [S28], Wikipedia [S27][S29] and the EUR-Lex text of Directive 2014/47/EU [S30]. CHEP, ISO and ASTM pages were still blocked. Check the remaining values against the cited document before release (see the VERIFY markers).
 
 ## Pallet footprint standards
 
-ISO 6780:2003 sets principal dimensions and tolerances for new flat pallets for intercontinental handling, of any material, single- or double-deck, reversible or non-reversible [S1]. It replaced ISO 6780:1988 and is confirmed as current [S1]. Secondary sources say the standard recognises six footprints, but they disagree on which six [S25][S26]. Most list 1219 × 1016 mm, 1200 × 1000 mm, 1200 × 800 mm, 1140 × 1140 mm and 1100 × 1100 mm [S25]. For the remaining slot, sources variously give 1067 × 1067 mm, 800 × 600 mm or 1165 × 1165 mm. A CHEP article states that 1165 × 1165 mm is in ISO 6780 [S26], while other sources give 1140 × 1140 mm for Australia [S25]. **VERIFY** against the ISO text before quoting the six sizes as normative.
+ISO 6780:2003 sets principal dimensions and tolerances for new flat pallets for intercontinental handling. It covers pallets of any material, single- or double-deck, reversible or non-reversible [S1]. It replaced ISO 6780:1988 and is confirmed as current [S1]. ISO's catalogue and the iTeh sample text could not be read in this session, so the size list below comes from secondary sources.
+
+Wikipedia lists the six sizes as 1219 × 1016, 1200 × 1000, 1165 × 1165, 1067 × 1067, 1100 × 1100 and 1200 × 800 mm, and gives the wasted ISO-container floor area for each [S27]. A CHEP article also places 1165 × 1165 mm in ISO 6780 [S26]. Five sizes agree across sources: 1219 × 1016, 1200 × 1000, 1200 × 800, 1100 × 1100 and 1067 × 1067 mm.
+
+The sixth, square Australian size is disputed. Some secondary sources give **1140 × 1140 mm** instead of 1165 × 1165 mm [S25]. **VERIFY** the sixth size against the ISO text before quoting the list as normative.
 
 | Footprint (mm) | Footprint (in) | Common name / region | Notes |
 |---|---|---|---|
 | 1219 × 1016 | 48 × 40 | GMA / North American grocery | ISO 6780 size [S1]; CHEP block and stringer pools [S4][S5] |
-| 1200 × 800 | 47.2 × 31.5 | EUR / EPAL 1 (Euro pallet) | 144 mm high, about 25 kg [S2] |
-| 1200 × 1000 | 47.2 × 39.4 | EPAL 3 / "ISO 1" / UK and industrial | EPAL 3 is about 30 kg [S3] |
-| 1100 × 1100 | 43.3 × 43.3 | Asia (Japan, Korea) | Listed in ISO 6780 per secondary sources [S25] (VERIFY) |
-| 1165 × 1165 | 45.9 × 45.9 | Australia / New Zealand (CHEP) | 150 mm high, tare about 38 kg [S6]; stated as an ISO 6780 size [S26] (VERIFY) |
+| 1200 × 800 | 47.2 × 31.5 | EUR / EPAL 1 (Euro pallet) | 144 mm high, about 25 kg [S2]; ISO 6780 size [S27] |
+| 1200 × 1000 | 47.2 × 39.4 | EPAL 3 / "ISO 1" / UK and industrial | EPAL 3: 144 mm high, about 30 kg [S3]; ISO 6780 size [S27] |
+| 1100 × 1100 | 43.3 × 43.3 | Asia (Japan, Korea) | ISO 6780 size [S25][S27] |
+| 1067 × 1067 | 42.0 × 42.0 | North America, Europe, Asia | ISO 6780 size [S27] |
+| 1165 × 1165 | 45.9 × 45.9 | Australia / New Zealand (CHEP) | 150 mm high, tare about 38 kg [S6]; ISO 6780 size per [S26][S27]. Some sources give 1140 × 1140 instead [S25] (VERIFY, see above) |
 
 Dimension order: pallet footprint is quoted **length × width**, with length along the stringers or top-deck boards per the pallet supplier's drawing. State which side the forks enter (two-way or four-way) when it matters for the load pattern.
 
@@ -182,7 +207,7 @@ Published values (manufacturer or pool data, uniformly distributed load):
 | CHEP Australian 1165 × 1165 | Drive-in racking payload | 2000 kg | 4409 lb | [S6] |
 | CHEP Australian 1165 × 1165 | Static load | 10000 kg [S6] vs 5000 kg [S7] | 22046 lb vs 11023 lb | **VERIFY**: sources disagree |
 
-US values are converted from the SI or US value the source gave (1 kg = 2.204623 lb; see `kb.reference.units-and-conversions`). "GMA" describes a footprint, not a strength grade. Two pallets with the same 48 × 40 in plan can have very different ratings depending on block versus stringer construction, timber and fasteners. Always use the rating of the actual pallet, take the lowest rating that applies to the handling chain (racked if any racking is involved), and record the source.
+The EPAL rows were read directly from the EPAL product pages on 2026-11-09 [S2][S3]. EPAL quotes the Euro pallet as length 800 mm × width 1200 mm × height 144 mm. Its stacking limit applies when laden pallets are stacked on a solid, even surface. The CHEP rows come from wave 1 and could not be re-read (host blocked). US values are converted from the SI or US value the source gave (1 kg = 2.204623 lb; see `kb.reference.units-and-conversions`). "GMA" describes a footprint, not a strength grade. Two pallets with the same 48 × 40 in plan can have very different ratings depending on block versus stringer construction, timber and fasteners. Always use the rating of the actual pallet, take the lowest rating that applies to the handling chain (racked if any racking is involved), and record the source.
 
 ## Maximum unit load height and vehicle interior dimensions
 
@@ -220,10 +245,10 @@ Limitations: this ignores mixed orientations (which often fit more pallets in co
 
 | Pattern | Description | Strength | Stability |
 |---|---|---|---|
-| **Column** (aligned) | Every tier identical; case corners sit on case corners below | Highest stacking strength, because the load runs down the corners and side walls [S23] | Lowest; columns can separate. Needs stretch wrap, tier sheets or corner boards |
-| **Interlock / brick** | Alternate tiers rotated or mirrored so cases bridge the joints below | Lower: DHL states interlocking can cut compression strength by up to 50 % when the contents are not rigid [S17] (VERIFY: guidance figure, not a test result) | Higher; tiers lock together [S23] |
+| **Column** (aligned) | Every tier identical; case corners sit on case corners below | Highest stacking strength, because the load runs down the corners and side walls [S23]. Still 12–20 % below single-box BCT in the FBA/RIT 2021 study [S28] | Lowest; columns can separate. Needs stretch wrap, tier sheets or corner boards |
+| **Interlock / brick** | Alternate tiers rotated or mirrored so cases bridge the joints below | Lower. In the FBA/RIT 2021 unit-load study, interlocked stacks lost 49–54 % against single-box BCT, consistent with the original FBA Handbook range of 40–60 % [S28]. DHL gives "up to 50 %" when the contents are not rigid [S17] | Higher; tiers lock together [S23] |
 | **Pinwheel** | Cases arranged around a central gap, each tier rotated 90° | Similar penalty to interlock; leaves a central void | Good with square footprints |
-| **Hybrid** | Column-stack the lower tiers, interlock the top one or two tiers | Keeps most of the compression strength where the load is highest [S23] | Locks the top of the load |
+| **Hybrid** | Column-stack the lower tiers, interlock the top one or two tiers | Packaging World says it keeps most of the strength where the load is highest [S23]. But the FBA/RIT 2021 aligned-interlocked hybrid lost 45–49 % against single-box BCT [S28], only a little better than full interlock. **VERIFY**: the hybrid layouts may differ between the two sources; test your own pattern | Locks the top of the load |
 
 Misalignment counts too. A Michigan State thesis cites McKee (1963): each 1 % of offset costs about 2.5 % of box compression strength [S20]. That applies to tiers offset within a column stack, not to overhang (VERIFY against the original).
 
@@ -253,14 +278,21 @@ Worked example, SI: 380 × 285 × 250 mm outside cases on a EUR 1200 × 800 mm p
 - Other orientation: 3 × 2 = 6 cases, 67.7 %.
 - Tiers = floor((1500 − 144)/250) = 5. Load height = 144 + 1250 = 1394 mm.
 
-Target utilisation: none of the sources consulted gives a universal target. Use a company target in `company/` and weigh it against damage rate, stability and compression; stability often limits height before cube does (VERIFY; no sourced benchmark). The calculation is derived.
+Target utilisation: none of the sources consulted gives a universal per-pallet target. A wave 3 search found only vendor blogs: an 85 % warehouse-space figure and a 60–75 % trailer-cube anecdote, neither a pallet benchmark. Use a company target in `company/` and weigh it against damage rate, stability and compression; stability often limits height before cube does (VERIFY: no sourced benchmark). The calculation is derived.
 
 Limitations: the formula counts only simple grid patterns. Mixed-block patterns (some cases rotated within one layer) can do better, and pallet-pattern software handles these. Using inside dimensions overstates utilisation.
 
 ## Overhang and underhang
 
 - **Overhang** (cases beyond the pallet edge) is to be avoided. The cases' side walls lose support, and the cases are exposed to handling damage. DHL states that overhang can reduce individual box strength by more than 30 % and that boxes should not overhang the pallet edge [S17].
-- Virginia Tech work for the FBA found that box compression strength falls as overhang increases. One Phase 1 summary shows losses of about 13.78 % to 28.21 % [S18]. The test conditions behind that range were not visible in the summary consulted (**VERIFY**). Follow-up modelling found that the amount of overhang, box perimeter and board grade drive the loss [S19].
+- **Virginia Tech study for the FBA (Phase 1, read in full) [S18]:**
+  - Test set: four box sizes in nominal 32 ECT C-flute and 48 ECT BC-flute, tested to TAPPI T 804 with 10 replicates per condition. Single-side overhangs ran from 0.25 to 3 in (6–76 mm), plus adjacent-side (two-edge) overhangs.
+  - Effective BCT always fell as overhang increased. Long-side overhang hurt more than short-side.
+  - Single-box losses, 32 ECT C-flute: short side 0.98–29.40 %, long side 6.43–32.21 %, adjacent sides 13.70–40.70 %.
+  - Single-box losses, 48 ECT BC-flute: short side 0.22–33.36 %, long side 4.18–27.49 %, adjacent sides 15.13–40.39 %.
+  - The Fibre Box Handbook estimate is 20–40 %; measured losses were 2.05–40.39 %.
+  - A **full layer** of boxes on a simulated pallet lost **13.78–28.21 %**. That falls between the single-box losses for a 1 in single-side overhang (3.79–19.27 %) and a 1 × 1 in adjacent overhang (21.60–37.85 %).
+- Follow-up modelling found that the amount of overhang, box perimeter and board grade drive the loss [S19].
 - **Underhang** (load smaller than the deck) wastes cube and can let the load shift. No sourced numeric limit was found. Use customer or DC specifications in `company/` (VERIFY).
 
 Engineering rule: if overhang cannot be avoided, apply a measured or modelled derating to box compression strength [S18][S19] and say so in the answer.
@@ -275,7 +307,11 @@ Main methods (descriptive; no sourced performance values):
 - **Slip sheets**: replace the pallet for push-pull handling. They need compatible lift trucks at both ends.
 - **Strapping, glue or anti-slip coatings** between tiers.
 
-Test for horizontal rigidity: **EUMOS 40509** quantifies the horizontal rigidity of unit loads in road transport on an acceleration bench [S21][S22]. The 2020 revision added evaluation criteria [S22]. One test lab states acceptance limits of no more than 5 % permanent and 10 % dynamic deformation [S22] (VERIFY against EUMOS 40509:2020). It is referenced through the EU roadworthiness directive 2014/47/EU [S22].
+Test for horizontal rigidity: **EUMOS 40509** quantifies the horizontal rigidity of unit loads in road transport on an acceleration bench [S21][S22]. The 2020 revision added evaluation criteria [S22].
+- **Method:** the platform is accelerated to a constant level, reached within 50 ms and held for at least 0.3 s, with the sides of the load unsupported. The usual level is 0.5 g [S29].
+- **Acceptance limits:** maximum **10 % elastic** (dynamic) deformation and **5 % permanent** deformation, with no packaging damage [S22][S29]. Two independent secondary sources agree; the EUMOS text itself was not read.
+- **Label:** certified loads carry the test date, the institute, the producer and the maximum inertial force [S29].
+- **Legal status:** Annex III of Directive 2014/47/EU (roadside inspection of commercial vehicles) lists EUMOS 40509 "Transport Packaging" as an applicable cargo-securing standard, alongside EN 12195-1 and EUMOS 40511 [S30].
 
 ## Pallet test standards (summary)
 
@@ -315,3 +351,31 @@ Worked example, US: m_case = 22 lb, N = 6, k = 9, S = 2, m_pallet = 45 lb (assum
 - With SF = 5 (illustrative) and L_pattern = 0.20: BCT_required = 247 × 5 / 0.80 = **1543.8 lbf**.
 
 Limits: this is a static estimate. It does not cover dynamic loads in transit, creep, or uneven pallet support. Confirm with a compression test (ASTM D642 or equivalent) and a distribution test (ISTA) before release. Derived.
+
+## Research log
+
+**Wave 3 (2026-11-09).** This agent used 21 searches, shared across six files.
+
+Resolved this wave:
+- ISO 6780 sizes: five of the six are now agreed across sources, and 1067 × 1067 mm was added
+  [S27]. The 1100 × 1100 marker was removed. The sixth size (1165 or 1140) is still disputed.
+- EPAL Euro and EPAL 3 dimensions, mass, safe working load and stacking limit were re-read on the
+  EPAL pages [S2][S3].
+- Overhang: the Phase 1 report was read in full [S18]. Added its test conditions and the
+  single-box and full-layer loss ranges. Marker removed.
+- Interlock loss: the DHL figure is now backed by the FBA/RIT 2021 data (49–54 %) [S28]. Marker
+  removed. The hybrid-pattern conflict with [S23] is newly flagged.
+- EUMOS 40509: method, the 10 % / 5 % limits (two sources agree) and its listing in Annex III of
+  Directive 2014/47/EU (EUR-Lex) [S29][S30]. Marker removed.
+
+Still open:
+- The sixth ISO 6780 size. iso.org has a bot wall; the iTeh sample host is refused; the DIN TOC was
+  not tried.
+- CHEP 1165 × 1165 static rating (10 000 kg vs 5 000 kg). chep.com is unreachable from the session.
+- McKee (1963) misalignment rule, 2.5 % per 1 % offset. The original is not available.
+- Pallet utilisation target: no non-vendor benchmark; APQC or WERC reports would be needed.
+- Underhang limit: no source.
+- ASTM D1185 and ISO 8611-1 publication status: astm.org and iso.org have bot walls.
+
+Blocked hosts this wave: chep.com, iso.org, cdn.standards.iteh.ai, eumos.eu.
+
