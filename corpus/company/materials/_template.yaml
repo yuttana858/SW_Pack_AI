@@ -1,0 +1,86 @@
+# Board material record — EMPTY TEMPLATE
+# Copy to company/materials/<supplier>-<grade-id>.yaml and fill from the supplier certificate.
+# Field definitions and validation rules: corpus/materials/material-record-schema.md
+# Units: mm, g/m2, kN/m, kPa, %, degrees. Leave unknown values as null.
+
+record:
+  id: null                    # <supplier-slug>-<grade-id>-<rev>
+  supplier: null
+  supplierGradeId: null
+  plant: null
+  boardType: null             # single-wall | double-wall | triple-wall | single-face | solid-board | folding-carton
+  gradeCode: null             # e.g. 125K/C/125T
+  carrierGrade: null          # e.g. 32ECT or 200# (NMFC Item 222 / UFC Rule 41)
+  certificateRef: null
+  certificateDate: null       # YYYY-MM-DD
+  validUntil: null            # YYYY-MM-DD
+  confidence: null            # supplier-certified | house-measured | industry-typical
+  approvedBy: null
+  notes: null
+
+material:
+  flute: null                 # A B C E F G N K BC EB AC EE AAA ACA none
+  outsideLinerGrade: null
+  insideLinerGrade: null
+  centreLinerGrade: null
+  mediumGrade: null
+  medium2Grade: null
+  outsideLinerGsm: null
+  insideLinerGsm: null
+  centreLinerGsm: null
+  mediumGsm: null
+  medium2Gsm: null
+  takeUpFactor: null
+  takeUpFactor2: null
+  adhesiveGsm: null
+  combinedGsm: null
+  caliperMm: null
+  caliperToleranceMm: null
+  moistureContentPct: null
+  cobb60Outside: null
+  cobb60Inside: null
+  fluteDirection: null
+
+performance:
+  ectKnPerM: null
+  ectLbPerIn: null
+  ectMethod: null             # ISO 3037 | TAPPI T 839 | TAPPI T 811
+  burstKpa: null
+  fctKpa: null
+  bendingStiffness:
+    md: null
+    cd: null
+  bendingMethod: null
+  bctReference:
+    boxStyle: null
+    dimsMm: [null, null, null]
+    bctN: null
+    method: null
+    conditioning: null
+  conditioning: null
+
+auto3d:                       # exact packaging.materials.update fields
+  name: null
+  flute: null
+  provenance: null            # supplier-certified | house-measured | industry-typical | derived
+  calibrated: false
+  insideFactors: [null, null, null]    # [L, W, H]
+  outsideFactors: [null, null, null]   # [L, W, H]
+  outsideLinerGrade: null
+  insideLinerGrade: null
+  mediumGrade: null
+  scoreProcess: null
+  conditioning: null
+  outsideLinerGsm: null
+  insideLinerGsm: null
+  mediumGsm: null
+  fluteDirectionDegrees: null
+  caliperMm: null
+  caliperToleranceMm: null
+  outsideLinerMm: null
+  insideLinerMm: null
+  mediumPaperMm: null
+  flutePitchMm: null
+  scoreWidthMm: null
+  scoreToleranceMm: null
+  processToleranceMm: null
