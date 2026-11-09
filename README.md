@@ -8,8 +8,9 @@ that grounds answers in a cited packaging knowledge base and drives Auto3D throu
 | `docs/PLAN.md` | System architecture and delivery phases (Modal, RAG, Auto3D connector) |
 | `docs/DATA-FRAMEWORK.md` | Data tiers (reference → library → company → plant → machine), sync pipeline, segmentation |
 | `docs/RESEARCH-WAVES.md` | How the corpus is researched within search limits; wave log |
+| `docs/CLOUD-AI-ROADMAP.md` | Knowledge access for all AIs, CSV/PDF intake, Auto3D alignment, machine limits, new material families, Cloud AI build phases |
 | `docs/REVIEW-QUEUE.md` | Every value still marked VERIFY, for engineer review (generated) |
-| `corpus/` | L0 narrative knowledge base, cited Markdown (see `corpus/README.md`) |
+| `corpus/` | L0 narrative knowledge base, cited Markdown (see `corpus/README.md`, inventory in `corpus/INDEX.md`) |
 | `corpus/company/` | Your own certified data: overrides everything else |
 | `schemas/` | JSON Schemas for every structured record type |
 | `data/library/` | L1 engineering library: formulas, allowances, flutes, grade tables, factor sets, styles, tolerances |
@@ -17,6 +18,9 @@ that grounds answers in a cited packaging knowledge base and drives Auto3D throu
 | `packcalc/` | Tested calculation library the assistant calls instead of doing arithmetic |
 | `swdata/` | Record loading and scope resolution (machine > plant > company > library) |
 | `rag/cards/` | Generated data cards for the RAG index; never hand-edit |
+| `importers/`, `templates/` | CSV importer, column profiles and fill-in templates for plant/supplier data |
+| `connectors/auto3d/` | Auto3D board-database CSV bridge (plan, merge, verify) |
+| `agent/` | Claude tool definitions and dispatcher |
 | `tools/` | Validators, review queue, card generator |
 | `tests/` | Golden tests (corpus worked examples), registry and resolver tests |
 

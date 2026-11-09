@@ -1,0 +1,27 @@
+type: machine_spec
+id_column: machine_id
+columns:
+  machine_id:          {required: true}
+  name:                {path: machine.name, required: true}
+  kind:                {path: machine.kind, required: true}
+  make:                {path: machine.make}
+  model:               {path: machine.model}
+  sheet_min_len_mm:    {path: "machine.sheet_min_mm.0", type: number}
+  sheet_min_wid_mm:    {path: "machine.sheet_min_mm.1", type: number}
+  sheet_max_len_mm:    {path: "machine.sheet_max_mm.0", type: number}
+  sheet_max_wid_mm:    {path: "machine.sheet_max_mm.1", type: number}
+  caliper_min_mm:      {path: "machine.caliper_range_mm.0", type: number}
+  caliper_max_mm:      {path: "machine.caliper_range_mm.1", type: number}
+  flutes:              {path: machine.flutes, type: list}
+  max_speed:           {path: machine.max_speed, type: number}
+  speed_unit:          {path: machine.speed_unit}
+  print_units:         {path: machine.print_units, type: integer}
+  joint_types:         {path: machine.joint_types, type: list}
+  folding_styles:      {path: machine.folding_styles, type: list}
+  die_type:            {path: machine.die_type}
+  tol_blank_mm:        {path: machine.tolerances_mm.blank_dim, type: number}
+  tol_score_mm:        {path: machine.tolerances_mm.score_position, type: number}
+  tol_register_mm:     {path: machine.tolerances_mm.print_register, type: number}
+  joint_gap_max_mm:    {path: machine.tolerances_mm.joint_gap_max, type: number}
+  fishtail_max_mm:     {path: machine.tolerances_mm.fishtail_max, type: number}
+  notes:               {path: notes}

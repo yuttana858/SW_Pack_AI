@@ -130,6 +130,26 @@
     "approved_on": {
       "type": "string",
       "format": "date"
+    },
+    "material_family": {
+      "type": "string",
+      "enum": [
+        "corrugated",
+        "solid-board",
+        "folding-carton",
+        "rigid-box",
+        "honeycomb",
+        "paper-tube",
+        "molded-pulp",
+        "formed-fibre",
+        "foam",
+        "flexible",
+        "wood",
+        "plastic",
+        "multi",
+        "other"
+      ],
+      "description": "Material/product family the record applies to; 'multi' for cross-family records (units, pallets, test methods). Omitted = corrugated for legacy records."
     }
   },
   "allOf": [

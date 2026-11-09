@@ -1,0 +1,43 @@
+# CSV column -> record path mapping for board_material imports.
+# US columns are converted to SI on import. Exactly one of an SI/US pair should be filled.
+type: board_material
+id_column: material_id
+columns:
+  material_id:        {required: true}
+  title:              {path: title}
+  supplier:           {path: supplier}
+  grade_code:         {path: grade_code}
+  flute:              {path: board.flute, required: true}
+  wall:               {path: board.wall, required: true}
+  outside_liner_grade: {path: board.outside_liner.grade}
+  outside_liner_gsm:  {path: board.outside_liner.gsm, type: number}
+  medium_grade:       {path: "board.medium.0.grade"}
+  medium_gsm:         {path: "board.medium.0.gsm", type: number}
+  medium2_grade:      {path: "board.medium.1.grade"}
+  medium2_gsm:        {path: "board.medium.1.gsm", type: number}
+  inside_liner_grade: {path: board.inside_liner.grade}
+  inside_liner_gsm:   {path: board.inside_liner.gsm, type: number}
+  take_up:            {path: "board.take_up.0", type: number}
+  take_up2:           {path: "board.take_up.1", type: number}
+  caliper_mm:         {path: board.caliper_mm.nominal, type: number}
+  caliper_in:         {path: board.caliper_mm.nominal, type: number, convert: in_to_mm}
+  caliper_tol_mm:     {path: [board.caliper_mm.tol_plus, board.caliper_mm.tol_minus], type: number}
+  ect_kn_per_m:       {path: board.ect_kn_per_m.nominal, type: number}
+  ect_lbf_per_in:     {path: board.ect_kn_per_m.nominal, type: number, convert: ect_us_to_si}
+  ect_min_kn_per_m:   {path: board.ect_kn_per_m.min, type: number}
+  burst_kpa:          {path: board.burst_kpa.nominal, type: number}
+  burst_psi:          {path: board.burst_kpa.nominal, type: number, convert: psi_to_kpa}
+  grammage_gsm:       {path: board.grammage_gsm.nominal, type: number}
+  basis_weight_lb_msf: {path: board.grammage_gsm.nominal, type: number, convert: lb_msf_to_gsm}
+  moisture_pct:       {path: board.moisture_pct.nominal, type: number}
+  conditioning:       {path: board.conditioning}
+  score_width_mm:     {path: auto3d.scoreWidthMm, type: number}
+  score_tolerance_mm: {path: auto3d.scoreToleranceMm, type: number}
+  process_tolerance_mm: {path: auto3d.processToleranceMm, type: number}
+  inside_factor_l:    {path: "auto3d.insideFactors.0", type: number}
+  inside_factor_w:    {path: "auto3d.insideFactors.1", type: number}
+  inside_factor_h:    {path: "auto3d.insideFactors.2", type: number}
+  outside_factor_l:   {path: "auto3d.outsideFactors.0", type: number}
+  outside_factor_w:   {path: "auto3d.outsideFactors.1", type: number}
+  outside_factor_h:   {path: "auto3d.outsideFactors.2", type: number}
+  notes:              {path: notes}

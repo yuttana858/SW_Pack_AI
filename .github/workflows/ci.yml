@@ -19,5 +19,7 @@ jobs:
         run: python tools/validate_data.py data
       - name: Data cards are up to date
         run: python tools/generate_cards.py --check
+      - name: Corpus index is up to date
+        run: python tools/corpus_index.py && git diff --exit-code corpus/INDEX.md
       - name: Calculation library golden tests and registry
         run: python -m pytest -q tests

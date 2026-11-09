@@ -45,7 +45,7 @@ def cited_ids(body: str) -> set[str]:
 
 def main(root: Path) -> int:
     errors, warnings, seen = [], [], {}
-    files = sorted(p for p in root.rglob("*.md") if p.name != "README.md")
+    files = sorted(p for p in root.rglob("*.md") if p.name not in ("README.md", "INDEX.md"))
     for path in files:
         rel = path.relative_to(root)
         try:

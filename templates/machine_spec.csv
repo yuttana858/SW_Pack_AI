@@ -1,0 +1,2 @@
+machine_id,name,kind,make,model,sheet_min_len_mm,sheet_min_wid_mm,sheet_max_len_mm,sheet_max_wid_mm,caliper_min_mm,caliper_max_mm,flutes,max_speed,speed_unit,print_units,joint_types,folding_styles,die_type,tol_blank_mm,tol_score_mm,tol_register_mm,joint_gap_max_mm,fishtail_max_mm,notes
+ffg-1,FFG-1,flexo-folder-gluer,Example,Example,600,250,2800,1600,1.5,8.0,E;B;C;BC,250,sheets/h,4,glued,,,1.5,1.0,1.0,3.2,4.76,EXAMPLE ROW: placeholder values

@@ -9,7 +9,7 @@ pat = re.compile(r"VERIFY|SOURCE PENDING|hypothetical", re.I)
 rows, total = [], 0
 files = sorted(root.rglob("*.md")) + sorted((root.parent / "data").rglob("*.yaml"))
 for p in files:
-    if p.name == "README.md" or "_example" in p.parts:
+    if p.name in ("README.md", "INDEX.md") or "_example" in p.parts:
         continue
     section, hits = "", []
     for n, line in enumerate(p.read_text(encoding="utf-8").splitlines(), 1):
