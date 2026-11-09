@@ -100,12 +100,32 @@ sources:
     publisher: iPack
     url: https://ipack.com/blog/corrugated-manufacturers-joint
     accessed: 2026-11-09
+  - id: S19
+    title: PMMI B155 TR2.1-2018 Tolerances for Regular Slotted Containers (RSCs)
+    publisher: PMMI / Fibre Box Association
+    url: https://www.fibrebox.org/assets/2025/07/B155_TR2-1_RSC_Containers_2018_Edition.pdf
+    accessed: 2026-11-09
+  - id: S20
+    title: Quality Catalogue for Corrugated Board Packaging (VDW, version 4.4, August 2014)
+    publisher: FEFCO (document by VDW)
+    url: https://www.fefco.org/download/file/fid/2576
+    accessed: 2026-11-09
+  - id: S21
+    title: ASTM D5118/D5118M – Standard Practice for Fabrication of Fiberboard Shipping Boxes (catalogue listing showing the -25 edition as current)
+    publisher: BSI Knowledge (catalogue entry)
+    url: https://knowledge.bsigroup.com/products/standard-practice-for-fabrication-of-fiberboard-shipping-boxes-2
+    accessed: 2026-11-09
+  - id: S22
+    title: Excel slitter-scorer (product specification; minimum trim width)
+    publisher: BW Papersystems
+    url: https://www.bwpapersystems.com/products/machine/new/rss-excel-slitter-scorer
+    accessed: 2026-11-09
 ---
 
 # Blank (sheet) size formulas for FEFCO styles
 
 > Confidence: **derived**. The formulas are geometric derivations. The allowance factors come from `dimensional/dimensions-and-allowances.md`. Joint, slot and trim values are industry-typical: replace with supplier/house data in `company/`.
-> Source note: primary documents were consulted only through search-indexed extracts. The FEFCO Code drawings were not opened in full, so check style-specific flap rules against the Code [S1][S2].
+> Source note: in wave 2 (2026-11-09) the FEFCO Code PDF [S1] was opened and the drawings for 0201–0204, 0409 and 0427 were rendered and read. The PMMI/FBA RSC report [S19] and the FEFCO/VDW Quality Catalogue [S20] were read in full. The ASTM, AICC and patent sources are still extracts (those hosts are blocked here).
 
 ## Terms: blank, sheet, trim, manufacturer's joint
 
@@ -126,8 +146,8 @@ sources:
 | Glued joint, triple wall | ≥ 51 mm [2 in] | [S6] |
 | Stitched joint (US government spec A-A-2835) | ≥ 50.8 mm [2 in] compressed | [S7] |
 
-- The brief for this corpus said glue laps are typically 30–40 mm [1.25–1.5 in]. The 32 mm [1 1/4 in] **minimum** is confirmed [S5][S6]. No source seen confirms an upper typical value of 40 mm (**VERIFY**: house data).
-- The ASTM D5118 edition seen carries a notice that it has been superseded, so check the current edition (**VERIFY**) [S5].
+- The brief for this corpus said glue laps are typically 30–40 mm [1.25–1.5 in]. The 32 mm [1 1/4 in] **minimum** is confirmed [S5][S6]. No source seen confirms an upper typical value of 40 mm (**VERIFY**: house data). Neither the FEFCO/VDW catalogue nor the PMMI/FBA RSC report gives a glue-lap width. The catalogue only requires the glue joint to show ≥ 80 % fibre tear when pulled apart [S20].
+- The ASTM D5118 edition seen (-15, reapproved 2020) has been superseded. Catalogue listings show **D5118/D5118M-25** as current [S21]. The 32 mm hot-melt overlap figure has not been checked against the -25 text (**VERIFY**) [S5].
 - Fixed-length joint tabs are often tapered at the ends. Taper and tab angle are plant tooling choices (house data).
 
 ### Slot width
@@ -135,12 +155,15 @@ sources:
 - One US OEM specification allows a slot width of 0.250–0.375 in [6.35–9.5 mm] [S8].
 - A machinery guide describes tapered 1/4 in [6.35 mm] slots as ideal. It says slot depth must be within ±1/16 in [±1.6 mm] of the flap length; slots that are too deep or too shallow cause folding problems [S9].
 - Slot width normally tracks board caliper. A slot that is too narrow for the board makes flaps bind or buckle when folded [S10].
-- **VERIFY**: no source seen gives a "caliper + clearance" formula for slot width. Use the plant's slotter-head widths per flute (house data).
+- Slot **position and depth** tolerances are published (see `dimensional/tolerances.md`). PMMI/FBA: slot depth ±1/8 in [±3 mm] from the flap-score centreline, and slots centred within 1/16 in [1.5 mm] of the aligning scores [S19]. FEFCO/VDW: slot position ±2 mm from the longitudinal crease centreline, and slot depth ±5 mm [S20].
+- **VERIFY**: no primary source seen gives a "caliper + clearance" formula for slot **width**. Neither the FEFCO/VDW catalogue nor the PMMI/FBA reports specifies one [S19][S20]. Use the plant's slotter-head widths per flute (house data).
 - Slot width does not change the blank outline. It removes material between flaps, which adds to waste.
 
 ### Manufacturer's joint gap
 
-The joint gap between the two closing panel edges is a tolerance item. PMMI-based guidance cited by AICC gives a gap of 1/8–1/2 in [3–12.7 mm], typically targeted at 3/8 in [9.5 mm] [S17]. See `dimensional/tolerances.md`. Industry sources report that joint gaps vary in practice [S18].
+The joint gap between the two closing panel edges is a tolerance item. PMMI B155 TR2.1 sets it at no less than 1/8 in [3 mm] and no more than 1/2 in [12.7 mm], measured at the flap scorelines [S19]. AICC cites the same range with a usual target of 3/8 in [9.5 mm] [S17]. For machine-glued die-cuts, the FEFCO/VDW catalogue gives a normal gap of 6 mm and 8 mm. The tolerance is −4/+4 mm on single wall and −4/+6 mm on double wall [S20]. See `dimensional/tolerances.md`. Industry sources report that joint gaps vary in practice [S18].
+
+**Design note (derived):** for an RSC, choose the joint-panel lengths so that the nominal gap is near the middle of the allowed band. The design target is 3/8 in [9.5 mm] in the US [S17], or 6–8 mm for FEFCO machine-glued die-cuts [S20].
 
 ## FEFCO 0201 RSC (regular slotted container)
 
@@ -167,7 +190,8 @@ Blank area    A  = BL × BW
 
 ### Validity and notes
 
-- RSC flaps are all the same length, half the box width, so the outer flaps meet at the centre [S3][S4].
+- RSC flaps are all the same length, half the box width, so the outer flaps meet at the centre [S3][S4][S19].
+- PMMI/FBA: the major flaps of a closed RSC should not overlap, and the gap between them should not exceed 1/4 in [6.4 mm] [S19]. So the flap length F = Ws/2 should not be undersized by more than about 3 mm per flap.
 - Some plants add a small flap allowance so the outer flaps butt rather than gap: F = Ws/2 + a, where `a` is house data [S16].
 - Some plants size the panel next to the joint differently (L1 ≠ L2). Use a house panel table.
 
@@ -214,8 +238,8 @@ The body (blank length) is the same as the RSC for each of these: `BL = 2·Ls + 
 Variables are as for the RSC; `o` is the outer-flap overlap and `c` is the full-overlap shortfall, both in mm [in].
 
 - **OSC**: the outer flaps are the same length as the inner flaps but go past the centre. Descriptions give an overlap of 1 in [25 mm] or more [S3].
-- **FOL**: the outer flaps run close to the full box width. One description says they come within 1 in [25 mm] of complete overlap, so `c` is in the range 0–25 mm. Sources differ (**VERIFY** against the FEFCO 0203 drawing) [S3].
-- **0204**: derived from the "all flaps meet at centre" geometry. **VERIFY** against the FEFCO Code drawing [S1].
+- **FOL**: the FEFCO 0203 drawing labels every flap (on both the L and B panels) with length **B**, i.e. full overlap, c = 0 [S1]. The US description, "within 1 in [25 mm] of complete overlap" [S3], is a looser trade definition. Use c = 0 for FEFCO 0203 unless the customer specifies otherwise.
+- **0204**: the FEFCO drawing labels the flaps on the L panels **½B** and the flaps on the B panels **½L** [S1]. That confirms the formula above: inner (B-panel) flaps F_i = Ls/2, outer (L-panel) flaps F_o = Ws/2. The drawing gives nominal labels only, with no caliper allowance.
 - **HSC depth factor kH = 1**: derived, because there are flap layers at one end only (see the allowance file).
 
 ### Worked example (SI), same box as above (Ls 404, Ws 304, Hs 258 mm, t = 4.0)
@@ -248,15 +272,15 @@ Each tray blank (four-wall tray with corner flaps; simplified):
    BL_tray ≈ L_s + 2·(H_s)   ;   BW_tray ≈ W_s + 2·(H_s)      (plus corner/glue flaps per drawing)
 ```
 
-- `g` is the lid-over-base clearance in mm [in]. It is house data. No source seen gives a standard value (**VERIFY**).
+- `g` is the lid-over-base clearance in mm [in]. It is house data. No primary source seen gives a standard value (**VERIFY**). The FEFCO Code gives only the naming rule: the lid height h is written as a fourth measurement, as in 355 × 205 × 120/40 mm [S1].
 - Worked example (SI): base inside 400 × 300 mm, t = 4.0, so base outside is 408 × 308 mm. With an example g = 3 mm, the lid inside is **411 × 311 mm** [16.181 × 12.244 in].
 - Worked example (US): base outside 16 5/16 × 12 5/16 in, g = 1/8 in, so the lid inside is **16 7/16 × 12 7/16 in** [417.5 × 315.9 mm].
 - Limitation: tray corner construction (glued corners, locking ends, tray styles 0300 vs 0301 vs 03xx) changes the blank. Take it from the FEFCO drawing [S1] or the CAD standard library.
 
 ## FEFCO 0409 / 0427 die-cut mailers and 0711 crash-lock bottom
 
-- **0427 (die-cut mailer with hinged lid, tuck flaps and dust flaps)**: the blank is a chain of panels. In one direction it runs front tuck → lid → back → base → front wall (double, rolled) → inside wall return. In the other direction it runs side wall/dust flaps → base width → side wall/dust flaps. Each rolled double wall adds about 1 t per extra layer to the outside size. No published blank formula was found. **VERIFY**: build the blank from the parametric 0427 template in the CAD library (Auto3D / ArtiosCAD standard) using house allowances. Do not use a hand formula.
-- **0409**: no blank formula was found in the sources consulted (**VERIFY**: use the CAD library template).
+- **0427 (die-cut mailer with hinged lid, tuck flaps and dust flaps)**: the FEFCO drawing shows the panel chain across the blank as H (front wall) – B (base) – H (back wall) – B (lid) – lid front/tuck flap. The double, rolled end walls are attached to the two L-direction ends of the base, and the dust flaps to the ends of the walls [S1]. The drawing gives labels only (L, B, H), not dimensions or allowances. Each rolled double wall adds about 1 t per extra layer to the outside size (derived). **VERIFY**: no published blank formula was found. Build the blank from the parametric 0427 template in the CAD library (Auto3D / ArtiosCAD standard) using house allowances. Do not use a hand formula.
+- **0409**: the FEFCO drawing shows a one-piece wrap with alternating B and H panels along one direction, and H end flaps either side of L [S1]. No dimensioned formula is published (**VERIFY**: use the CAD library template).
 - **0711 crash-lock bottom (automatic bottom)**: the body is an RSC-like tube, so `BL = 2·Ls + 2·Ws + J` applies. The bottom flaps are pre-glued on a folder-gluer (crash-lock module). Their geometry (diagonal glue flaps, lock tabs) is template-driven (**VERIFY**: CAD library template and folder-gluer capability).
 
 ## Board area per box and board usage (m²/1000, MSF)
@@ -294,5 +318,12 @@ Trim %   = (D − Σ slit widths) / D × 100
 - The corrugator trim problem is the choice of the least-cost combination of orders and deckle. It trades trim loss against roll and order changes. It is a classic integer-programming problem [S14].
 - A double-knife corrugator can cut only two different sheet lengths in one pattern [S15].
 - A practitioner guide suggests grouping orders whose widths are within about ±5–10 mm as candidates for one deckle, and checking batch run length against a minimum. This is a rule of thumb, not a standard [S13].
-- The plant's minimum edge trim (required for clean edges at the slitter) is house data. No published value was found (**VERIFY**).
+- The plant's minimum edge trim (required for clean edges at the slitter) is house data. One slitter-scorer maker quotes a minimum trim width of 6 mm [0.25 in] for its machine, and markets this as the narrowest available [S22]. Treat 6 mm as a best-case machine figure, not a planning default. Use the plant's own value.
 - **Design lever**: small changes to BW (flap length, depth) can change n_outs. Check the sheet width against the plant's deckle table before you freeze dimensions.
+
+## Research log
+
+- **2026-11-09, wave 2 (dimensions and tooling agent)**. Read: the FEFCO Code PDF (11th edition; drawings for 0203, 0204, 0409 and 0427 rendered) [S1]; PMMI B155 TR2.1 [S19]; FEFCO/VDW Quality Catalogue [S20]. Search-located (host blocked or catalogue entry only): ASTM D5118-25 status [S21]; BW Papersystems trim width [S22].
+- Resolved: FOL flap = B (c = 0) and 0204 flap labels from the FEFCO drawings; RSC flap gap ≤ 1/4 in; joint gap band; slot position and depth tolerances; minimum edge trim (vendor figure); D5118 current edition.
+- Allowance convention: no change. The FEFCO/VDW catalogue confirms panel = inside + t (L, W) and + 2t (H) for the RSC (see `dimensional/dimensions-and-allowances.md`).
+- Still open (VERIFY): upper typical glue-lap width; the D5118-25 joint-overlap value; a slot-width formula; telescope lid clearance g; dimensioned blank formulas for 0409, 0427 and 0711 (FEFCO publishes drawings only). AICC pages (now.aiccbox.org) and the ASTM preview hosts are blocked in this environment.

@@ -85,12 +85,27 @@ sources:
     publisher: Raja Group
     url: https://blog-contentcenter.raja-group.com/?p=168613
     accessed: 2026-11-09
+  - id: S16
+    title: Quality Catalogue for Corrugated Board Packaging – quality characteristics and defect evaluation (VDW, version 4.4, August 2014)
+    publisher: FEFCO (document by VDW, German Corrugated Board Association)
+    url: https://www.fefco.org/download/file/fid/2576
+    accessed: 2026-11-09
+  - id: S17
+    title: Corrugated Board Specifications – Automation Packaging Standards (caliper target chart)
+    publisher: Walmart (hosted by Fibre Box Association)
+    url: https://www.fibrebox.org/assets/2025/09/Walmart_Corrugated-Board_Specifications_Automation_Packaging_Standards.pdf
+    accessed: 2026-11-09
+  - id: S18
+    title: PMMI B155 TR2.1-2018 Tolerances for Regular Slotted Containers (RSCs)
+    publisher: PMMI / Fibre Box Association
+    url: https://www.fibrebox.org/assets/2025/07/B155_TR2-1_RSC_Containers_2018_Edition.pdf
+    accessed: 2026-11-09
 ---
 
 # Inside, outside and score-to-score dimensions and caliper allowances
 
 > Values marked *industry-typical* or *derived*: replace with supplier/house data in `company/`.
-> Source note: the primary standards (FEFCO Code, ASTM D2658, TAPPI T 827, FEFCO R 101, FBA B155) were consulted only through search-indexed extracts while writing this file; their full text was not opened. Anything normative must be checked in the standard itself.
+> Source note: in wave 2 (2026-11-09) the full text of the FEFCO Code drawings [S1], the FEFCO/VDW Quality Catalogue [S16], both PMMI/FBA B155 technical reports [S6][S18], the Atlantic Packaging allowance sheet [S10] and the Walmart caliper chart [S17] was read. ASTM D2658, TAPPI T 827 and FEFCO R 101 were still seen only through catalogue extracts. Anything normative must be checked in the standard itself.
 
 ## Three dimension bases: inside, outside, manufacturer's (score-to-score)
 
@@ -133,7 +148,11 @@ So the allowances below are tied to one board and one score profile. A plant's o
 | A | 4.8 [3/16] | ~108 | [S9] |
 | BC (double wall) | ~6–7 [~1/4] | n/a | [S14] |
 
-**VERIFY**: other sources give different flute heights (see `materials/` flute files). Measured combined-board caliper (TAPPI T 411 / ISO 3034) is the correct input, never the nominal flute height. For BC, the sum of B + C nominal values (7.2 mm) is higher than the 6–7 mm in [S14]. Use measured caliper.
+Published caliper data that back up or adjust this table:
+
+- **FEFCO/VDW Quality Catalogue** gives flute *height* bands, not combined thickness: E 1.0–<1.9 mm, B 2.2–<3.1 mm, C 3.1–<4.0 mm, A 4.0–<5.0 mm. It says board thickness is only approximate and that the thickness of multi-wall board is found **by adding** the flute values [S16]. For BC that gives about 5.3–7.1 mm.
+- **Walmart target-caliper chart (hosted by FBA)** gives combined caliper by grade: B 0.113–0.147 in [2.9–3.7 mm], C 0.151–0.187 in [3.8–4.8 mm], A 0.193–0.229 in [4.9–5.8 mm], BC 0.258–0.308 in [6.6–7.8 mm] and AC 0.338–0.388 in [8.6–9.9 mm], rising with board grade. It also says to allow 0.015 cm less in printed areas [S17]. (One row in the chart's metric column is a misprint: C-flute 175# is 0.157 in, which is 0.399 cm, not the 0.392 cm printed.)
+- So the BC conflict is settled as follows: 7.2 mm (B + C nominal from [S9]) is at the top of the published range, and the 6–7 mm in [S14] sits within it. The table below uses **6.6 mm** for BC (Walmart 200# grade [S17]). The real input is always the measured combined caliper (TAPPI T 411 / ISO 3034), never the nominal flute height.
 
 ## Allowance model: allowance factor × caliper
 
@@ -161,7 +180,25 @@ Factor arrays, RSC (FEFCO 0201), order [L, W, H]:
 - **Depth (height), k_s = 2**: the outer flaps fold over the inner flaps, so the panel carrying them must be taller by about one flap thickness at the top and one at the bottom. This is the "two flap thicknesses" rule. For outside depth, there are two flap layers at the top and two at the bottom, so k_o = 4.
 - Supporting evidence: the published consensus is that score-to-score = inside + scoring allowance [S5]. Converters report about 1/8 in (3 mm) per side between inside and outside on single wall, about 1/4 in (6 mm) overall [S11][S12], which matches k_o = 2 with B/C flute. One converter calculator lists about +14 mm overall inside→outside for 5-ply (double wall) [S12], which matches k_o = 2 with t ≈ 7 mm.
 
-**VERIFY**: an Atlantic Packaging RSC score-allowance table gives separate L/W/D deductions per flute (E, B, C), with values of 1/16, 1/8 and 3/16 in appearing in it. The extract was garbled, so the flute-by-dimension pairing could not be confirmed [S10]. The panel next to the manufacturer's joint, and the joint itself, often use a different (smaller) allowance in practice. The FBA/PMMI document notes that allowances depend on the score pattern [S6]. Treat k_s = [1, 1, 2] as a starting default only.
+### Published allowance values that confirm the factor pattern
+
+- **FEFCO/VDW Quality Catalogue, worked example 1**: crease (score-to-score) dimensions are worked out as **(L + t) × (B + t) × (H + 2t)**, where t is the board thickness in mm. For a B-flute box with inside size 650 × 400 × 250 mm and t = 3 mm, the crease dimensions are 653 × 403 × 256 mm [S16]. This is exactly k_s = [1, 1, 2]. Worked example 2 in the same document runs the formula in reverse: subtract the thicknesses from the crease dimensions to get the inside size [S16]. (Arithmetic checked in Python.)
+- **Atlantic Packaging, "Allowances for RSC boxes"** (score-to-score minus allowance = inside size) [S10]:
+
+| Flute | Length, in [mm] | Width, in [mm] | Depth, in [mm] | Implied t at k_s = 1, mm |
+|---|---|---|---|---|
+| E | 1/16 [1.6] | 1/16 [1.6] | 1/8 [3.2] | 1.6 |
+| B | 1/8 [3.2] | 1/8 [3.2] | 1/4 [6.4] | 3.2 |
+| C | 3/16 [4.8] | 3/16 [4.8] | 3/8 [9.5] | 4.8 |
+| EB | 3/16 [4.8] | 3/16 [4.8] | 3/8 [9.5] | 4.8 |
+| BC | 1/4 [6.4] | 1/4 [6.4] | 1/2 [12.7] | 6.4 |
+| AC | 3/8 [9.5] | 3/8 [9.5] | 3/4 [19.1] | 9.5 |
+| TW (triple wall) | 1/2 [12.7] | 1/2 [12.7] | 1 [25.4] | 12.7 |
+
+  Their example: a C-flute RSC measured as 12 3/16 × 5 3/16 × 8 3/8 in score-to-score is 12 × 5 × 8 in inside [S10].
+- **What this means for Auto3D**: in both sources the depth allowance is exactly twice the length/width allowance (ratio 2.0 for every flute; checked in Python). This confirms the shape of `k_s = [1, 1, 2]`, so **the convention does not change**. The size of the allowance differs between converters: Atlantic's C-flute value (3/16 in = 4.76 mm) is larger than the 4.0 mm nominal C caliper in [S9], but sits at the top of the Walmart C-flute caliper range [S17]. Keep the factors and put the board's real (measured) caliper into `t`, or store a house table.
+- No primary source seen gives **k_o** (inside→outside) values. k_o = [2, 2, 4] stays a geometric derivation (confidence: derived).
+- The PMMI/FBA reports say only that the score width "can range from about one-tenth to several tenths of an inch", depending on flute, basis weights and score pattern, and that the designer sets the blank to suit [S6][S18]. In practice the panel next to the manufacturer's joint may use a different allowance (house data).
 
 ### Validity
 
@@ -198,9 +235,9 @@ These are nominal values from the factor model and the nominal calipers above (c
 | B | 3.2 [0.126] | +3.2 [0.126] | +6.4 [0.252] | +6.4 [0.252] | +12.8 [0.504] |
 | C | 4.0 [0.157] | +4.0 [0.157] | +8.0 [0.315] | +8.0 [0.315] | +16.0 [0.630] |
 | A | 4.8 [0.189] | +4.8 [0.189] | +9.6 [0.378] | +9.6 [0.378] | +19.2 [0.756] |
-| BC | 7.2 [0.283] | +7.2 [0.283] | +14.4 [0.567] | +14.4 [0.567] | +28.8 [1.134] |
+| BC | 6.6 [0.260] | +6.6 [0.260] | +13.2 [0.520] | +13.2 [0.520] | +26.4 [1.039] |
 
-Calipers are from [S9] (single wall). The BC row uses the B + C sum, which conflicts with the ~6–7 mm in [S14] (**VERIFY**). The fixed values are the factor model applied to nominal caliper. US plants often round them to the nearest 1/16 in. The Atlantic table [S10] uses fractions of this size (1/16, 1/8, 3/16 in), but its pairing with each flute is unconfirmed (**VERIFY**).
+Single-wall calipers are from [S9]. The BC caliper is the Walmart 200# target, 0.258 in [6.6 mm] [S17]; heavier BC grades run up to 7.8 mm [S17]. The fixed values are the factor model applied to nominal caliper. US plants often round them to the nearest 1/16 in. The published Atlantic table [S10] matches this table for E and B. For C it is 0.8 mm larger per factor (3/16 in rather than 4.0 mm), and for BC it is 1/4 in [6.4 mm], which is within 0.25 mm of the 6.6 mm row (arithmetic checked in Python).
 
 ## Allowance factors for other styles (layer counting)
 
@@ -214,7 +251,7 @@ Use the same rule for every style: **count the board layers on each axis.**
 | 0203 FOL | [1, 1, 2] | [2, 2, 6] | the outer flaps overlap completely: three layers per end |
 | 0300/0301 telescope (lid over base) | per tray [1, 1, 1] | lid inside = base outside + clearance | two separate trays |
 
-**VERIFY**: these are geometric derivations, not values from a standard. Confirm them against plant measurements made per TAPPI T 827 / FEFCO R 101 [S7][S8].
+**VERIFY**: only the RSC row is backed by a published source (FEFCO/VDW Quality Catalogue [S16] and Atlantic [S10]). The FEFCO Code drawings show 0203 with all flaps equal to B, and 0204 with the L-panel flaps ½B and the B-panel flaps ½L [S1]. That confirms the flap layout, but the drawings carry no caliper allowances. The other rows are geometric derivations. Confirm them against plant measurements made per TAPPI T 827 / FEFCO R 101 [S7][S8].
 
 ## Mapping to Auto3D factor arrays
 
@@ -239,3 +276,11 @@ basis = "outside": O given  →  I = O − k_o ⊙ t ;  S = O − (k_o − k_s) 
 - Using nominal flute height instead of measured caliper (see the caliper table caveat above).
 - Treating score-to-score as the inside dimension. ASTM D2658 says the inside size can only be **estimated** from score-to-score once the allowance is known [S3].
 - Using one allowance table for every flute. Allowances depend on flute, basis weights and score pattern [S6].
+- Applying FEFCO size-band tolerances to the inside dimension. The FEFCO/VDW catalogue measures them crease-to-crease, i.e. on the score basis [S16] (see `dimensional/tolerances.md`).
+
+## Research log
+
+- **2026-11-09, wave 2 (dimensions and tooling agent)**. Read in full: FEFCO Code (11th edition PDF; drawings for 0203, 0204, 0409, 0427 rendered) [S1]; FEFCO/VDW Quality Catalogue v4.4 [S16]; PMMI B155 TR2.1 and TR2.2 (2018) [S18][S6]; Atlantic Packaging allowance sheet [S10]; Walmart caliper chart on fibrebox.org [S17].
+- Resolved: BC caliper (now 6.6 mm, range 6.6–7.8 mm [S17]); Atlantic flute pairing (full table above); confirmation of the RSC k_s pattern by FEFCO/VDW (L + t, B + t, H + 2t) [S16].
+- **Allowance convention unchanged**: k_s = [1, 1, 2] is confirmed by two independent sources. k_o = [2, 2, 4] has no published source and remains derived. Converter tables differ in the size of t, not in the multiples.
+- Still open (VERIFY): factors for styles other than 0201; k_o from a primary source; ASTM D2658 Appendix X2 allowance values (the iTeh/ASTM hosts are blocked in this environment); a joint-panel allowance.
