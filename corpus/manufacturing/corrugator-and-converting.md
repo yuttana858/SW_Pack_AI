@@ -160,6 +160,36 @@ sources:
     publisher: AICC Now
     url: https://now.aiccbox.org/caliper-the-least-effective-quality-control-measurement/
     accessed: 2026-11-09
+  - id: S31
+    title: Corrugated board bonding defect visualization and characterization (Corbotec 2016 presentation)
+    publisher: Georgia Tech Renewable Bioproducts Institute (R. Popil, S. Johnson)
+    url: https://research.gatech.edu/sites/default/files/rbi/pdfs/Roman_CORBOTEC%20PDF%20for%20distribution.pdf
+    accessed: 2026-11-09
+  - id: S32
+    title: US6228158 Preblended carrier starches for corrugating adhesives (carrier-to-raw ratio; search extract)
+    publisher: USPTO
+    url: https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/6228158
+    accessed: 2026-11-09
+  - id: S33
+    title: Quality Catalogue for Corrugated Board Packaging (VDW, version 4.4, August 2014)
+    publisher: FEFCO (document by VDW)
+    url: https://www.fefco.org/download/file/fid/2576
+    accessed: 2026-11-09
+  - id: S34
+    title: Corrugated Board Specifications – Automation Packaging Standards (caliper target chart)
+    publisher: Walmart (hosted by Fibre Box Association)
+    url: https://www.fibrebox.org/assets/2025/09/Walmart_Corrugated-Board_Specifications_Automation_Packaging_Standards.pdf
+    accessed: 2026-11-09
+  - id: S35
+    title: PMMI B155 TR2.1-2018 Tolerances for Regular Slotted Containers (RSCs)
+    publisher: PMMI / Fibre Box Association
+    url: https://www.fibrebox.org/assets/2025/07/B155_TR2-1_RSC_Containers_2018_Edition.pdf
+    accessed: 2026-11-09
+  - id: S36
+    title: MASTERFOLD 75/110 folder-gluer (product page; crash-lock and 4/6-corner modules)
+    publisher: BOBST
+    url: https://www.bobst.com/na/en/products/folding-gluing/masterfold-75-110
+    accessed: 2026-11-09
 ---
 
 # Corrugator process, converting equipment and quality defects
@@ -196,7 +226,14 @@ The wet end makes single-face web. The double backer adds the second liner. The 
   - a cooked **carrier** starch, which provides viscosity and suspension;
   - raw (uncooked) starch, which carries the bonding.
   
-  One patent describes the cooked part as about 15–17 % of total starch (**VERIFY** against the adhesive supplier) [S4].
+  One patent describes the cooked part as about 15–17 % of total starch [S4]. Another patent gives the carrier-to-raw starch ratio needed to meet viscosity and solids limits as about 1:3 to 1:8 [S32], i.e. a carrier share of 11–25 % of total starch. The 15–17 % figure falls inside that range (arithmetic checked in Python). Both are patent figures; the plant's own recipe from its adhesive supplier is the house value.
+- **Solids**: Georgia Tech RBI describes the classic Stein-Hall (Bauer) system as a slurry of about **30 % solids** of uncooked and cooked starch, with caustic and borax [S31]. Solids content in a given plant is set by its recipe and viscosity limits (house data).
+- **Bonding requisites** [S31]:
+  - apply "just enough" adhesive to the flute tips;
+  - run roll temperatures and speeds that give fast gelatinisation;
+  - dry at the right rate to form the green bond.
+  
+  Pilot-corrugator trials show both failure modes: roll temperatures too low give white, ungelatinised glue lines with low bond strength; temperatures too high give a brittle bond that peels without fibre tear. Excess glue application gives thick, ungelatinised glue lines and possible washboarding [S31].
 - At the **gel point** the raw starch gelatinises with heat. Viscosity rises immediately and the green bond forms [S4].
 - Gel temperature, viscosity and solids are the key control parameters. Getting them wrong causes high-low flutes, poor bonds and edge problems [S21].
 
@@ -214,16 +251,16 @@ The wet end makes single-face web. The double backer adds the second liner. The 
 
 - Adding preheat or glue before the double backer cures some warp but costs money. Extra heat can also cause cracking at the die cutters [S8].
 - The traditional manual method is to inspect the board, identify the warp direction, and add heat to the liner on the correct side [S9].
-- **Downstream impact**: digital presses are reported to tolerate no more than 1/8 in of warp per linear foot (~10 mm/m) [S26]. Feeders on flexo folder-gluers and die cutters also jam with warped board (machine limits are house or OEM data).
+- **Downstream impact**: digital presses are reported to tolerate no more than 1/8 in of warp per linear foot (~10 mm/m) [S26]. PMMI/FBA allow 1/4 in per 12 in [6.4 mm per 305 mm] in general, and 3/16 in per 12 in [4.8 mm] on high-speed (≥ 50 per minute) lines (see `dimensional/tolerances.md`) [S35]. Feeders on flexo folder-gluers and die cutters also jam with warped board; OEM limits override these values.
 
 ## Converting equipment
 
 | Equipment | What it does | Typical products | Notes |
 |---|---|---|---|
 | Flexo folder-gluer (FFG) | prints (flexo post-print), slots, scores, glues or stitches the manufacturer's joint, counts and bundles | RSC, HSC, OSC, FOL | most common RSC line. Feed rolls and print stations can crush board [S10] |
-| Rotary die cutter (RDC) | prints in line, then die-cuts on a cylinder against an anvil | high-volume die-cut trays and mailers | fast continuous motion. Tooling costs more [S29] |
-| Flatbed die cutter | platen die-cutting with stripping and blanking | complex die-cuts, litho-laminated displays | slower stop–start action, high precision [S29] |
-| Specialty folder-gluer | folds and glues die-cut blanks: straight-line, crash-lock (auto-bottom, e.g. FEFCO 0711), 4- and 6-corner trays | auto-bottom boxes, trays, mailers | crash-lock modules pre-glue the bottom flaps (**VERIFY** machine capability) |
+| Rotary die cutter (RDC) | prints in line, then die-cuts on a cylinder against an anvil | high-volume die-cut trays and mailers | fast continuous motion. Tooling costs more [S29]. FEFCO/VDW applies the same ±0.5 % die-cut tolerance as flatbed, but with a looser acceptance level, AQL 4.0 [S33] |
+| Flatbed die cutter | platen die-cutting with stripping and blanking | complex die-cuts, litho-laminated displays | slower stop–start action, high precision [S29]. FEFCO/VDW acceptance level AQL 1.5 on the same ±0.5 % tolerance [S33] |
+| Specialty folder-gluer | folds and glues die-cut blanks: straight-line, crash-lock (auto-bottom, e.g. FEFCO 0711), 4- and 6-corner trays | auto-bottom boxes, trays, mailers | crash-lock modules pre-glue the bottom flaps. OEMs offer crash-lock and 4/6-corner modules; for example, BOBST quotes up to 50 000 boxes/h for a folding-carton MASTERFOLD [S36]. Capability for a given flute and blank size is OEM data (**VERIFY** with the machine supplier) |
 | Litho-lamination | an offset-printed liner or sheet is laminated onto single-face or corrugated board | premium retail and display | photographic quality. Cost rises above about 28 × 40 in sheet size [S24] |
 | Pre-print (flexo on reel) | the liner is printed on reel before the corrugator | high volume, medium-to-high resolution | the print must survive corrugator heat [S24] |
 | Digital (inkjet, post-print) | prints directly on corrugated sheets | short runs, versioning | no plates. Shorter lead time than lamination, which can take 8–12 weeks [S25]. Warp sensitive [S26] |
@@ -255,12 +292,25 @@ The wet end makes single-face web. The double backer adds the second liner. The 
 | Delamination | liner separates from the medium [S17] | heat-transfer problems [S18]; adhesive or paper problems [S23] | the paper, equipment, adhesive and heat must all be checked together [S23] |
 | Crushed board | flutes compressed, lower caliper and cushioning [S17] | over-pressure in feed rolls, print or die cutter; nip settings [S10] | set nips to measured caliper. Keep caliper loss ≤ ~0.08 mm [S10] |
 | Score cracks | the liner cracks along the fold | low moisture or stretch, overheating, recycled or dense liners, worn or wrong score profile [S13][S14] | target 5.8–7.5 % total board moisture [S13]. Humidify (one case cut cracking from ~10 % to ≤1 %) [S16]. Keep press run-out in check and change the score profile [S14] |
-| Fishtail (skew) at the joint | gap at the top differs from the gap at the bottom | folder misalignment, uneven feed, warp | keep within ≤ 3/16 in measured at the flap scores (PMMI via AICC) [S27] |
-| Gap out of limit | joint gap too small (overlap, binding) or too large | panel sizes, folding-belt setting | 1/8–1/2 in, target 3/8 in [S27] |
+| Fishtail (skew) at the joint | gap at the top differs from the gap at the bottom | folder misalignment, uneven feed, warp | keep within ≤ 3/16 in measured at the flap scorelines (PMMI B155 TR2.1) [S35][S27] |
+| Gap out of limit | joint gap too small (overlap, binding) or too large | panel sizes, folding-belt setting | 1/8–1/2 in at the flap scorelines, ≥ 1/16 in at the flap ends [S35]; design target 3/8 in [S27]. FEFCO/VDW die-cuts: 6 or 8 mm nominal, −4/+4 mm single wall, −4/+6 mm double wall [S33] |
 
 - Lighter flutes and media may need lower steam temperatures in some corrugator sections to avoid heat defects [S18].
 - For exhaustive cause–remedy trees, use the TAPPI *Corrugating Defect/Remedy Manual* [S22].
 
 ## Flute geometry reference for process settings
 
-Nominal flute thickness is E 1.6 mm [1/16 in], B 3.2 mm [1/8 in], C 4.0 mm [5/32 in] and A 4.8 mm [3/16 in] [S28]. FEFCO quotes different flute heights, for example B 2.4 mm and C 3.6 mm [S1] (**VERIFY**: height and thickness are measured differently). Use measured combined caliper for converting set-up, and set nips and gaps from it, not from the nominal value.
+Nominal flute thickness is E 1.6 mm [1/16 in], B 3.2 mm [1/8 in], C 4.0 mm [5/32 in] and A 4.8 mm [3/16 in] [S28]. FEFCO quotes different flute heights, for example B 2.4 mm and C 3.6 mm [S1].
+
+**Resolved: height and thickness are different quantities.**
+
+- **Flute height** is the height of the fluted medium. The FEFCO/VDW catalogue gives height bands (E ≥ 1.0 to < 1.9 mm, B ≥ 2.2 to < 3.1 mm, C ≥ 3.1 to < 4.0 mm, A ≥ 4.0 to < 5.0 mm) and pitch bands. It identifies the flute by **pitch**, because converting changes the thickness [S33].
+- **Combined thickness (caliper)** adds the two liners and depends on grade. The FBA-hosted Walmart chart gives target calipers such as C 200# 0.159 in [4.04 mm] and B 200# 0.121 in [3.07 mm], and says to allow 0.015 cm less in printed areas [S34].
+
+So the FEFCO heights (B 2.4, C 3.6 mm) and the Wikipedia thicknesses (B 3.2, C 4.0 mm) are consistent with each other: the thickness is the height plus the liners. Use measured combined caliper for converting set-up, and set nips and gaps from it, not from the nominal value.
+
+## Research log
+
+- **2026-11-09, wave 2 (dimensions and tooling agent)**. Read in full: Georgia Tech RBI Corbotec deck [S31]; FEFCO/VDW Quality Catalogue [S33]; Walmart caliper chart on fibrebox.org [S34]; PMMI B155 TR2.1 [S35]; BOBST MASTERFOLD page [S36]. From search extracts only: US6228158 [S32] (the USPTO and AICC hosts are blocked here).
+- Resolved: Stein-Hall solids (~30 %) and the carrier share (15–17 % sits inside the 1:3–1:8 patent range); flute height vs combined thickness; rotary vs flatbed acceptance levels; primary joint gap and fishtail limits; warp limits for downstream machines.
+- Still open (marked for review): crash-lock capability by flute and blank size (OEM data); gel temperature (patent extracts give about 140–155 °F [60–68 °C], but no primary text was read); starch application rate in g/m² (none found).

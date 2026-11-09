@@ -120,12 +120,57 @@ sources:
     publisher: Jotform (die maker form)
     url: https://www.jotform.com/form/261062552540045
     accessed: 2026-11-09
+  - id: S23
+    title: CITO Abacus – calculation aid for creasing matrix (cardboard and corrugated board calculators)
+    publisher: CITO-System GmbH
+    url: https://www.cito.de/en/US/boxline/creasing_matrix/cito_abacus_online/
+    accessed: 2026-11-09
+  - id: S24
+    title: CITO Abacus – corrugated board (formula page)
+    publisher: CITO-System GmbH
+    url: https://www.cito.de/en/US/boxline/creasing_matrix/cito_abacus_online/corrugated_board/
+    accessed: 2026-11-09
+  - id: S25
+    title: CITO Abacus – cardboard (formula page)
+    publisher: CITO-System GmbH
+    url: https://www.cito.de/en/US/boxline/creasing_matrix/cito_abacus_online/cardboard/
+    accessed: 2026-11-09
+  - id: S26
+    title: HS CITO cutting rules and creasing rules (product pages; bevel types, heights, hardness)
+    publisher: CITO-System GmbH
+    url: https://www.cito.de/en/US/formline/cutting-rules-creasing-rules/hs-cito-cutting-rules/
+    accessed: 2026-11-09
+  - id: S27
+    title: CITO ejection material for flatbed / corrugated board (D/5, D/12, CREASE Rubber, FAST Rubber, CITOject F, Polytop, Slot Rubber product pages)
+    publisher: CITO-System GmbH
+    url: https://www.cito.de/en/US/ejection-material/flatbed-corrugated-board/
+    accessed: 2026-11-09
+  - id: S28
+    title: CITO Manual Nick Grinder CG 3 (technical data)
+    publisher: CITO-System GmbH
+    url: https://www.cito.de/en/US/boxline/diecutting/manual_nick_grinder/cito_manual_nick_grinder/
+    accessed: 2026-11-09
+  - id: S29
+    title: Quality Catalogue for Corrugated Board Packaging (VDW, version 4.4, August 2014)
+    publisher: FEFCO (document by VDW)
+    url: https://www.fefco.org/download/file/fid/2576
+    accessed: 2026-11-09
+  - id: S30
+    title: Wagner Die Supply catalog 2013 (rule thickness table)
+    publisher: Wagner Die Supply (Scribd copy)
+    url: https://www.scribd.com/document/551322191/WagnerSupplyCatalogWeb2013
+    accessed: 2026-11-09
+  - id: S31
+    title: CITO Ejection Performance Guide (critical-area thresholds)
+    publisher: CITO-System GmbH
+    url: https://www.cito.de/en/US/ejection-material/cito-ejection-performance-guide/
+    accessed: 2026-11-09
 ---
 
 # Die cutting and tooling
 
 > Confidence: **industry-typical**. Many values come from tooling-vendor literature. Replace with die-maker and house data in `company/`.
-> Source note: sources were consulted through search-indexed extracts, and vendor pages (CITO, voestalpine, Sauer) were not opened in full. Confirm formulas with the matrix or rule supplier's current chart.
+> Source note: in wave 2 (2026-11-09) the CITO Abacus formula pages, rule pages and ejection-material pages [S23]–[S28][S31] and the FEFCO/VDW Quality Catalogue [S29] were read in full. The voestalpine and PrintWeek pages could not be fetched (host blocked) and are cited from search extracts. Confirm formulas with the matrix or rule supplier's current chart.
 
 ## Flatbed vs rotary die cutting
 
@@ -133,14 +178,14 @@ sources:
 |---|---|---|
 | Motion | stop–start stamping of each sheet [S1] | continuous, cylinder against anvil [S1] |
 | Typical speed (vendor figures) | 2000–5000 sheets/h [S2] | 8000–12000 sheets/h [S2] |
-| Accuracy | sources conflict: one rates flatbed "high", others rate rotary tighter (**VERIFY**) [S2][S3] | vendors claim ±0.05 mm [±0.002 in] or better on dies (**VERIFY**) [S3] |
+| Accuracy | FEFCO/VDW uses the same die-cut tolerance (±0.5 %, min ±1 mm) for both, but applies the **tighter** acceptance level to flatbed (AQL 1.5) [S29] | same tolerance, **looser** acceptance level (AQL 4.0), both for die-cut dimensions and for joint gap [S29]. The "±0.05 mm" claim in [S3] is for rotary dies on thin web stock (labels), not corrugated sheet |
 | Material | suits thick and sheet-fed stock, including corrugated sheets [S3] | high volume. Thinner web stock in labels. Rotary die cutters for corrugated are sheet-fed |
 | Tooling | flat plywood die (cheaper) | curved die, more costly to make [S3] |
 | Best for | short runs, complex or precise die-cut cartons, litho-laminated work | long runs, RSC-like die-cuts, in-line flexo print |
 
 Engineering notes:
 
-- Rotary corrugated die cutting cuts against a urethane anvil. This tends to crush board more and gives slightly lower dimensional accuracy than flatbed. Flatbed is preferred for tight registration to litho print. These are general practice statements with no source seen (**VERIFY** with house capability studies).
+- Rotary corrugated die cutting cuts against a urethane anvil. The FEFCO/VDW catalogue reflects its lower dimensional consistency by giving rotary work a looser AQL (4.0) than flatbed (1.5) on the same tolerance [S29]. Flatbed is preferred for tight registration to litho print. The extra crush on rotary is general practice; no source seen puts a number on it. Measure it in house capability studies.
 - Get machine-specific tolerances from the OEM. Vendor accuracy claims are marketing figures [S2][S3].
 
 ## Steel rule types, heights and point sizes
@@ -149,17 +194,18 @@ Engineering notes:
 
 | Rule | Function | Notes |
 |---|---|---|
-| Cutting rule | cuts through | center bevel (CB) is the most common for board; long center bevel (LCB/CFB, facette) is for harder or thicker stock including corrugated [S4] |
+| Cutting rule | cuts through | center bevel (CB) is the most common for all common cardboard; CFB (center facette bevel = long center bevel) is for hard and thicker materials, including corrugated. Cutting angles 42° or 52° (+2°/−0°). Edge hardness 630 HV, body 350–380 HV [S4][S26] |
 | Creasing rule | makes a fold line | round-nosed; set lower than the cutting rule (see below). Use at least 3 pt for corrugated [S6] |
 | Perforating rule | cut and nick pattern | defined by cut length and nick (tie) length. Micro-perforation has nicks under 0.8 mm; examples are 0.3 mm cut / 0.4 mm nick at 35 tpi and 0.2 / 0.3 mm at 50 tpi [S22] |
 | Zipper (tear strip) rule | wavy or arrow perforation for tear-open strips | profile set by the rule maker (house data) |
 | Cut-crease (perf-crease) rule | alternating cut and crease segments, used for folds on heavy or reverse-folded board | segment lengths are house data |
-| Side-bevel rule | single-sided bevel for tight bends and flush finish | one source wrongly uses "side bevel" as an alias for center bevel (**VERIFY** terminology) [S4] |
+| Side-bevel rule | single-sided bevel for tight bends and flush finish | distinct from CB and CFB: CITO defines CFB as "center facette bevel = long center bevel" [S26], so "side bevel" is not an alias for either |
 
 ### Rule height
 
 - Standard cutting rule height: **23.8 mm [0.937 in]**, used in most countries. Some Asian markets use **23.6 mm [0.929 in]**, which shifts every creasing-rule height down [S4][S6].
 - US letterpress height **0.918 in [23.32 mm]** is also used. One supplier notes that matrix scoring typically uses 2 pt rule at .918 in height [S5].
+- CITO supplies creasing rules in 2 pt (heights 22.40–23.90 mm), 3 pt (21.00–23.90 mm) and 4 pt (22.00–23.90 mm). Cutting rules come in 22.30–50.00 mm heights. CITO states that its rule geometry follows the European Diemakers Association (EDA) standards [S26].
 - 0.937 in × 25.4 = 23.80 mm; 0.918 in × 25.4 = 23.32 mm (checked in Python).
 
 ### Point size (rule thickness)
@@ -167,23 +213,24 @@ Engineering notes:
 | Point | mm [in] | Source |
 |---|---|---|
 | 2 pt | 0.71 [0.028] | [S4] |
-| 3 pt | 1.05 [0.041]; one source gives 1.07 [0.042] (**VERIFY**) | [S4] |
-| 4 pt | 1.42 [0.056] | [S4] |
+| 3 pt | 1.05 [0.041] metric nominal; 1.07 [0.042] inch nominal | [S4][S30] |
+| 4 pt | 1.42 [0.056] | [S4][S30] |
 
-1 point ≈ 0.353 mm (1/72 in) [S4]. The nominal value differs slightly from the exact multiple (3 × 0.353 = 1.058 mm).
+1 point ≈ 0.353 mm (1/72 in) [S4]. The two 3 pt values are not a conflict but two nominal systems. European metric rule (voestalpine/EDA) is 1.05 mm ± 0.020 mm. US inch rule is 0.042 in, which is 1.067 mm [S4][S30]. The 2 pt and 4 pt values agree in both systems: 0.028 in = 0.711 mm and 0.056 in = 1.422 mm. Rule thickness tolerances (voestalpine) are ±0.015 mm (2 pt), ±0.020 mm (3 pt) and ±0.028 mm (4 pt) [S4]. Use the actual thickness of the rule supplied as `d` in the channel formula. (Checked in Python.)
 
 ## Creasing rule height and creasing matrix (channel) width
 
-### Equation (CITO method)
+### Equation (CITO Abacus, primary)
 
 ```
-Creasing rule height:   h = H_cut − c            (cartonboard; c = board caliper)
-                        h = H_cut − e            (corrugated;  e = compressed board thickness)
-                        (additional ≈0.1 mm reduction when the matrix has a metal base — VERIFY)
+Creasing rule height:   h = 23.80 − c            (cartonboard; c = board thickness, 0.25–1.65 mm)
+                        h = 23.80 − e            (corrugated;  e = compressed board thickness, 0.5–1.3 mm)
 Channel (groove) width: B = 1.5·c + d            (cartonboard)
                         B = 2.0·e + d            (corrugated)
-Channel depth (corrugated) ≈ e
+Channel depth:          A ≈ c  (cartonboard)  ;  A ≈ e  (corrugated)
 ```
+
+Source: CITO Abacus formula pages [S24][S25]. CITO notes that the Abacus does **not** apply to its metal-based CITO PLAST matrix, which has its own recommendation table [S23]. For a 23.60 mm cutting rule, use H_cut = 23.60 in place of 23.80.
 
 ### Variables
 
@@ -194,10 +241,11 @@ Channel depth (corrugated) ≈ e
 - `h`: creasing rule height, mm [in]
 - `B`: channel width, mm [in]
 
-Sources: [S6][S7][S8][S9].
+Sources: [S23][S24][S25]; older secondary descriptions [S6][S7][S8][S9].
 
 - In practice the matrix (channel plus its base) makes up the height difference. PrintWeek's example pairs a 23.4 mm creasing rule with a 0.4 mm matrix [S6].
-- **VERIFY**: the brief's "≈ rule width + 1.5 × caliper" holds for **cartonboard only** [S9]. Corrugated uses 2 × compressed thickness [S8]. The PrintWeek examples are internally inconsistent [S6], and a lower-authority guide gives "caliper + 0.3–0.5 mm" for carton. Confirm with the matrix supplier's chart.
+- **Resolved**: the brief's "≈ rule width + 1.5 × caliper" holds for **cartonboard only**. Corrugated uses 2.0 × compressed thickness [S24][S25]. Ignore the PrintWeek examples [S6], which are internally inconsistent, and the lower-authority "caliper + 0.3–0.5 mm" rule. The CITO Abacus is the primary formula. CITO adds that the parameters depend on the material specification.
+- The CITO Abacus ranges are 0.25–1.65 mm for cartonboard and 0.5–1.3 mm compressed thickness for corrugated [S24][S25]. Outside them, use the matrix maker's chart.
 
 ### Validity
 
@@ -223,7 +271,7 @@ e = 0.039 in, d = 0.041 in, H_cut = 0.937 in.
 c = 0.50 mm [0.020 in], d = 0.71 mm [0.028 in] (2 pt).
 
 - B = 1.5 × 0.50 + 0.71 = **1.46 mm** [US: 1.5 × 0.020 + 0.028 = 0.058 in]
-- h = 23.80 − 0.50 = **23.30 mm** (23.20 mm with the 0.1 mm metal-base reduction, **VERIFY**) [US: 0.937 − 0.020 = 0.917 in]
+- h = 23.80 − 0.50 = **23.30 mm** [US: 0.937 − 0.020 = 0.917 in]. The Abacus does not apply to metal-based matrices (CITO PLAST) [S23]; use the maker's table for those.
 
 ### Limitations
 
@@ -235,11 +283,27 @@ These are empirical starting values. Trial crease and fold tests (crease bending
 - **Strength vs grain**: nicks running in the machine (fibre) direction are about twice as strong as nicks across it [S10].
 - **Rubber and nicks**: ejection rubber is generally set 1.0–2.0 mm [0.04–0.08 in] from the cutting rule to keep nicks from breaking [S10].
 - **During a run**: nicks often have to be added or widened as the run progresses because of displacement forces. Nick grinders and manual nick tools are used to make and extend them [S10][S13].
-- **Placement (practice)**: put nicks on waste-side edges, away from visible print and glue areas, and space them evenly. Use wider or more nicks on corrugated than on carton. No source seen gives numeric nick widths for corrugated, so use die-maker standards (**VERIFY**: house data).
+- **Placement (practice)**: put nicks on waste-side edges, away from visible print and glue areas, and space them evenly. Use wider or more nicks on corrugated than on carton.
+- **Nick width (tooling bound)**: CITO's manual nick grinder takes diamond discs of 50 × 8 mm. The attachment allows a disc up to **2 mm** thick for solid board and up to **3 mm** for corrugated [S28]. A ground nick is therefore at most about 2 mm (solid board) or 3 mm (corrugated) wide per pass. CITO notes that good rubbering means fewer and smaller nicks are needed [S27][S28]. Perforating-rule nicks are set by the rule (for example 0.4 mm at 35 tpi [S22]).
+- **VERIFY**: no primary source gives a recommended nick width per flute or board. Use die-maker standards (house data).
 
 ## Ejection rubber, counters and make-ready
 
-- **Ejection rubber hardness**: CITO profiles for corrugated and solid board are rated 70 Shore A (±5) [S11][S12]. Softer grades for cartonboard and harder or profiled grades for multi-wall exist, but no source seen gives a general hardness table (**VERIFY**).
+- **Ejection rubber hardness (CITO, primary)** [S11][S12][S27]:
+
+| Material / profile | Application | Hardness |
+|---|---|---|
+| D/5, D/5 Top, D/5 Peak profiles | flatbed corrugated; cutting, perforating, cut-crease rules | 70 Shore A |
+| D/12 profile | multi-flute or poor-quality corrugated | 70 Shore A |
+| CREASE Rubber | creasing parallel to the flutes, on the crease line | 70 Shore A |
+| FAST Rubber (C-profile) | solid and corrugated board | 70 Shore A (±5) |
+| CITOject F plates and strips | solid and corrugated board; colour-coded grades 15, 25, 35, 45 and 55 (users report testing 35 and 45 Shore) | 15–55 (grade number; scale not stated on the page) |
+| Polytop plates | flatbed and rotary corrugated; colour-coded grades 10, 15 and 20 | grade number; scale not stated |
+| Slot Rubber | hard lining between closely spaced knives; widths 1–4 mm | "hard" (no number given) |
+
+  CITO notes that the stated Shore A values "can vary slightly" [S27].
+- **Profile heights vs plywood (CITO D/5, 23.8 mm rule)**: Rose for 18 mm plywood, Brown for 15.9 mm, Orange for 15 mm and Blue for 12 mm. Each overlaps the rule by 0.2 mm on cutting, perforating or creasing rules; D/5 Top overlaps cutting rules by 1.2 mm [S27]. The rubber pre-compresses the corrugated board so that it cuts cleanly.
+- **CREASE Rubber height by crease height (15 mm plywood, 23.8 mm cutting rule)**: Grey 7.5 mm for crease heights 22.9–23.0 mm (material 0.9–0.8 mm); Brown 8.0 mm for 23.1–23.3 mm (0.7–0.5 mm) [S27].
 - **Profiles**: profiled rubbers (for example a pointed "peak" profile) reduce the contact area and denting near perforation and cut-crease rules [S12]. C-profile rubber helps stop the flute being crushed at the edges of tuck-in flaps [S11].
 - **Counters / creasing matrices**: for cartonboard, use a pre-made matrix or a milled counter plate, sized per the creasing equation above. Corrugated may run without a counter, with a soft crease, or with a corrugated matrix.
 - **Make-ready**: make-ready means levelling the die (patching or packing) so that every rule cuts or creases evenly at minimum pressure. Excess pressure crushes board and dulls rules. Packing is adjusted when a matrix is used [S5].
@@ -292,7 +356,7 @@ These are empirical starting values. Trial crease and fold tests (crease bending
 
 ## Design rules for die-cut corrugated (practice)
 
-These are qualitative rules. Numeric minimum distances are die-maker house data, because no source seen gives them (**VERIFY**).
+These are mostly qualitative rules. No primary source gives numeric minimum distances, so they are die-maker house data (**VERIFY**). CITO's Ejection Performance Guide treats these as critical areas that need special ejection material: slots < 10 mm, tear-off perforations < 9 mm from the inside, and circles of Ø < 19 mm [S31]. Narrow knife-to-knife gaps are lined with hard Slot Rubber in widths of 1–4 mm [S27].
 
 - Keep a minimum distance between parallel rules and between rules and the sheet edge. Very close rules weaken the plywood die and make stripping hard.
 - Do not place a crease very close to a cut running parallel to it, because the flute collapses and cracks.
@@ -300,3 +364,9 @@ These are qualitative rules. Numeric minimum distances are die-maker house data,
 - Line up flaps and creases with the flute direction where possible. Creases across the flutes fold more cleanly than creases along them.
 - Allow for caliper at every fold. Inside panel dimension = crease-to-crease minus the allowance (see `dimensional/dimensions-and-allowances.md`).
 - Put nicks on waste edges and away from glue flaps and print [S10].
+
+## Research log
+
+- **2026-11-09, wave 2 (dimensions and tooling agent)**. Read in full: the CITO Abacus pages for cardboard and corrugated [S23][S24][S25]; the HS CITO rule pages [S26]; the CITO ejection material pages [S27]; the CITO nick grinder page [S28]; the CITO Ejection Performance Guide [S31]; the FEFCO/VDW Quality Catalogue [S29]. From search extracts only: voestalpine rule tolerance table [S4]; Wagner catalogue [S30]. Blocked hosts: voestalpine.com, printweek.in, noviams (IADD), patents.
+- Resolved: creasing formulas from the primary CITO source (cartonboard 1.5c + d, corrugated 2.0e + d; h = 23.80 − c/e; channel depth ≈ c/e); the metal-base reduction removed (the Abacus excludes metal-based matrices); 3 pt = 1.05 mm (metric) vs 1.07 mm (inch nominal); side-bevel terminology; rotary vs flatbed accuracy (same FEFCO tolerance, AQL 4.0 vs 1.5); ejection rubber hardness table; nick width bound from the grinder discs.
+- Still open (marked for review): recommended nick widths per board; numeric minimum rule-to-rule distances (one vendor page quotes 1.5 mm, and a die patent quotes about 1/4 in between cavities; neither is primary); CFF2 line-type mapping per CAD system; DDES2 support.

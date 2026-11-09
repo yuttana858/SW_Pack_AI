@@ -1,14 +1,17 @@
 id: lib.allowance.fefco-0201.default
 type: allowance_table
-version: 0.1.0
+version: 0.2.0
 scope: global
 tier: L1
 status: draft
 confidence: derived
 title: RSC (FEFCO 0201) default allowance factors, caliper multiples
 notes: >
-  Derived defaults from corpus/dimensional/dimensions-and-allowances.md. Replace with
-  plant/machine-scoped tables measured on actual score profiles.
+  k_s = [1, 1, 2] (inside -> score) is confirmed by the FEFCO/VDW Quality Catalogue v4.4
+  (crease dims = (L+t) x (B+t) x (H+2t)) and by the Atlantic Packaging RSC allowance table
+  (depth allowance = 2 x length/width allowance for every flute). k_o = [2, 2, 4] is a
+  geometric derivation with no primary source. Converters differ in the caliper they apply,
+  not in the multiples, so plant/machine tables should record the measured caliper.
 provenance:
   method: derived
   sources: [kb.dimensional.dimensions-and-allowances]
