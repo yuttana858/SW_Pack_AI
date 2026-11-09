@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "swpack-kb": {
+      "command": "python",
+      "args": ["-m", "mcp_server.server"],
+      "env": {
+        "PYTHONPATH": ".",
+        "SWPACK_PLANT": "",
+        "SWPACK_MACHINE": "",
+        "SWPACK_ROLE": "engineer"
+      }
+    }
+  }
+}

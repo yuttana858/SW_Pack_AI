@@ -21,6 +21,11 @@ that grounds answers in a cited packaging knowledge base and drives Auto3D throu
 | `importers/`, `templates/` | CSV importer, column profiles and fill-in templates for plant/supplier data |
 | `connectors/auto3d/` | Auto3D board-database CSV bridge (plan, merge, verify) |
 | `agent/` | Claude tool definitions and dispatcher |
+| `kb/` | Knowledge service: chunker, hybrid index (BM25 + optional embeddings), release manifest, retrieval eval |
+| `mcp_server/` | `swpack-kb` MCP server (read-only tools: search, read, resolve, calculators) |
+| `deploy/modal_app.py` | Modal deployment (index build into a Volume, `/mcp` HTTP endpoint); not deployed yet |
+| `evals/` | Retrieval eval sets (seed set; engineers extend) |
+| `.mcp.json` | Lets Claude Code sessions in this repo attach `swpack-kb` automatically |
 | `tools/` | Validators, review queue, card generator |
 | `tests/` | Golden tests (corpus worked examples), registry and resolver tests |
 
@@ -41,6 +46,22 @@ python tools/generate_cards.py
 ```bash
 python tools/review_queue.py
 ```
+
+## Knowledge service (local)
+
+```bash
+python -m kb.build
+```
+
+```bash
+python -m kb.evaluate --k 10
+```
+
+```bash
+python -m mcp_server.server --http --port 8765
+```
+
+Claude Code picks up `swpack-kb` from `.mcp.json` when opened in this repo. Set `SWPACK_PLANT` / `SWPACK_MACHINE` there to scope answers to a plant.
 
 ## Adding plant data
 

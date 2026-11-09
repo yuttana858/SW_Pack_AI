@@ -172,7 +172,28 @@ Model: `claude-opus-5-5`, with adaptive thinking and an effort setting per route
 | **C6. Feasibility + routing** | `feasibility.check` and plant-wide line selection (§4) | Golden machine cases pass; engineers agree with the line recommendations |
 | **C7. New families** | Honeycomb, then tubes, molded pulp, formed products (§5) | Family golden tests and retrieval set per family |
 
-**First sprint (C1):**
+### Sprint C1 status (2026-11-09): built and tested locally; Modal deployment pending workspace
+
+| Item | Status |
+|---|---|
+| Chunker (`kb/chunker.py`) | Done: 373 chunks (315 corpus sections, 58 data cards), citations resolved, research logs excluded |
+| Hybrid index (`kb/index.py`) | Done: BM25 with packaging-code normalisation (T 839, ISO 3037, 32 ECT, 0201); dense embedder pluggable (`kb/embedders.py`: Voyage or self-hosted on Modal GPU); RRF fusion |
+| Release manifest (`kb/build.py`) | Done: release id, git commit, corpus hashes, record versions, packcalc version |
+| `swpack-kb` MCP server | Done: 6 read-only tools; stdio and streamable HTTP tested end to end; `.mcp.json` for Claude Code |
+| Scope isolation | Done: plant/machine data visible only to that plant's users (tested) |
+| Retrieval eval | Seed set of 50 questions: recall@10 = 0.98, recall@3 = 0.94 (BM25 only); CI floor 0.9. **Needs engineers** to review and extend |
+| Modal app (`deploy/modal_app.py`) | Written and import-checked: `build_index`, `retrieval_eval`, `mcp_http` (proxy auth). **Needs Modal workspace** |
+| Per-user identity (SSO) | Phase C3; until then the HTTP endpoint must stay behind Modal proxy auth |
+
+**Deploy checklist (when the Modal workspace exists):**
+1. `modal token new`.
+2. `modal deploy deploy/modal_app.py`.
+3. `modal run deploy/modal_app.py::build_index`.
+4. `modal run deploy/modal_app.py::retrieval_eval`.
+5. Create a proxy auth token for the Cloud AI and attach the endpoint URL + `/mcp`.
+6. Optional: `modal secret create swpack-kb VOYAGE_API_KEY=...`, then rebuild with `embedder="voyage"`.
+
+**Original sprint scope (C1):**
 1. `modal` app skeleton, secrets, Volume.
 2. Chunker that honours `##` sections and front-matter, and indexes data cards.
 3. Embedding job.

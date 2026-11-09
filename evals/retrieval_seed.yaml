@@ -1,0 +1,106 @@
+# Retrieval eval SEED set (written from the corpus by the build agent, 2026-11-09).
+# Engineers: replace or extend with real questions from your team (target 50+ per material family).
+# A question passes at k when any of its `expect` ids (prefix match on chunk id) appears in the top-k results.
+version: 1
+status: seed-unreviewed
+questions:
+  - q: How do I estimate box compression strength from ECT and caliper?
+    expect: [kb.performance.box-compression#simplified-mckee, card.lib.formula.mckee-simple]
+  - q: What ECT do I need for a box that must hold 3000 N?
+    expect: [kb.performance.box-compression#reverse-calculation, card.lib.formula.ect-required, kb.performance.stacking-load-calc#required-bct]
+  - q: When does the McKee formula stop being valid?
+    expect: [kb.performance.box-compression#when-mckee-breaks-down]
+  - q: Urbanik and Frank correction to McKee
+    expect: [kb.performance.box-compression#urbanik-frank, card.lib.formula.urbanik-frank]
+  - q: How much compression strength is lost after 90 days in storage?
+    expect: [kb.performance.environmental-factors#storage-time, card.lib.factors.storage-time]
+  - q: Strength loss at 80 percent relative humidity
+    expect: [kb.performance.environmental-factors#relative-humidity, card.lib.factors.relative-humidity]
+  - q: Interlocked versus column stacking strength loss
+    expect: [kb.performance.environmental-factors#stacking-pattern, card.lib.factors.stacking-pattern]
+  - q: Effect of pallet overhang on box strength
+    expect: [kb.performance.environmental-factors#pallet-overhang, card.lib.factors.pallet-overhang, kb.logistics.palletization#overhang]
+  - q: Load on the bottom box when pallets are stacked two high
+    expect: [kb.performance.stacking-load-calc#top-load-on-the-bottom-box-pallets, card.lib.formula.top-load-pallets]
+  - q: Difference between TAPPI T 811 and T 839 edge crush methods
+    expect: [kb.performance.board-tests-and-ect#ect-test-methods]
+  - q: Estimate ECT from liner and medium SCT values
+    expect: [kb.performance.board-tests-and-ect#ect-estimation, card.lib.formula.ect-from-sct]
+  - q: Maximum gross weight allowed for a 32 ECT single wall box under Item 222
+    expect: [card.lib.grades.item222-single-wall, kb.standards.rule41-item222#single-wall, kb.materials.combined-board-grades#single-wall]
+  - q: Is NMFC Item 222 still in force?
+    expect: [kb.standards.rule41-item222#current-regulatory-status, kb.materials.combined-board-grades#current-status]
+  - q: What goes on the box maker's certificate stamp?
+    expect: [kb.standards.rule41-item222#box-maker-s-certificate]
+  - q: Take-up factor for C flute
+    expect: [kb.materials.flutes#take-up, card.lib.flute.c, kb.materials.flutes#flute-profile-table]
+  - q: How many flutes per metre does B flute have and what is its height?
+    expect: [kb.materials.flutes#flute-profile-table, card.lib.flute.b]
+  - q: Calculate combined board grammage with take-up
+    expect: [kb.materials.flutes#combined-basis-weight, card.lib.formula.combined-grammage]
+  - q: Cepi testliner grade limits TL2
+    expect: [kb.materials.paper-grades#testliner-grades, kb.materials.paper-grades#cepi-grade-limits-liners]
+  - q: Convert ring crush from SCT
+    expect: [kb.materials.paper-grades#rct-from-sct]
+  - q: DIN 19303 GD2 folding boxboard code meaning
+    expect: [kb.materials.paperboard-carton#din-19303]
+  - q: Which way should the grain run on a folding carton?
+    expect: [kb.materials.paperboard-carton#grain-direction, kb.styles.folding-carton-design-rules#grain-direction]
+  - q: Inside versus outside versus score-to-score dimensions
+    expect: [kb.dimensional.dimensions-and-allowances#three-dimension-bases, card.lib.formula.dimension-basis]
+  - q: Allowance factors for converting inside dimensions to score dimensions on an RSC
+    expect: [kb.dimensional.dimensions-and-allowances#allowance, card.lib.allowance.fefco-0201]
+  - q: RSC blank size formula with glue joint
+    expect: [kb.dimensional.blank-size-formulas#fefco-0201, card.lib.formula.rsc-blank]
+  - q: Minimum manufacturer's joint width
+    expect: [kb.dimensional.blank-size-formulas#manufacturer-s-joint, kb.dimensional.tolerances#manufacturer-s-joint]
+  - q: Fishtail and joint gap tolerance limits for RSCs
+    expect: [kb.dimensional.tolerances#manufacturer-s-joint, card.lib.tolerance.pmmi-tr2-1-rsc]
+  - q: Warp limits for corrugated sheets
+    expect: [kb.dimensional.tolerances#caliper-warp, kb.manufacturing.corrugator-and-converting#warp, card.lib.tolerance.pmmi-tr2-1-rsc]
+  - q: How much clearance should the product have inside the box?
+    expect: [kb.dimensional.tolerances#product-to-box-clearance]
+  - q: Creasing matrix channel width for cartonboard
+    expect: [kb.manufacturing.die-cutting-and-tooling#creasing-rule-height, kb.styles.folding-carton-design-rules#crease-design]
+  - q: Flatbed versus rotary die cutting accuracy
+    expect: [kb.manufacturing.die-cutting-and-tooling#flatbed-vs-rotary, card.lib.tolerance.fefco-vdw]
+  - q: Causes of washboarding and delamination on the corrugator
+    expect: [kb.manufacturing.corrugator-and-converting#quality-defects]
+  - q: Maximum sheet size on a flexo folder gluer
+    expect: [kb.manufacturing.machine-capability-reference#flexo-folder-gluer]
+  - q: Minimum crash-lock bottom carton size on a folder-gluer
+    expect: [kb.manufacturing.machine-capability-reference#folder-gluer, kb.styles.folding-carton-design-rules#crash-lock, kb.styles.folding-carton-design-rules#folder-gluer]
+  - q: What is FEFCO 0427?
+    expect: [card.lib.style.fefco-0427, kb.styles.fefco-codes#family-04]
+  - q: ECMA code for a reverse tuck end carton
+    expect: [kb.styles.ecma-folding-carton#common-carton-styles, card.lib.style.ecma-rte]
+  - q: FEFCO retail and e-commerce family 08
+    expect: [kb.styles.fefco-codes#family-08]
+  - q: ISTA 3A test sequence
+    expect: [kb.testing.distribution-testing#ista-3a]
+  - q: Amazon SIOC packaging certification types
+    expect: [kb.testing.distribution-testing#ista-6-amazon]
+  - q: ASTM D4169 assurance levels and drop heights
+    expect: [kb.testing.distribution-testing#astm-d4169]
+  - q: Standard conditioning atmosphere for board testing
+    expect: [kb.testing.distribution-testing#test-conditioning, kb.reference.units-and-conversions#relative-humidity]
+  - q: Current edition of ISO 3037
+    expect: [kb.testing.standards-index#iso-paper-and-board]
+  - q: Cushion design procedure using cushion curves
+    expect: [kb.cushioning.cushion-design#cushion-design-procedure, kb.cushioning.cushion-design#cushion-curves]
+  - q: Drop height for a 20 kg package
+    expect: [kb.cushioning.cushion-design#design-drop-height, kb.testing.distribution-testing#astm-d4169-drop-heights]
+  - q: EUR pallet dimensions and load rating
+    expect: [kb.logistics.palletization#pallet-footprint, kb.logistics.palletization#pallet-load-capacity]
+  - q: EU PPWR empty space ratio for e-commerce packaging
+    expect: [kb.sustainability.regulations-and-recyclability#eu-ppwr-empty-space]
+  - q: Is wax-coated corrugated recyclable? FBA repulpability standard
+    expect: [kb.sustainability.regulations-and-recyclability#repulpability]
+  - q: ITF-14 barcode print quality on corrugated
+    expect: [kb.printing.print-processes#barcode-print-quality]
+  - q: How much does flexo printing crush reduce box strength?
+    expect: [kb.printing.print-processes#effect-of-printing, kb.performance.environmental-factors#print-coverage]
+  - q: Convert lb/MSF to grams per square metre
+    expect: [kb.reference.units-and-conversions#basis-weight]
+  - q: Convert ECT lb/in to kN/m
+    expect: [kb.reference.units-and-conversions#edge-crush, kb.performance.board-tests-and-ect#unit-conversions]
