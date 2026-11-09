@@ -80,7 +80,7 @@ Every numeric answer names the tier of each input, for example: "ECT 7.0 kN/m (c
 
 Every calculation answer includes:
 
-1. The **formula** (with its corpus ID, for example `kb.performance.*`).
+1. The **formula** (with its corpus ID, for example `kb.performance.box-compression`, `kb.performance.stacking-load-calc`).
 2. Each **input** with value, unit, basis and tier.
 3. The **safety factor(s)** or environmental multipliers used, and where they come from (house rule from `company/` preferred). Never hide a factor inside a result.
 4. The **result** in SI with US in brackets, rounded per Rule 7.

@@ -287,7 +287,7 @@ Point engineers to the standard text for procedures. This corpus summarises the 
 
 ## Stacking load on the bottom case and the link to BCT
 
-The palletised load sets the compression demand on the bottom-tier cases. It feeds the BCT requirement in the performance files (`performance/` stacking calculations).
+The palletised load sets the compression demand on the bottom-tier cases. It feeds the BCT requirement in `kb.performance.stacking-load-calc` and `kb.performance.box-compression`.
 
 ```
 F_bottom = g × [ (N − 1) × m_case + (S − 1) × (N × k × m_case + m_pallet) / k ]
@@ -301,7 +301,7 @@ BCT_required = F_bottom × SF / (1 − L_pattern)
 - `k`: cases per layer (–)
 - `S`: unit loads stacked high in the warehouse or vehicle (–). Use 1 if not stacked.
 - `m_pallet`: mass of the pallet (plus tier sheets and top cap) of each upper unit load (kg) [lb]
-- `SF`: safety factor for time, humidity, handling and so on, taken from the environmental-factor files in `performance/`. It is not set here.
+- `SF`: safety factor for time, humidity, handling and so on, taken from `kb.performance.environmental-factors`. It is not set here.
 - `L_pattern`: fractional strength loss from pattern, overhang or misalignment (–), from [S17][S18][S20] or measured.
 
 Assumes: uniform load sharing across the `k` cases, a rigid pallet deck, and that the top unit load's pallet bears evenly on the cases below. Real pallets deflect, which concentrates load on the cases over blocks or stringers.
