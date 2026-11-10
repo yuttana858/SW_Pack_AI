@@ -3,3 +3,4 @@ jsonschema>=4.21
 referencing>=0.35
 pytest>=8.0
 mcp>=2.3,<3
+anthropic>=2.8

@@ -193,6 +193,26 @@ Model: `claude-opus-5-5`, with adaptive thinking and an effort setting per route
 5. Create a proxy auth token for the Cloud AI and attach the endpoint URL + `/mcp`.
 6. Optional: `modal secret create swpack-kb VOYAGE_API_KEY=...`, then rebuild with `embedder="voyage"`.
 
+### Sprint C2 status (2026-11-10): built and tested offline; live run needs an API key
+
+| Item | Status |
+|---|---|
+| Agent loop (`assistant/agent.py`) | Done. Manual loop on `client.beta.messages.create` with `claude-opus-5-5`, explicit effort (`medium` Q&A, `high` design), server-side refusal fallback (`fallbacks="default"`), cached system prompt + tools, append-only history. Handles `tool_use` (all results in one message), `pause_turn`, `max_tokens` (no half-formed tool calls run), `refusal` (category reported), and a max-turns guard |
+| Scoped tools (`assistant/tools.py`) | Done. kb_search / kb_read / kb_resolve go through the user's scope; the model cannot pick another plant; 6 calculators; every call is logged for audit |
+| System prompt (`assistant/prompt.py`) | Done. Role preamble + `corpus/agent/engineering-rules.md`, byte-stable for caching; user context goes in the first user turn |
+| Grounding checks (`assistant/checks.py`) | Done. Flags citations that were never retrieved and numbers not traceable to a tool result (e.g. a unit conversion done "in the head") |
+| CLI (`assistant/cli.py`) | Done. Single question or `--chat`; `-v` shows the tool audit and token usage |
+| Modal `ask` function | Written; needs Modal workspace + `anthropic` secret |
+| Answer-quality eval | Seed set of 30 questions with programmatic grading (`evals/answers_seed.yaml`, `evals/run_answers.py`); target pass rate 85 %. Rough cost per full run ≈ $4 at list prices. **Needs an API key and your go-ahead to run; engineers should review and extend to 50+** |
+| Tests | 10 offline tests with a scripted client cover every loop branch and the request shape; grader tests; every eval citation prefix exists |
+
+**To run live:** set `ANTHROPIC_API_KEY` (or `ant auth login`), then:
+1. `python -m evals.run_answers --limit 5` as a smoke test.
+2. A full run.
+3. Tune the prompt and effort against the results.
+
+The first live run also confirms the strict tool schemas (nullable types) against the API.
+
 **Original sprint scope (C1):**
 1. `modal` app skeleton, secrets, Volume.
 2. Chunker that honours `##` sections and front-matter, and indexes data cards.
