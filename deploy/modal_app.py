@@ -30,7 +30,7 @@ image = (
     modal.Image.debian_slim(python_version="3.12")
     .pip_install_from_requirements(str(REPO / "requirements.txt"))
     .pip_install("mcp>=2.3,<3", "uvicorn>=0.30", "anthropic>=2.8", "fastapi>=0.115", "pyjwt[crypto]>=2.9", "httpx>=0.27")
-    .env({"PYTHONPATH": APP_DIR})
+    .env({"PYTHONPATH": APP_DIR, "SWPACK_AUTH_CONFIG": f"{APP_DIR}/webapp/auth.yaml"})
     .add_local_dir(str(REPO / "corpus"), f"{APP_DIR}/corpus")
     .add_local_dir(str(REPO / "data"), f"{APP_DIR}/data")
     .add_local_dir(str(REPO / "rag"), f"{APP_DIR}/rag")
@@ -38,6 +38,7 @@ image = (
     .add_local_dir(str(REPO / "evals"), f"{APP_DIR}/evals")
     .add_local_python_source("kb", "packcalc", "swdata", "agent", "mcp_server", "assistant", "webapp")
     .add_local_dir(str(REPO / "webapp" / "static"), f"{APP_DIR}/webapp/static")
+    .add_local_file(str(REPO / "webapp" / "auth.yaml"), f"{APP_DIR}/webapp/auth.yaml")
 )
 volume = modal.Volume.from_name("swpack-kb", create_if_missing=True)
 app = modal.App("swpack-kb", image=image)
@@ -120,8 +121,11 @@ def ask(question: str, plant: str | None = None, machine: str | None = None, eff
 def web():
     """SW Pack AI web app (phase C3): chat UI + JSON API, signed in through the company identity provider.
 
-    Secret "swpack-web" must set SWPACK_ENV=production, SWPACK_AUTH_MODE=oidc and SWPACK_AUTH_CONFIG
-    (path of the auth YAML baked into the image or on the Volume). Dev sign-in is refused in production.
+    Secret "swpack-web" sets SWPACK_ENV=production, SWPACK_AUTH_MODE=github, SWPACK_GITHUB_ORG,
+    GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, SWPACK_SESSION_SECRET and SWPACK_PUBLIC_URL (docs/DEPLOY.md).
+    Role/plant team mapping is in webapp/auth.yaml (baked into the image). Dev sign-in is refused in
+    production. Secret "anthropic" holds ANTHROPIC_API_KEY; the placeholder value "none" keeps the app
+    in search-only mode.
     max_containers=1 because conversations live in SQLite on the Volume; move to Postgres (phase C4)
     before scaling out.
     """

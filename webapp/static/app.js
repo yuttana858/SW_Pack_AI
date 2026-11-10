@@ -226,6 +226,17 @@ function loadScript(src) {
 async function initAuth() {
   state.config = await (await fetch("/api/config")).json();
   const a = state.config.auth;
+  const frag = new URLSearchParams(location.hash.slice(1));
+  if (frag.has("session") || frag.has("error")) history.replaceState({}, "", "/");   // never leave tokens in the address bar
+  if (a.mode === "github") {
+    $("#signin-github").hidden = false;
+    $("#github-org-note").textContent = `Members of the ${a.org} GitHub organization`;
+    if (frag.get("error")) $("#signin-error").textContent = frag.get("error");
+    const t = frag.get("session") || store.get("swpack_token");
+    if (t) { state.token = t; store.set("swpack_token", t); try { return await signedIn(); } catch { store.set("swpack_token", null); } }
+    $("#signin").hidden = false;
+    return;
+  }
   if (a.mode === "dev") {
     $("#signin-dev").hidden = false;
     $("#persona").innerHTML = Object.entries(a.personas).map(([k, p]) => `<option value="${esc(k)}">${esc(p.name)} (${esc(p.roles.join(", "))})</option>`).join("");

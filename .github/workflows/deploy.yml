@@ -1,0 +1,41 @@
+name: deploy-modal
+
+# Manual for now: run it from the Actions tab once the repository secrets
+# MODAL_TOKEN_ID and MODAL_TOKEN_SECRET exist (see docs/DEPLOY.md).
+on:
+  workflow_dispatch:
+    inputs:
+      embedder:
+        description: "Dense embedder for the index build (none or voyage)"
+        default: "none"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
+      MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt "modal>=1.6,<2"
+      - name: Checks must pass before deploying
+        run: |
+          python tools/validate_corpus.py corpus
+          python tools/validate_data.py data
+          python tools/generate_cards.py --check
+          python -m pytest -q tests
+      - name: Build knowledge release into the Volume
+        run: |
+          if [ "${{ inputs.embedder }}" = "none" ]; then
+            modal run deploy/modal_app.py::build_index
+          else
+            modal run deploy/modal_app.py::build_index --embedder "${{ inputs.embedder }}"
+          fi
+      - name: Retrieval eval on the deployed release
+        run: modal run deploy/modal_app.py::retrieval_eval
+      - name: Deploy web app, MCP endpoint and functions
+        run: modal deploy deploy/modal_app.py

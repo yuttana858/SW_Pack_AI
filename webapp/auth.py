@@ -1,6 +1,8 @@
 """Identity for the web app.
 
-Two modes:
+Three modes:
+  github  "Sign in with GitHub": server-side OAuth, organization membership required, team ->
+          role/plant mapping, then a server-issued session token (webapp/github_auth.py).
   oidc  Verify the bearer JWT (RS256/ES256) from the company identity provider against its JWKS,
         check issuer, audience and expiry, then map group claims to roles and plants
         (webapp/auth.yaml, see auth.example.yaml). Provider-agnostic.
@@ -66,6 +68,9 @@ class AuthConfig:
     role_groups: dict = field(default_factory=dict)
     plant_groups: dict = field(default_factory=dict)
     dev_secret: str = ""
+    github: dict = field(default_factory=dict)      # org, member_role, team_roles, team_plants
+    session_secret: str = ""
+    public_url: str = ""
 
     @classmethod
     def load(cls) -> "AuthConfig":
@@ -77,6 +82,19 @@ class AuthConfig:
             if os.environ.get("SWPACK_ENV") == "production":
                 raise RuntimeError("dev authentication is not allowed when SWPACK_ENV=production")
             cfg.dev_secret = os.environ.get("SWPACK_DEV_SECRET") or secrets.token_urlsafe(32)
+        elif cfg.mode == "github":
+            g = cfg.github = {"member_role": "engineer", "team_roles": {}, "team_plants": {}, **(cfg.github or {})}
+            g["org"] = os.environ.get("SWPACK_GITHUB_ORG", g.get("org", ""))
+            g["client_id"] = os.environ.get("GITHUB_CLIENT_ID", "")
+            g["client_secret"] = os.environ.get("GITHUB_CLIENT_SECRET", "")
+            cfg.session_secret = os.environ.get("SWPACK_SESSION_SECRET", "")
+            cfg.public_url = os.environ.get("SWPACK_PUBLIC_URL", cfg.public_url).rstrip("/")
+            missing = [n for n, v in (("SWPACK_GITHUB_ORG", g["org"]), ("GITHUB_CLIENT_ID", g["client_id"]),
+                                      ("GITHUB_CLIENT_SECRET", g["client_secret"]), ("SWPACK_PUBLIC_URL", cfg.public_url)) if not v]
+            if missing:
+                raise RuntimeError(f"github sign-in needs: {', '.join(missing)}")
+            if len(cfg.session_secret) < 32:
+                raise RuntimeError("SWPACK_SESSION_SECRET must be at least 32 characters")
         elif cfg.mode != "oidc":
             raise RuntimeError(f"unknown auth mode {cfg.mode!r}")
         return cfg
@@ -128,9 +146,9 @@ class Authenticator:
             raise AuthError(401, "sign in required")
         token = authorization.split(" ", 1)[1].strip()
         try:
-            if self.cfg.mode == "dev":
-                claims = jwt.decode(token, self.cfg.dev_secret, algorithms=["HS256"], issuer="swpack-dev",
-                                    options={"require": ["exp", "sub"]})
+            if self.cfg.mode in ("dev", "github"):
+                secret, iss = (self.cfg.dev_secret, "swpack-dev") if self.cfg.mode == "dev" else (self.cfg.session_secret, "swpack-github")
+                claims = jwt.decode(token, secret, algorithms=["HS256"], issuer=iss, options={"require": ["exp", "sub"]})
                 return Identity(sub=claims["sub"], name=claims.get("name", ""), email=claims.get("email", ""),
                                 roles=frozenset({"viewer", *claims.get("roles", [])}), plants=tuple(claims.get("plants", [])))
             key = self._jwk_client().get_signing_key_from_jwt(token).key
@@ -153,5 +171,7 @@ class Authenticator:
     def public_config(self) -> dict:
         if self.cfg.mode == "dev":
             return {"mode": "dev", "personas": {k: {"name": v["name"], "roles": v["roles"]} for k, v in DEV_PERSONAS.items()}}
+        if self.cfg.mode == "github":
+            return {"mode": "github", "login_url": "/auth/github/login", "org": self.cfg.github["org"]}
         o = self.cfg.oidc
         return {"mode": "oidc", "authority": o["issuer"], "client_id": o["client_id"], "scopes": o.get("scopes", "openid profile email")}

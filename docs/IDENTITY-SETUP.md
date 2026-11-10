@@ -1,5 +1,7 @@
 # Connecting your identity provider (sign-in)
 
+> **Current choice: GitHub sign-in.** Every active member of the company GitHub organization signs in as a packaging engineer; GitHub teams grant steward/plant roles. Setup steps are in `docs/DEPLOY.md`. The OIDC instructions below remain for a later move to Entra ID, Okta or Google Workspace.
+
 SW Pack AI signs engineers in with **OpenID Connect**, which works with Microsoft Entra ID (Azure AD),
 Okta, Google Workspace, Auth0 and Keycloak. The page uses the Authorization Code flow with PKCE (no
 client secret in the browser). The API verifies every token's signature, issuer, audience and expiry.

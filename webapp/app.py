@@ -14,14 +14,17 @@ from pathlib import Path
 from typing import Literal
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from assistant.checks import CITE
 from kb.service import KnowledgeService, UserContext
 
+from urllib.parse import quote
+
 from .auth import AuthConfig, AuthError, Authenticator, Identity
+from .github_auth import GitHubLoginError, complete_login, start_login
 from .responders import Responder, make_responder
 from .store import Store
 
@@ -63,7 +66,8 @@ def _jsonable(messages: list) -> list:
     return out
 
 
-def create_app(service: KnowledgeService, store: Store, auth: Authenticator, responder: Responder) -> FastAPI:
+def create_app(service: KnowledgeService, store: Store, auth: Authenticator, responder: Responder,
+               github_http=None) -> FastAPI:
     app = FastAPI(title="SW Pack AI", docs_url=None, redoc_url=None)
 
     @app.exception_handler(AuthError)
@@ -100,6 +104,42 @@ def create_app(service: KnowledgeService, store: Store, auth: Authenticator, res
     @app.get("/api/config")
     def config():
         return {"auth": auth.public_config(), "responder": responder.mode, "release_id": service.manifest.get("release_id")}
+
+    # ---- GitHub sign-in ------------------------------------------------------------
+    STATE_COOKIE = "swpack_oauth"
+
+    def _gh_redirect_uri() -> str:
+        return f"{auth.cfg.public_url}/auth/github/callback"
+
+    @app.get("/auth/github/login")
+    def github_login():
+        if auth.cfg.mode != "github":
+            raise HTTPException(404, "GitHub sign-in is not enabled")
+        url, nonce = start_login(auth.cfg.github["client_id"], auth.cfg.session_secret, _gh_redirect_uri())
+        r = RedirectResponse(url, status_code=302)
+        r.set_cookie(STATE_COOKIE, nonce, max_age=600, httponly=True, samesite="lax",
+                     secure=auth.cfg.public_url.startswith("https://"), path="/auth/github")
+        return r
+
+    @app.get("/auth/github/callback")
+    def github_callback(request: Request, code: str = "", state: str = "", error: str = ""):
+        if auth.cfg.mode != "github":
+            raise HTTPException(404, "GitHub sign-in is not enabled")
+        g = auth.cfg.github
+        try:
+            if error or not code:
+                raise GitHubLoginError(f"GitHub sign-in was cancelled ({error or 'no code'})")
+            token = complete_login(code=code, state=state, cookie_nonce=request.cookies.get(STATE_COOKIE),
+                                   client_id=g["client_id"], client_secret=g["client_secret"], secret=auth.cfg.session_secret,
+                                   redirect_uri=_gh_redirect_uri(), org=g["org"], member_role=g["member_role"],
+                                   team_roles=g["team_roles"], team_plants=g["team_plants"], http=github_http)
+            target, who = f"/#session={token}", "github-login"
+        except GitHubLoginError as e:
+            target, who = f"/#error={quote(str(e))}", "github-login-failed"
+        store.audit(who, "sign-in", {"ok": who == "github-login"})
+        r = RedirectResponse(target, status_code=302)
+        r.delete_cookie(STATE_COOKIE, path="/auth/github")
+        return r
 
     @app.post("/api/dev/login")
     def dev_login(body: DevLoginIn):

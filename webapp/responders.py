@@ -50,7 +50,8 @@ class SearchOnlyResponder:
 
 def make_responder(service: KnowledgeService) -> Responder:
     choice = os.environ.get("SWPACK_RESPONDER", "auto")
-    has_key = bool(os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_AUTH_TOKEN"))
+    placeholder = {"", "none", "unset", "todo"}
+    has_key = any((os.environ.get(k) or "").strip().lower() not in placeholder for k in ("ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN"))
     if choice == "assistant" or (choice == "auto" and has_key):
         return AssistantResponder(service)
     return SearchOnlyResponder(service)

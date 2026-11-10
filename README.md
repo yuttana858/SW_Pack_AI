@@ -81,7 +81,7 @@ python -m evals.run_answers --dry-run
 python -m webapp.app
 ```
 
-Open http://127.0.0.1:8080. Without an identity provider it offers developer sign-in personas. Without an API key it runs in search-only mode. See `docs/IDENTITY-SETUP.md` to connect your company sign-in.
+Open http://127.0.0.1:8080. Without an identity provider it offers developer sign-in personas. Without an API key it runs in search-only mode. Production uses **Sign in with GitHub** for members of the company GitHub organization; deploy steps are in `docs/DEPLOY.md`.
 
 ## Adding plant data
 
