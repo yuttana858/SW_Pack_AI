@@ -29,14 +29,15 @@ VOL_PATH = "/kb"
 image = (
     modal.Image.debian_slim(python_version="3.12")
     .pip_install_from_requirements(str(REPO / "requirements.txt"))
-    .pip_install("mcp>=2.3,<3", "uvicorn>=0.30", "anthropic>=2.8")
+    .pip_install("mcp>=2.3,<3", "uvicorn>=0.30", "anthropic>=2.8", "fastapi>=0.115", "pyjwt[crypto]>=2.9", "httpx>=0.27")
     .env({"PYTHONPATH": APP_DIR})
     .add_local_dir(str(REPO / "corpus"), f"{APP_DIR}/corpus")
     .add_local_dir(str(REPO / "data"), f"{APP_DIR}/data")
     .add_local_dir(str(REPO / "rag"), f"{APP_DIR}/rag")
     .add_local_dir(str(REPO / "schemas"), f"{APP_DIR}/schemas")
     .add_local_dir(str(REPO / "evals"), f"{APP_DIR}/evals")
-    .add_local_python_source("kb", "packcalc", "swdata", "agent", "mcp_server", "assistant")
+    .add_local_python_source("kb", "packcalc", "swdata", "agent", "mcp_server", "assistant", "webapp")
+    .add_local_dir(str(REPO / "webapp" / "static"), f"{APP_DIR}/webapp/static")
 )
 volume = modal.Volume.from_name("swpack-kb", create_if_missing=True)
 app = modal.App("swpack-kb", image=image)
@@ -110,3 +111,29 @@ def ask(question: str, plant: str | None = None, machine: str | None = None, eff
             "history": [m if isinstance(m["content"], str) else
                         {"role": m["role"], "content": [b if isinstance(b, dict) else b.model_dump() for b in m["content"]]}
                         for m in r.messages]}
+
+
+@app.function(volumes={VOL_PATH: volume}, secrets=[modal.Secret.from_name("anthropic"), modal.Secret.from_name("swpack-web")],
+              max_containers=1, scaledown_window=900, timeout=900)
+@modal.concurrent(max_inputs=16)
+@modal.asgi_app()
+def web():
+    """SW Pack AI web app (phase C3): chat UI + JSON API, signed in through the company identity provider.
+
+    Secret "swpack-web" must set SWPACK_ENV=production, SWPACK_AUTH_MODE=oidc and SWPACK_AUTH_CONFIG
+    (path of the auth YAML baked into the image or on the Volume). Dev sign-in is refused in production.
+    max_containers=1 because conversations live in SQLite on the Volume; move to Postgres (phase C4)
+    before scaling out.
+    """
+    import os  # noqa: PLC0415
+
+    from kb.service import KnowledgeService  # noqa: PLC0415
+    from webapp.app import create_app  # noqa: PLC0415
+    from webapp.auth import AuthConfig, Authenticator  # noqa: PLC0415
+    from webapp.responders import make_responder  # noqa: PLC0415
+    from webapp.store import Store  # noqa: PLC0415
+
+    volume.reload()
+    service = KnowledgeService.load(_current_dir(), Path(APP_DIR) / "data")
+    store = Store(os.environ.get("SWPACK_DB", f"{VOL_PATH}/webapp.db"))
+    return create_app(service, store, Authenticator(AuthConfig.load()), make_responder(service))

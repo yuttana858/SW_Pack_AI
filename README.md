@@ -25,6 +25,7 @@ that grounds answers in a cited packaging knowledge base and drives Auto3D throu
 | `mcp_server/` | `swpack-kb` MCP server (read-only tools: search, read, resolve, calculators) |
 | `deploy/modal_app.py` | Modal deployment (index build into a Volume, `/mcp` HTTP endpoint); not deployed yet |
 | `assistant/` | Assistant core: Claude agent loop (`claude-opus-5-5`), scoped tools, grounding checks, CLI |
+| `webapp/` | Web app: chat UI, sign-in (OIDC or dev), conversations, feedback, corrections review queue |
 | `evals/` | Retrieval and answer-quality eval sets (seed sets; engineers extend) and the live answer-eval runner |
 | `.mcp.json` | Lets Claude Code sessions in this repo attach `swpack-kb` automatically |
 | `tools/` | Validators, review queue, card generator |
@@ -73,6 +74,14 @@ python -m assistant.cli "What ECT do I need for a 12 kg box stacked 5 high for 9
 ```bash
 python -m evals.run_answers --dry-run
 ```
+
+## Web app
+
+```bash
+python -m webapp.app
+```
+
+Open http://127.0.0.1:8080. Without an identity provider it offers developer sign-in personas. Without an API key it runs in search-only mode. See `docs/IDENTITY-SETUP.md` to connect your company sign-in.
 
 ## Adding plant data
 

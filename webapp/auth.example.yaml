@@ -1,0 +1,20 @@
+# Copy to webapp/auth.yaml (or point SWPACK_AUTH_CONFIG at it) and fill in for your identity provider.
+# Works with any OpenID Connect provider: Microsoft Entra ID, Okta, Google Workspace, Auth0, Keycloak.
+mode: oidc                       # oidc | dev   (dev is refused when SWPACK_ENV=production)
+oidc:
+  issuer: https://login.microsoftonline.com/<tenant-id>/v2.0      # Entra example
+  audience: <api-or-client-id>   # the "aud" your access/id tokens carry
+  client_id: <spa-client-id>     # public SPA client (Authorization Code + PKCE, no secret)
+  scopes: "openid profile email"
+  # jwks_url is discovered from <issuer>/.well-known/openid-configuration unless set here
+claims:
+  name: name
+  email: email                   # Entra: preferred_username
+  groups: groups                 # claim holding group ids or names
+role_groups:                     # group -> role (highest role wins; default viewer)
+  "<group-id-packaging-engineers>": engineer
+  "<group-id-data-stewards>": steward
+  "<group-id-plant-admins-dallas>": plant-admin
+plant_groups:                    # group -> plant id (a user may belong to several plants)
+  "<group-id-plant-dallas>": dallas
+  "<group-id-plant-monterrey>": monterrey

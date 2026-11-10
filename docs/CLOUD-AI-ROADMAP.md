@@ -193,6 +193,22 @@ Model: `claude-opus-5-5`, with adaptive thinking and an effort setting per route
 5. Create a proxy auth token for the Cloud AI and attach the endpoint URL + `/mcp`.
 6. Optional: `modal secret create swpack-kb VOYAGE_API_KEY=...`, then rebuild with `embedder="voyage"`.
 
+### Phase C3 status (2026-11-10): web app built and tested locally; identity provider to be chosen
+
+| Item | Status |
+|---|---|
+| Web UI (`webapp/static`) | Done. Chat with numbered citation chips; source panel (full section or data card); warnings box; expandable tool audit; thumbs and corrections; conversation history; plant selector; Question vs Design-work depth; review queue; light/dark; phone layout. Browser-tested at desktop and phone widths, no console errors, no horizontal scroll |
+| API (`webapp/app.py`) | Done. `/api/ask`, conversations, chunk read, feedback, proposals, decisions. Conversations are pinned to a plant and stored append-only |
+| Identity (`webapp/auth.py`) | Done. OIDC verification (JWKS, issuer, audience, expiry) with group → role and plant mapping; dev personas for local use, refused in production. The plant header can only select a granted plant |
+| Roles | viewer (ask), engineer (+ corrections), plant-admin (decide own plants), steward (decide all) |
+| Corrections | Thumbs-down with a correction creates a proposal carrying the question, answer and cited chunks. Decisions are audited; applying accepted corrections to the corpus or records is phase C4 |
+| Search-only mode | Without an API key the app returns the best-matching cited sections, so it is usable before the assistant is switched on |
+| Storage | SQLite (one file, Volume on Modal, max one container); Postgres in C4 |
+| Modal `web` endpoint | Written and import-checked; needs workspace, secrets and an identity provider |
+| Tests | 9 API tests: sign-in, plant enforcement, privacy, feedback → proposal → role-gated decision, OIDC signature, audience and expiry checks |
+
+**Needs your decision:** which identity provider, and the groups for roles and plants (`docs/IDENTITY-SETUP.md`).
+
 ### Sprint C2 status (2026-11-10): built and tested offline; live run needs an API key
 
 | Item | Status |
