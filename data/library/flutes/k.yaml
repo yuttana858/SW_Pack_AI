@@ -1,0 +1,19 @@
+id: lib.flute.k
+type: flute_profile
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: industry-typical
+title: K-flute (extra-coarse) profile
+notes: >-
+  VERIFY: height approx. 6 mm from a secondary source only [S5]; no primary source retrieved. Unretrievable
+  trade extracts describe K as a "maxi" flute with height >= 5 mm and pitch > 10 mm; confirm with DIN
+  55468-1 or a roll maker. Take-up not retrieved.
+provenance:
+  method: published
+  sources: [kb.materials.flutes#S5]
+flute:
+  code: K
+  flute_height_mm: [6, 6]
+  cite: [kb.materials.flutes#S5]

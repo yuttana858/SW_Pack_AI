@@ -1,0 +1,24 @@
+id: lib.style.ecma-rte
+type: box_style
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: reference
+title: ECMA reverse tuck end (RTE)
+notes: >-
+  ECMA Code of Folding Carton Design Styles, revised edition September 2009. Trade-name to code mapping
+  is the corpus's reading of ECMA code definitions and drawings; ECMA gives codes, not names. Description
+  is our own wording. Alternative illustrated code A20.20.01.03; 1992 codes A2120 / A2220. Secondary sources
+  quoting either code are both right. Erection flag not recorded in the corpus.
+provenance:
+  method: published
+  sources: &id001 [kb.styles.ecma-folding-carton#S1, kb.styles.ecma-folding-carton#S3, kb.styles.ecma-folding-carton#S8,
+    kb.styles.ecma-folding-carton#S12]
+style:
+  system: ECMA
+  code: A20.20.03.01
+  description: Long-seam-glued tube with top and bottom tuck flaps attached to opposite panels.
+  family: A long-seam-glued, rectangular
+  joint: [glued]
+  cite: *id001

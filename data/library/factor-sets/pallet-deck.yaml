@@ -1,0 +1,23 @@
+id: lib.factors.pallet-deck
+type: factor_set
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: industry-typical
+title: BCT multiplier for pallet deckboard gaps
+notes: >-
+  Single secondary source (ipack compression-loss table) [S2]; the same table's interlock multipliers
+  were found internally inconsistent, so treat this row with caution (VERIFY against the Fibre Box Handbook).
+  Deckboard gaps concentrate the load of upper pallets on the boxes below; flexible pallets reduce support
+  further.
+provenance:
+  method: published
+  sources: [kb.performance.environmental-factors#S2, kb.performance.stacking-load-calc#S2]
+factors:
+  kind: pallet-deck
+  rows:
+  - condition: pallet deckboard gap (10-25 % loss)
+    range: [0.75, 0.9]
+    basis: lab BCT at 23 °C / 50 %RH on full flat support; multiplier = 1 - fractional loss
+    cite: [kb.performance.environmental-factors#S2, kb.performance.stacking-load-calc#S2]

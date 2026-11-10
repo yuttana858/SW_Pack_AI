@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://swpack.ai/schemas/box_style.schema.json",
+  "title": "Box style definition (FEFCO / ECMA)",
+  "allOf": [
+    {
+      "$ref": "envelope.schema.json"
+    }
+  ],
+  "type": "object",
+  "required": [
+    "style"
+  ],
+  "properties": {
+    "type": {
+      "const": "box_style"
+    },
+    "style": {
+      "type": "object",
+      "required": [
+        "system",
+        "code"
+      ],
+      "properties": {
+        "system": {
+          "enum": [
+            "FEFCO",
+            "ECMA",
+            "house"
+          ]
+        },
+        "code": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "family": {
+          "type": "string"
+        },
+        "erection": {
+          "enum": [
+            "M",
+            "A",
+            "M/A",
+            "M+A"
+          ]
+        },
+        "joint": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "glued",
+              "stitched",
+              "taped",
+              "none"
+            ]
+          }
+        },
+        "blank_formula": {
+          "type": "string",
+          "description": "formula record id, if one exists"
+        },
+        "allowance_table": {
+          "type": "string"
+        },
+        "auto3d_generator": {
+          "type": "string",
+          "description": "Auto3D generator code if supported, e.g. '0201'"
+        },
+        "cite": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "corpus refs, e.g. kb.materials.flutes#S2"
+        }
+      }
+    }
+  }
+}

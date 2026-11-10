@@ -1,0 +1,33 @@
+id: lib.formula.ect-required
+type: formula
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: derived
+title: Required ECT (reverse simplified McKee)
+provenance:
+  method: published
+  sources: &id001
+  - kb.performance.box-compression#S4
+formula:
+  expression: ECT = BCT_required / (5.87 · sqrt(h · Z))
+  variables:
+  - symbol: BCT_required
+    meaning: required BCT incl. factors
+    si_unit: N
+    us_unit: lbf
+  - symbol: h
+    meaning: caliper
+    si_unit: mm
+    us_unit: in
+  - symbol: Z
+    meaning: perimeter
+    si_unit: mm
+    us_unit: in
+  validity: As simplified McKee.
+  limitations: Re-check with the chosen grade's real caliper.
+  implementation: packcalc.compression.ect_required
+  golden_tests:
+  - tests/test_golden_examples.py::TestStacking::test_required_ect
+  cite: *id001

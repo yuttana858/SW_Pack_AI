@@ -1,0 +1,41 @@
+id: lib.formula.top-load-pallets
+type: formula
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: derived
+title: Top load on bottom box, pallets stacked
+provenance:
+  method: published
+  sources: &id001
+  - kb.performance.stacking-load-calc
+formula:
+  expression: F = [(L−1)·m + (P−1)·(L·k·m + m_p)/k] · g
+  variables:
+  - symbol: L
+    meaning: layers per pallet
+    si_unit: '-'
+    us_unit: '-'
+  - symbol: k
+    meaning: boxes per layer
+    si_unit: '-'
+    us_unit: '-'
+  - symbol: P
+    meaning: pallets high
+    si_unit: '-'
+    us_unit: '-'
+  - symbol: m
+    meaning: box mass
+    si_unit: kg
+    us_unit: lb
+  - symbol: m_p
+    meaning: pallet mass
+    si_unit: kg
+    us_unit: lb
+  validity: Rigid deck, even load spread, no overhang, column layers.
+  limitations: Deckboard gaps and overhang concentrate load.
+  implementation: packcalc.stacking.top_load_pallets
+  golden_tests:
+  - tests/test_golden_examples.py::TestStacking::test_pallets
+  cite: *id001

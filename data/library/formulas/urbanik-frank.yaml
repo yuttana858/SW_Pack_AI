@@ -1,0 +1,33 @@
+id: lib.formula.urbanik-frank
+type: formula
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: reference
+title: Urbanik & Frank (2006) refit
+provenance:
+  method: published
+  sources: &id001
+  - kb.performance.box-compression#S2
+formula:
+  expression: BCT = 2.186 · ECT^0.727 · sqrt(Dx·Dy)^0.273 · Z^0.454
+  variables:
+  - symbol: ECT
+    meaning: edge crush
+    si_unit: N/mm
+    us_unit: lbf/in
+  - symbol: Dx, Dy
+    meaning: bending stiffness per width
+    si_unit: N·mm
+    us_unit: lbf·in
+  - symbol: Z
+    meaning: perimeter
+    si_unit: mm
+    us_unit: in
+  validity: Single-wall RSCs within the world-wide data set (409 boxes).
+  limitations: Not validated for double wall or tubes; flap-score losses not modelled.
+  implementation: packcalc.compression.urbanik_frank
+  golden_tests:
+  - tests/test_golden_examples.py::TestMcKee::test_urbanik_frank
+  cite: *id001

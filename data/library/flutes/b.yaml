@@ -1,0 +1,32 @@
+id: lib.flute.b
+type: flute_profile
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: industry-typical
+title: B-flute (fine) profile
+notes: >-
+  Flute height excluding facings: DIN 55468 range 2.2-3.0 mm [S3]; FEFCO 2.4 mm [S1][S15]; Nordstrand
+  2.46 mm [S2]; one converter 2.9 mm nominal [S17] (profiles are plant-specific). US flute thickness 3.2
+  mm (1/8 in) [S20] is a different quantity (no schema field). flutes_per_m = [150 FEFCO [S15], 154 (US
+  table, +/-10) [S20]]. flutes_per_ft = 47 +/- 3 [S20]; FBA 47 [S16]. take_up range FEFCO [S15], typical
+  1.32 Nordstrand [S2]; kb.performance.board-tests-and-ect quotes 1.35. FEFCO/VDW catalogue (kb.dimensional.tolerances)
+  gives B height >= 2.2 to < 3.1 mm vs DIN 2.2-3.0 (VERIFY). single_wall_caliper_mm approx. 2.5-3 mm [S7].
+provenance:
+  method: published
+  sources: [kb.materials.flutes#S15, kb.materials.flutes#S1, kb.materials.flutes#S2, kb.materials.flutes#S3,
+    kb.materials.flutes#S17, kb.materials.flutes#S16, kb.materials.flutes#S20, kb.materials.flutes#S7]
+flute:
+  code: B
+  flute_height_mm: [2.2, 3.0]
+  pitch_mm: [5.5, 6.5]
+  flutes_per_m: [150, 154]
+  flutes_per_ft: [44, 50]
+  take_up: [1.3, 1.35]
+  take_up_typical: 1.32
+  single_wall_caliper_mm: [2.5, 3]
+  glue_per_line_gsm: [5.5, 6.0]
+  typical_uses: [retail packs, inner fitments, cans]
+  cite: [kb.materials.flutes#S1, kb.materials.flutes#S15, kb.materials.flutes#S2, kb.materials.flutes#S3,
+    kb.materials.flutes#S17, kb.materials.flutes#S20, kb.materials.flutes#S16, kb.materials.flutes#S7]

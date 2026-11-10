@@ -1,0 +1,29 @@
+id: lib.formula.dimension-basis
+type: formula
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: derived
+title: Inside / score / outside conversion
+provenance:
+  method: published
+  sources: &id001
+  - kb.dimensional.dimensions-and-allowances
+formula:
+  expression: score = inside + k_s·t ; outside = inside + k_o·t   (per [L, W, H])
+  variables:
+  - symbol: t
+    meaning: combined caliper
+    si_unit: mm
+    us_unit: in
+  - symbol: k_s, k_o
+    meaning: allowance factors
+    si_unit: '-'
+    us_unit: '-'
+  validity: Allowance factors from an allowance_table record (RSC [1,1,2] / [2,2,4]).
+  limitations: k_o is derived, not published.
+  implementation: packcalc.dimensions.convert_dims
+  golden_tests:
+  - tests/test_golden_examples.py::TestDimensions::test_basis_conversion
+  cite: *id001

@@ -1,0 +1,29 @@
+name: knowledge-base-ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Corpus front-matter and citations
+        run: python tools/validate_corpus.py corpus
+      - name: Data records (schemas, tiers, scopes, physical checks)
+        run: python tools/validate_data.py data
+      - name: Data cards are up to date
+        run: python tools/generate_cards.py --check
+      - name: Corpus index is up to date
+        run: python tools/corpus_index.py && git diff --exit-code corpus/INDEX.md
+      - name: Build knowledge index and release manifest
+        run: python -m kb.build
+      - name: Retrieval eval (recall@10 floor)
+        run: python -m kb.evaluate --k 10 --min-recall 0.9
+      - name: Calculation library golden tests and registry
+        run: python -m pytest -q tests

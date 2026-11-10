@@ -1,0 +1,33 @@
+id: lib.factors.safety-factor
+type: factor_set
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: industry-typical
+title: Overall stacking safety factors on BCT
+notes: >-
+  BCT_required = F_top x SF. Preferred route: derive SF >= 1 / (product of the applicable multipliers),
+  then add margin for dynamic/transit loads; neither route covers transit dynamics. VERIFY: Hanlon (1984)
+  SF = 4 for long-term storage is attributed via an MSU thesis [S8] whose full text could not be read.
+  Factors of 4 or 5 are often used [S15]. The ISTA 3E x1.4 apply-and-release compression factor [S19]
+  is a test-method factor, not a transit or safety factor, and is deliberately not listed. No sourced
+  transit dynamic-load factor was retrieved (VERIFY). House safety factors belong in company/ (L2) records.
+provenance:
+  method: published
+  sources: [kb.performance.environmental-factors#S8, kb.performance.environmental-factors#S15, kb.performance.stacking-load-calc#S6,
+    kb.performance.environmental-factors#S19]
+factors:
+  kind: safety-factor
+  rows:
+  - condition: long-term warehouse storage - Hanlon 1984 rule of thumb (attribution VERIFY)
+    value: 4
+    basis: 'divisor on lab BCT at 23 °C / 50 %RH: allowable top load = BCT / SF'
+    cite: [kb.performance.environmental-factors#S8, kb.performance.stacking-load-calc#S6]
+  - condition: general practice for allowable working load from BCT
+    range: [4, 5]
+    basis: 'divisor on lab BCT at 23 °C / 50 %RH: allowable top load = BCT / SF'
+    cite: [kb.performance.environmental-factors#S15]
+  - condition: 'multiplier route: SF >= 1 / (m1 x m2 x ... x mn) using the other factor sets'
+    basis: derived from the product of applicable multipliers relative to lab BCT at 23 °C / 50 %RH
+    cite: [kb.performance.environmental-factors#S15, kb.performance.stacking-load-calc#S1, kb.performance.stacking-load-calc#S2]

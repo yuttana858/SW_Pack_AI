@@ -1,0 +1,114 @@
+id: lib.tolerance.fefco-vdw-quality-catalogue
+type: tolerance_spec
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: reference
+title: FEFCO/VDW Quality Catalogue v4.4 converting tolerances and AQLs
+notes: >-
+  FEFCO Quality Catalogue written by VDW, version 4.4 (August 2014), published by FEFCO. Dimensions measured
+  crease centreline to crease centreline (or crease centreline to outer edge) at 23 °C / 50 %RH per EN
+  20187 (ISO 187). plus_mm / minus_mm are magnitudes. Defect class and AQL per row (dimensional defects
+  2A, AQL 0.65). Dimensions > 1200 mm: tolerance by agreement; machine converting may need special tolerances.
+  Die-cut tolerance is ±0.5 % with a minimum of ±1 mm (schema has no 'minimum tolerance' field; stated
+  in note). Joint gap: normal widths 6 mm and 8 mm, but the catalogue does not say which goes with which
+  wall type (VERIFY). Manually glued die-cuts need special agreement. Warp: flatness 'according to specification'
+  (2B, AQL 1.5) expressed as rise/span %; FEFCO R 110 (2018) replaces it with Warp Factor WF = H x (500
+  / L)^2 (R 110 prints '/ 2' in its worked examples; the squared form is the one consistent with its figure).
+  The FEFCO Common Footprint (±1 mm, S24) is a separate special-purpose spec and is not in this record.
+provenance:
+  method: published
+  sources: [kb.dimensional.tolerances#S1, kb.dimensional.tolerances#S11]
+tolerances:
+  applies_to: Corrugated board cases and die-cut articles (FEFCO/VDW Quality Catalogue v4.4)
+  basis: score
+  rows:
+  - feature: dimension, nominal <= 300 mm
+    plus_mm: 3
+    minus_mm: 3
+    aql: 0.65
+    note: item 3.2-2; class 2A
+    cite: [kb.dimensional.tolerances#S1]
+  - feature: dimension, nominal > 300 to 700 mm
+    plus_mm: 4
+    minus_mm: 4
+    aql: 0.65
+    note: item 3.2-2; class 2A
+    cite: [kb.dimensional.tolerances#S1]
+  - feature: dimension, nominal > 700 to 1200 mm
+    pct: 0.6
+    aql: 0.65
+    note: ±0.6 % of the dimension; item 3.2-2; class 2A
+    cite: [kb.dimensional.tolerances#S1]
+  - feature: dimension, nominal > 1200 mm
+    note: by agreement
+    cite: [kb.dimensional.tolerances#S1]
+  - feature: die-cut article dimension, flatbed die-cutting
+    pct: 0.5
+    min_abs_mm: 1
+    aql: 1.5
+    note: ±0.5 %, minimum ±1 mm; item 3.2-3; class 2B
+    cite: [kb.dimensional.tolerances#S1]
+  - feature: die-cut article dimension, rotary die-cutting
+    pct: 0.5
+    min_abs_mm: 1
+    aql: 4.0
+    note: ±0.5 %, minimum ±1 mm; item 3.2-3; class 2B
+    cite: [kb.dimensional.tolerances#S1]
+  - feature: slot position from longitudinal crease centreline
+    plus_mm: 2
+    minus_mm: 2
+    aql: 1.0
+    note: class 2A
+    cite: [kb.dimensional.tolerances#S1]
+  - feature: slot depth
+    plus_mm: 5
+    minus_mm: 5
+    aql: 1.0
+    note: class 2A
+    cite: [kb.dimensional.tolerances#S1]
+  - feature: flap-edge alignment at manufacturer's joint
+    pct: 0.5
+    min_abs_mm: 3
+    aql: 1.5
+    note: 0.5 % of the die-cut height, minimum 3 mm; class 2B
+    cite: [kb.dimensional.tolerances#S1]
+  - feature: multicolour print register
+    plus_mm: 2
+    minus_mm: 2
+    note: no AQL stated in corpus
+    cite: [kb.dimensional.tolerances#S1]
+  - feature: joint gap, machine-glued die-cut, single wall, rotary
+    plus_mm: 4
+    minus_mm: 4
+    aql: 4.0
+    note: item 3.2-9; normal gap 6 or 8 mm; measured at gap edge on top
+    cite: [kb.dimensional.tolerances#S1]
+  - feature: joint gap, machine-glued die-cut, single wall, flatbed
+    plus_mm: 4
+    minus_mm: 4
+    aql: 1.5
+    note: item 3.2-9; normal gap 6 or 8 mm; measured at gap edge on top
+    cite: [kb.dimensional.tolerances#S1]
+  - feature: joint gap, machine-glued die-cut, double wall, rotary
+    plus_mm: 6
+    minus_mm: 4
+    aql: 4.0
+    note: item 3.2-9; normal gap 6 or 8 mm; measured at gap edge on top
+    cite: [kb.dimensional.tolerances#S1]
+  - feature: joint gap, machine-glued die-cut, double wall, flatbed
+    plus_mm: 6
+    minus_mm: 4
+    aql: 1.5
+    note: item 3.2-9; normal gap 6 or 8 mm; measured at gap edge on top
+    cite: [kb.dimensional.tolerances#S1]
+  - feature: glued joint fibre tear
+    pct: 80
+    aql: 0.65
+    note: '>= 80 % fibre tear; class 2A'
+    cite: [kb.dimensional.tolerances#S1]
+  - feature: warp / flatness
+    aql: 1.5
+    note: according to specification; rise / span %; class 2B; see R 110 Warp Factor
+    cite: [kb.dimensional.tolerances#S1, kb.dimensional.tolerances#S11]

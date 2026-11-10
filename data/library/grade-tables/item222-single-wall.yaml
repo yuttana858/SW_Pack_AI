@@ -1,0 +1,130 @@
+id: lib.grades.item222-single-wall
+type: grade_table
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: industry-typical
+title: NMFC Item 222 / UFC Rule 41 single-wall grades (burst + facings or ECT)
+notes: >-
+  Regulatory status: NMFC Item 222 (motor/LTL) and UFC Rule 41 (rail) are carrier tariff material rules,
+  not performance tests; the official texts are paid publications and were not read. Values come from
+  an Item 222-derived chart in a Walmart specification hosted by FBA, plus converter charts. As of 2026-11-09
+  Item 222 appears to remain in the NMFC (Docket 2026-2 Subject 32 analysis still cites Items 220, 221
+  and 222; no cancelling docket found) - VERIFY against the current NMFC. UFC Rule 41 supplement effective
+  date VERIFY. Check the current tariff before certifying a box or handling a freight claim. Burst route
+  (Table A) needs burst plus min combined facings; ECT route (Table B) needs ECT only (no facings requirement).
+  The table system enum allows only one of item222-burst / item222-ect; each row carries both routes,
+  so system is set to item222-ect and the burst columns are the Table A alternative. SI values are the
+  corpus unit conversions. VERIFY: the 20, 35 and 50 lb rows (125/150/175 psi burst, 52/66/75 lb/MSF facings,
+  23/26/29 ECT) appear only in secondary converter charts, not in the Item 222-derived chart; check them
+  against the NMFC text. Confidence is industry-typical for that reason; the 65-120 lb rows are confirmed
+  by the Item 222-derived chart. 125 psi is described as a rarely used light-duty grade. Common parcel/LTL
+  practice expects at least 200 burst or 32 ECT. TAPPI T 810 note that the rules use a minimum, not average,
+  burst (one low test in six) seen only in a search extract - VERIFY.
+provenance:
+  method: published
+  sources: [kb.standards.rule41-item222#S17, kb.standards.rule41-item222#S3, kb.standards.rule41-item222#S19,
+    kb.standards.rule41-item222#S2, kb.materials.combined-board-grades#S18, kb.materials.combined-board-grades#S1,
+    kb.materials.combined-board-grades#S2, kb.materials.combined-board-grades#S3, kb.materials.combined-board-grades#S4]
+table:
+  system: item222-ect
+  rows:
+  - wall: single
+    grade: 125# / 23 ECT
+    burst_psi: 125
+    burst_kpa: 862
+    ect_lbf_per_in: 23
+    ect_kn_per_m: 4.03
+    min_facings_lb_per_msf: 52
+    min_facings_gsm: 254
+    max_gross_lb: 20
+    max_gross_kg: 9.1
+    max_lwh_sum_in: 40
+    max_lwh_sum_mm: 1016
+    cite: [kb.standards.rule41-item222#S3, kb.standards.rule41-item222#S19, kb.materials.combined-board-grades#S1,
+      kb.materials.combined-board-grades#S2]
+  - wall: single
+    grade: 150# / 26 ECT
+    burst_psi: 150
+    burst_kpa: 1034
+    ect_lbf_per_in: 26
+    ect_kn_per_m: 4.55
+    min_facings_lb_per_msf: 66
+    min_facings_gsm: 322
+    max_gross_lb: 35
+    max_gross_kg: 15.9
+    max_lwh_sum_in: 50
+    max_lwh_sum_mm: 1270
+    cite: [kb.standards.rule41-item222#S3, kb.standards.rule41-item222#S19, kb.materials.combined-board-grades#S1,
+      kb.materials.combined-board-grades#S2]
+  - wall: single
+    grade: 175# / 29 ECT
+    burst_psi: 175
+    burst_kpa: 1207
+    ect_lbf_per_in: 29
+    ect_kn_per_m: 5.08
+    min_facings_lb_per_msf: 75
+    min_facings_gsm: 366
+    max_gross_lb: 50
+    max_gross_kg: 22.7
+    max_lwh_sum_in: 60
+    max_lwh_sum_mm: 1524
+    cite: [kb.standards.rule41-item222#S3, kb.standards.rule41-item222#S19, kb.materials.combined-board-grades#S1,
+      kb.materials.combined-board-grades#S2]
+  - wall: single
+    grade: 200# / 32 ECT
+    burst_psi: 200
+    burst_kpa: 1379
+    ect_lbf_per_in: 32
+    ect_kn_per_m: 5.6
+    min_facings_lb_per_msf: 84
+    min_facings_gsm: 410
+    max_gross_lb: 65
+    max_gross_kg: 29.5
+    max_lwh_sum_in: 75
+    max_lwh_sum_mm: 1905
+    cite: [kb.standards.rule41-item222#S17, kb.standards.rule41-item222#S3, kb.materials.combined-board-grades#S18,
+      kb.materials.combined-board-grades#S1]
+  - wall: single
+    grade: 250# / 40 ECT
+    burst_psi: 250
+    burst_kpa: 1724
+    ect_lbf_per_in: 40
+    ect_kn_per_m: 7.01
+    min_facings_lb_per_msf: 111
+    min_facings_gsm: 542
+    max_gross_lb: 80
+    max_gross_kg: 36.3
+    max_lwh_sum_in: 85
+    max_lwh_sum_mm: 2159
+    cite: [kb.standards.rule41-item222#S17, kb.standards.rule41-item222#S3, kb.materials.combined-board-grades#S18,
+      kb.materials.combined-board-grades#S1]
+  - wall: single
+    grade: 275# / 44 ECT
+    burst_psi: 275
+    burst_kpa: 1896
+    ect_lbf_per_in: 44
+    ect_kn_per_m: 7.71
+    min_facings_lb_per_msf: 138
+    min_facings_gsm: 674
+    max_gross_lb: 95
+    max_gross_kg: 43.1
+    max_lwh_sum_in: 95
+    max_lwh_sum_mm: 2413
+    cite: [kb.standards.rule41-item222#S17, kb.standards.rule41-item222#S3, kb.materials.combined-board-grades#S18,
+      kb.materials.combined-board-grades#S1]
+  - wall: single
+    grade: 350# / 55 ECT
+    burst_psi: 350
+    burst_kpa: 2413
+    ect_lbf_per_in: 55
+    ect_kn_per_m: 9.63
+    min_facings_lb_per_msf: 180
+    min_facings_gsm: 879
+    max_gross_lb: 120
+    max_gross_kg: 54.4
+    max_lwh_sum_in: 105
+    max_lwh_sum_mm: 2667
+    cite: [kb.standards.rule41-item222#S17, kb.standards.rule41-item222#S3, kb.materials.combined-board-grades#S18,
+      kb.materials.combined-board-grades#S1]

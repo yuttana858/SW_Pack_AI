@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://swpack.ai/schemas/tolerance_spec.schema.json",
+  "title": "Manufacturing / acceptance tolerance specification",
+  "allOf": [
+    {
+      "$ref": "envelope.schema.json"
+    }
+  ],
+  "type": "object",
+  "required": [
+    "tolerances"
+  ],
+  "properties": {
+    "type": {
+      "const": "tolerance_spec"
+    },
+    "tolerances": {
+      "type": "object",
+      "required": [
+        "applies_to",
+        "rows"
+      ],
+      "properties": {
+        "applies_to": {
+          "type": "string",
+          "description": "e.g. 'RSC B/C single wall, 26–44 ECT'"
+        },
+        "basis": {
+          "enum": [
+            "inside",
+            "outside",
+            "score",
+            "blank",
+            "n/a"
+          ]
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "feature"
+            ],
+            "properties": {
+              "feature": {
+                "type": "string"
+              },
+              "plus_mm": {
+                "type": "number",
+                "description": "magnitude, >= 0"
+              },
+              "minus_mm": {
+                "type": "number",
+                "description": "magnitude, >= 0 (applied as negative)"
+              },
+              "max_mm": {
+                "type": "number"
+              },
+              "min_mm": {
+                "type": "number"
+              },
+              "pct": {
+                "type": "number"
+              },
+              "per_span_mm": {
+                "type": "number"
+              },
+              "aql": {
+                "type": "number"
+              },
+              "note": {
+                "type": "string"
+              },
+              "cite": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "corpus refs, e.g. kb.materials.flutes#S2"
+              },
+              "min_abs_mm": {
+                "type": "number",
+                "minimum": 0,
+                "description": "floor for a % tolerance, e.g. ±0.5 % but at least ±1 mm"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

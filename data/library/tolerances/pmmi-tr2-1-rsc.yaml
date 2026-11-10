@@ -1,0 +1,89 @@
+id: lib.tolerance.pmmi-tr2-1-rsc
+type: tolerance_spec
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: reference
+title: PMMI B155 TR2.1-2018 tolerances for RSC containers
+notes: >-
+  FBA/PMMI B155 TR2.1-2018 is a voluntary technical report; it states it is not a standard and not normative.
+  plus_mm / minus_mm are magnitudes (minus_mm: 1.5 means -1.5 mm). Inch values are primary; mm are the
+  corpus conversions. VERIFY (fishtail): the report's soft conversion of 3/16 in is 4.5 mm, exact is 4.76
+  mm; max_mm carries the exact 4.76 mm because the inch value governs. Flap-score alignment 3/16 in carries the exact 4.76 mm (no report
+  conversion given). Warp rows are the general limits (approx. 2.1 % of span); the high-speed (>= 50/min)
+  limits belong to TR2.2 only and are not in this record. TR2.1 sets no inside-dimension tolerance for
+  the erected box; derive one by stack-up. AICC cites a usual joint gap design target of 3/8 in (9.5 mm)
+  [S7]; the earlier AICC '1/16 in minimum' [S8] is the flap-end value, not a conflict.
+provenance:
+  method: published
+  sources: [kb.dimensional.tolerances#S3, kb.dimensional.tolerances#S2, kb.dimensional.tolerances#S4,
+    kb.dimensional.tolerances#S7, kb.dimensional.tolerances#S8]
+tolerances:
+  applies_to: RSC (top- and end-opening), B or C single wall, burst 150-275 psi or ECT 26-44 lbf/in [4.5-7.7
+    kN/m], panels 4-25 in [10.2-63.5 cm], for automatic erecting, filling and closing
+  basis: score
+  rows:
+  - feature: panel, score to score (flat)
+    plus_mm: 1.5
+    minus_mm: 1.5
+    note: ±1/16 in
+    cite: [kb.dimensional.tolerances#S3]
+  - feature: overall flat blank
+    plus_mm: 3
+    minus_mm: 3
+    note: ±1/8 in
+    cite: [kb.dimensional.tolerances#S3]
+  - feature: slot depth from flap-score centreline
+    plus_mm: 3
+    minus_mm: 3
+    note: ±1/8 in
+    cite: [kb.dimensional.tolerances#S3]
+  - feature: slot centring relative to aligning scores
+    max_mm: 1.5
+    note: within 1/16 in
+    cite: [kb.dimensional.tolerances#S3]
+  - feature: manufacturer's joint gap at flap scorelines
+    min_mm: 3
+    max_mm: 12.7
+    note: 1/8 in to 1/2 in (clause 5.1.2)
+    cite: [kb.dimensional.tolerances#S3, kb.dimensional.tolerances#S7]
+  - feature: manufacturer's joint fishtail (gap variation on one box, at flap scorelines)
+    max_mm: 4.76
+    note: 3/16 in governs (PMMI states inches); exact 4.76 mm. The report's soft conversion is 4.5 mm.
+    cite: [kb.dimensional.tolerances#S3, kb.dimensional.tolerances#S4]
+  - feature: manufacturer's joint gap at flap ends
+    min_mm: 1.5
+    note: not less than 1/16 in
+    cite: [kb.dimensional.tolerances#S3, kb.dimensional.tolerances#S8]
+  - feature: flap-score alignment at joint (corrugator scores)
+    max_mm: 4.76
+    note: within 3/16 in
+    cite: [kb.dimensional.tolerances#S3]
+  - feature: major flap gap on closed RSC
+    max_mm: 6.4
+    note: 1/4 in max; major flaps should not overlap
+    cite: [kb.dimensional.tolerances#S3]
+  - feature: score fold
+    note: must allow a 180° fold (90° each way) without fracture or continuous checking
+    cite: [kb.dimensional.tolerances#S3]
+  - feature: warp, max gap against straight edge, 12 in span
+    max_mm: 6.4
+    per_span_mm: 305
+    note: 1/4 in per 12 in
+    cite: [kb.dimensional.tolerances#S3, kb.dimensional.tolerances#S2]
+  - feature: warp, max gap against straight edge, 24 in span
+    max_mm: 12.7
+    per_span_mm: 610
+    note: 1/2 in per 24 in
+    cite: [kb.dimensional.tolerances#S3, kb.dimensional.tolerances#S2]
+  - feature: warp, max gap against straight edge, 36 in span
+    max_mm: 19.0
+    per_span_mm: 915
+    note: 3/4 in per 36 in
+    cite: [kb.dimensional.tolerances#S3, kb.dimensional.tolerances#S2]
+  - feature: warp, max gap against straight edge, 48 in span
+    max_mm: 25.4
+    per_span_mm: 1219
+    note: 1 in per 48 in
+    cite: [kb.dimensional.tolerances#S3, kb.dimensional.tolerances#S2]

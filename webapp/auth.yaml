@@ -1,0 +1,9 @@
+# Sign-in settings for SW Pack AI (no secrets here: those live in the Modal secret "swpack-web").
+# Mode: GitHub sign-in. Every ACTIVE member of the GitHub organization (SWPACK_GITHUB_ORG) can sign in
+# as a packaging engineer. Add GitHub teams below to grant extra roles or plants.
+mode: github
+github:
+  member_role: engineer          # every org member: ask questions and send corrections
+  team_roles:                    # GitHub team slug -> extra role
+    swpack-stewards: steward     #   decides on any correction (create this team when ready)
+  team_plants: {}                # GitHub team slug -> plant id, e.g.  plant-dallas: dallas

@@ -1,0 +1,36 @@
+# Mapping between board_material records and Auto3D's account board database CSV
+# (packaging.boards.export / packaging.boards.save_csv).
+#
+# STATUS: UNCONFIRMED. Auto3D's real column headers can only be read with packaging.boards.export
+# on a paired window. Column names below follow the packaging.materials.update field names.
+# When the export is available: run `python -m connectors.auto3d.board_csv check-headers export.csv`,
+# fix the `column:` values here, then set confirmed: true. Sync refuses to write while confirmed is false.
+confirmed: false
+id_column: id
+managed_marker:
+  column: provenance            # rows whose provenance starts with this prefix are owned by SW Pack AI
+  prefix: "swpack:"
+columns:
+  - {column: id,                 from: id}
+  - {column: name,               from: title}
+  - {column: flute,              from: board.flute}
+  - {column: provenance,         from: "@provenance"}       # computed: swpack:<record id>@<version>
+  - {column: calibrated,         from: "@calibrated"}       # computed: true only for approved supplier-certified/measured
+  - {column: caliperMm,          from: board.caliper_mm.nominal}
+  - {column: caliperToleranceMm, from: board.caliper_mm.tol_plus}
+  - {column: outsideLinerGrade,  from: board.outside_liner.grade}
+  - {column: outsideLinerGsm,    from: board.outside_liner.gsm}
+  - {column: mediumGrade,        from: board.medium.0.grade}
+  - {column: mediumGsm,          from: board.medium.0.gsm}
+  - {column: insideLinerGrade,   from: board.inside_liner.grade}
+  - {column: insideLinerGsm,     from: board.inside_liner.gsm}
+  - {column: insideFactorL,      from: auto3d.insideFactors.0}
+  - {column: insideFactorW,      from: auto3d.insideFactors.1}
+  - {column: insideFactorH,      from: auto3d.insideFactors.2}
+  - {column: outsideFactorL,     from: auto3d.outsideFactors.0}
+  - {column: outsideFactorW,     from: auto3d.outsideFactors.1}
+  - {column: outsideFactorH,     from: auto3d.outsideFactors.2}
+  - {column: scoreWidthMm,       from: auto3d.scoreWidthMm}
+  - {column: scoreToleranceMm,   from: auto3d.scoreToleranceMm}
+  - {column: processToleranceMm, from: auto3d.processToleranceMm}
+  - {column: conditioning,       from: board.conditioning}

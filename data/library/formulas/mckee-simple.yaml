@@ -1,0 +1,40 @@
+id: lib.formula.mckee-simple
+type: formula
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: reference
+title: Simplified McKee BCT
+provenance:
+  method: published
+  sources: &id001
+  - kb.performance.box-compression#S1
+  - kb.performance.box-compression#S4
+formula:
+  expression: BCT = 5.87 · ECT · sqrt(h · Z),  Z = 2(L + W)
+  variables:
+  - symbol: BCT
+    meaning: predicted box compression strength
+    si_unit: N
+    us_unit: lbf
+  - symbol: ECT
+    meaning: edge crush strength
+    si_unit: N/mm
+    us_unit: lbf/in
+  - symbol: h
+    meaning: combined caliper
+    si_unit: mm
+    us_unit: in
+  - symbol: Z
+    meaning: perimeter 2(L+W)
+    si_unit: mm
+    us_unit: in
+  validity: Single-wall RSCs, depth >= Z/7, near-square footprint; dimensionless constant
+    (any consistent units).
+  limitations: Over-predicts single-wall BCT by ~7.6 % on average; ignores crushing,
+    print, handholes; confirm by test.
+  implementation: packcalc.compression.mckee_simple
+  golden_tests:
+  - tests/test_golden_examples.py::TestMcKee::test_simple_si
+  cite: *id001

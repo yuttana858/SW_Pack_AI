@@ -1,0 +1,25 @@
+id: lib.formula.crushed-bct-ratio
+type: formula
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: derived
+title: BCT loss from caliper crush
+provenance:
+  method: published
+  sources: &id001
+  - kb.performance.board-tests-and-ect
+formula:
+  expression: BCT_c / BCT_o = sqrt(h_c / h_o)
+  variables:
+  - symbol: h_o, h_c
+    meaning: caliper before/after crushing
+    si_unit: mm
+    us_unit: in
+  validity: ECT held constant.
+  limitations: Crushing also lowers bending stiffness, so real loss can be larger.
+  implementation: packcalc.compression.crushed_bct_ratio
+  golden_tests:
+  - tests/test_golden_examples.py::TestMcKee::test_crushed_ratio
+  cite: *id001

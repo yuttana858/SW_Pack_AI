@@ -1,0 +1,22 @@
+id: lib.flute.n
+type: flute_profile
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: industry-typical
+title: N-flute (fine micro) profile
+notes: >-
+  All ranges are FEFCO F/G/N group values, not N-specific [S15]. N-specific: 0.50 mm nominal height excluding
+  liners (one converter) [S17]. No per-foot count, pitch or caliper retrieved.
+provenance:
+  method: published
+  sources: [kb.materials.flutes#S15, kb.materials.flutes#S17]
+flute:
+  code: N
+  flute_height_mm: [0.5, 0.8]
+  flutes_per_m: [400, 550]
+  take_up: [1.15, 1.25]
+  glue_per_line_gsm: [9.0, 11.0]
+  typical_uses: [litho-laminated retail packaging, carton replacement]
+  cite: [kb.materials.flutes#S15, kb.materials.flutes#S17]

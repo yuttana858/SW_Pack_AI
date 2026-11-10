@@ -1,0 +1,84 @@
+id: lib.grades.item222-triple-wall
+type: grade_table
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: reference
+title: NMFC Item 222 / UFC Rule 41 triple-wall grades (puncture + facings or ECT)
+notes: >-
+  Regulatory status: NMFC Item 222 (motor/LTL) and UFC Rule 41 (rail) are carrier tariff material rules,
+  not performance tests; the official texts are paid publications and were not read. Values come from
+  an Item 222-derived chart in a Walmart specification hosted by FBA, plus converter charts. As of 2026-11-09
+  Item 222 appears to remain in the NMFC (Docket 2026-2 Subject 32 analysis still cites Items 220, 221
+  and 222; no cancelling docket found) - VERIFY against the current NMFC. UFC Rule 41 supplement effective
+  date VERIFY. Check the current tariff before certifying a box or handling a freight claim. Burst route
+  (Table A) needs burst plus min combined facings; ECT route (Table B) needs ECT only (no facings requirement).
+  The table system enum allows only one of item222-burst / item222-ect; each row carries both routes,
+  so system is set to item222-ect and the burst columns are the Table A alternative. SI values are the
+  corpus unit conversions. Triple wall has no burst route: the 700-1300 values are a minimum PUNCTURE
+  test (in-oz per inch of tear, TAPPI T 803 / ISO 3036), not burst psi. Conflict resolved in the corpus:
+  converter charts (Cary [S4], Nelson [S5] in rule41-item222) label them burst and Nelson lists the 240-300
+  lb rows as double wall - both wrong per the Item 222-derived chart. A further chart (Arlington, combined-board-grades
+  S13: 61 ECT up to 300 lb, 82 ECT up to 500 lb) does not match and is treated as unreliable. The schema
+  field `puncture` is unitless; the unit and the derived J/m conversion (1 in-oz/in = 0.27801 J/m) are
+  in each row's `limits`. Facings weight includes the centre facings.
+provenance:
+  method: published
+  sources: [kb.standards.rule41-item222#S17, kb.materials.combined-board-grades#S18, kb.materials.combined-board-grades#S19,
+    kb.standards.rule41-item222#S4, kb.standards.rule41-item222#S5]
+table:
+  system: item222-ect
+  rows:
+  - wall: triple
+    grade: 67 ECT / 700 puncture
+    ect_lbf_per_in: 67
+    ect_kn_per_m: 11.73
+    min_facings_lb_per_msf: 168
+    min_facings_gsm: 820
+    max_gross_lb: 240
+    max_gross_kg: 108.9
+    max_lwh_sum_in: 110
+    max_lwh_sum_mm: 2794
+    puncture: 700
+    limits: {puncture_unit: in-oz per inch of tear, puncture_j_per_m_approx: 195}
+    cite: [kb.standards.rule41-item222#S17, kb.materials.combined-board-grades#S18]
+  - wall: triple
+    grade: 80 ECT / 900 puncture
+    ect_lbf_per_in: 80
+    ect_kn_per_m: 14.01
+    min_facings_lb_per_msf: 222
+    min_facings_gsm: 1084
+    max_gross_lb: 260
+    max_gross_kg: 117.9
+    max_lwh_sum_in: 115
+    max_lwh_sum_mm: 2921
+    puncture: 900
+    limits: {puncture_unit: in-oz per inch of tear, puncture_j_per_m_approx: 250}
+    cite: [kb.standards.rule41-item222#S17, kb.materials.combined-board-grades#S18]
+  - wall: triple
+    grade: 90 ECT / 1100 puncture
+    ect_lbf_per_in: 90
+    ect_kn_per_m: 15.76
+    min_facings_lb_per_msf: 264
+    min_facings_gsm: 1289
+    max_gross_lb: 280
+    max_gross_kg: 127.0
+    max_lwh_sum_in: 120
+    max_lwh_sum_mm: 3048
+    puncture: 1100
+    limits: {puncture_unit: in-oz per inch of tear, puncture_j_per_m_approx: 306}
+    cite: [kb.standards.rule41-item222#S17, kb.materials.combined-board-grades#S18]
+  - wall: triple
+    grade: 112 ECT / 1300 puncture
+    ect_lbf_per_in: 112
+    ect_kn_per_m: 19.61
+    min_facings_lb_per_msf: 360
+    min_facings_gsm: 1758
+    max_gross_lb: 300
+    max_gross_kg: 136.1
+    max_lwh_sum_in: 125
+    max_lwh_sum_mm: 3175
+    puncture: 1300
+    limits: {puncture_unit: in-oz per inch of tear, puncture_j_per_m_approx: 361}
+    cite: [kb.standards.rule41-item222#S17, kb.materials.combined-board-grades#S18]

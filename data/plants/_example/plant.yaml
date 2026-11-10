@@ -1,0 +1,19 @@
+id: plant.example
+type: plant
+version: 0.1.0
+scope: plant:example
+tier: L3
+status: draft
+confidence: measured
+title: EXAMPLE plant record — copy to data/plants/<plant_id>/ and fill in
+provenance:
+  method: plant-measurement
+plant:
+  plant_id: example
+  name: Example Plant
+  country: US
+  units_display: US
+  climate_profile: {warehouse_rh_pct: 50, warehouse_temp_c: 23}
+  machines: [machine.example.ffg-1]
+  approved_suppliers: []
+  default_standards: [TAPPI T 402, ASTM D642, ISTA 3A]

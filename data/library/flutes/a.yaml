@@ -1,0 +1,32 @@
+id: lib.flute.a
+type: flute_profile
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: industry-typical
+title: A-flute (coarse) profile
+notes: >-
+  Flute height is excluding facings. Range 4.0-4.9 mm is DIN 55468 [S3]; point values 4.8 mm FEFCO/Cepi
+  [S1][S15] and 4.67 mm Nordstrand [S2] fall inside it. US table gives a flute thickness of 4.8 mm (3/16
+  in) [S20], a different quantity (near single-face caliper); the schema has no field for it. flutes_per_m
+  = [108 (US table, +/-10) [S20], 110 FEFCO [S15]]. flutes_per_ft = 33 +/- 3 [S20]; FBA gives 33 [S16].
+  take_up range is FEFCO [S15]; take_up_typical 1.54 is Nordstrand [S2]. single_wall_caliper_mm is published
+  combined caliper approx. 4.8-5 mm [S4][S7]. Profiles are plant-specific; replace with plant take-up.
+provenance:
+  method: published
+  sources: [kb.materials.flutes#S15, kb.materials.flutes#S1, kb.materials.flutes#S2, kb.materials.flutes#S3,
+    kb.materials.flutes#S16, kb.materials.flutes#S20, kb.materials.flutes#S4, kb.materials.flutes#S7]
+flute:
+  code: A
+  flute_height_mm: [4.0, 4.9]
+  pitch_mm: [8.0, 9.5]
+  flutes_per_m: [108, 110]
+  flutes_per_ft: [30, 36]
+  take_up: [1.5, 1.55]
+  take_up_typical: 1.54
+  single_wall_caliper_mm: [4.8, 5]
+  glue_per_line_gsm: [4.5, 5.0]
+  typical_uses: [fragile goods, heavy stacking (less common today)]
+  cite: [kb.materials.flutes#S1, kb.materials.flutes#S15, kb.materials.flutes#S2, kb.materials.flutes#S3,
+    kb.materials.flutes#S20, kb.materials.flutes#S16, kb.materials.flutes#S4, kb.materials.flutes#S7]

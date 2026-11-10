@@ -1,0 +1,134 @@
+# Answer-quality eval SEED set (written by the build agent from the corpus and library, 2026-11-10).
+# Engineers: review every expectation, then extend with real questions (target 50+).
+#
+# Checks (all programmatic, no LLM judge):
+#   must_call:      every listed tool must be called at least once
+#   values:         each {value, tol_pct} must appear as a number in the answer (within tolerance)
+#   must_cite:      at least one citation in the answer must start with one of these prefixes
+#   must_mention:   every phrase must appear (case-insensitive); use "a|b" for alternatives
+#   no_data:        the answer must say the knowledge base does not cover it, and use no calculator
+#   max_warnings:   maximum grounding warnings allowed (default 0)
+version: 1
+status: seed-unreviewed
+questions:
+  - id: bct-mckee-basic
+    q: Predict the box compression strength of a 400 x 300 x 300 mm (inside) RSC in 32 ECT C-flute, caliper 4.0 mm.
+    must_call: [box_compression]
+    values: [{value: 2462, tol_pct: 1}]
+    must_cite: [lib.formula.mckee, kb.performance.box-compression]
+    must_mention: ["over-predict|overpredict|confirm by test|ASTM D642|ISO 12048"]
+  - id: required-ect-pallets
+    q: A 12 kg RSC, 400 x 300 mm footprint, C flute 4.0 mm caliper, is palletised 5 layers of 8 boxes on a 25 kg pallet and stacked 2 pallets high for 90 days at 80 %RH. What ECT does the board need?
+    must_call: [stacking_requirement]
+    values: [{value: 6.63, tol_pct: 2}]
+    must_mention: ["0.55", "0.68"]
+  - id: rsc-blank
+    q: What blank size do I need for an RSC with inside dimensions 400 x 300 x 250 mm, 4.0 mm C flute, 35 mm glue joint?
+    must_call: [rsc_blank_size]
+    values: [{value: 1451, tol_pct: 0.2}, {value: 562, tol_pct: 0.2}]
+    must_mention: ["inside"]
+  - id: inside-to-outside
+    q: Convert inside dimensions 400 x 300 x 250 mm to outside dimensions for an RSC in 4.0 mm board.
+    must_call: [convert_dimensions]
+    values: [{value: 408, tol_pct: 0.1}, {value: 308, tol_pct: 0.1}, {value: 266, tol_pct: 0.1}]
+    must_mention: ["outside"]
+  - id: item222-32ect
+    q: Under NMFC Item 222, what is the maximum gross weight and size limit for a 32 ECT single-wall box?
+    values: [{value: 65, tol_pct: 0}, {value: 75, tol_pct: 0}]
+    must_cite: [card.lib.grades.item222, kb.standards.rule41-item222, kb.materials.combined-board-grades]
+  - id: item222-status
+    q: Is NMFC Item 222 still in force?
+    must_cite: [kb.standards.rule41-item222, kb.materials.combined-board-grades]
+    must_mention: ["verify|confirm|not confirmed|appears"]
+  - id: t839
+    q: What is TAPPI T 839 and how does it differ from T 811?
+    must_cite: [kb.performance.board-tests-and-ect]
+    must_mention: ["clamp", "wax"]
+  - id: storage-90d
+    q: What BCT multiplier should I use for 90 days of storage under load?
+    values: [{value: 0.55, tol_pct: 0}]
+    must_cite: [kb.performance.environmental-factors, card.lib.factors.storage-time]
+  - id: rh-70
+    q: What compression strength factor applies at 70 % relative humidity?
+    values: [{value: 0.80, tol_pct: 0}]
+  - id: interlock-loss
+    q: How much compression strength do I lose by interlocking boxes on a pallet instead of column stacking?
+    must_cite: [kb.performance.environmental-factors, card.lib.factors.stacking-pattern]
+    must_mention: ["column"]
+  - id: max-boxes-high
+    q: A box has a lab BCT of 2462 N and weighs 12 kg. How many high can it be stacked for 90 days at 80 %RH?
+    must_call: [stacking_requirement|box_compression|convert_units]
+    values: [{value: 8, tol_pct: 0}]
+  - id: ect-from-sct
+    q: Estimate the ECT of single-wall board with liners of SCT 3.0 kN/m each and a medium of SCT 2.0 kN/m, take-up 1.43.
+    must_call: [ect_from_papers]
+    values: [{value: 6.20, tol_pct: 1}]
+  - id: lbmsf-to-gsm
+    q: Convert a 42 lb/MSF liner to g/m².
+    must_call: [convert_units]
+    values: [{value: 205.06, tol_pct: 0.1}]
+  - id: take-up-c
+    q: What take-up factor should I use for C flute?
+    must_cite: [kb.materials.flutes, card.lib.flute.c]
+    values: [{value: 1.43, tol_pct: 0.5}]
+    must_mention: ["supplier|plant|house|typical"]
+  - id: bc-caliper
+    q: What is the typical caliper of BC double-wall board?
+    must_cite: [kb.materials.flutes, kb.dimensional.dimensions-and-allowances, kb.materials.combined-board-grades]
+    must_mention: ["mm"]
+  - id: joint-gap
+    q: What are the PMMI tolerance limits for the manufacturer's joint gap and fishtail on an RSC?
+    must_cite: [kb.dimensional.tolerances, card.lib.tolerance.pmmi]
+    must_mention: ["1/8", "3/16"]
+  - id: crease-channel-carton
+    q: How wide should the creasing channel be for 0.5 mm cartonboard with a 0.71 mm (2 pt) rule?
+    must_cite: [kb.manufacturing.die-cutting-and-tooling, kb.styles.folding-carton-design-rules]
+    must_mention: ["1.5"]
+  - id: fefco-08
+    q: What does FEFCO family 08 cover?
+    must_cite: [kb.styles.fefco-codes]
+    must_mention: ["retail|e-commerce"]
+  - id: ecma-crash-lock
+    q: What is the ECMA code for a crash-lock bottom carton with a tuck top?
+    must_cite: [kb.styles.ecma-folding-carton, card.lib.style.ecma]
+    must_mention: ["A60.20.00.03"]
+  - id: ista-3a
+    q: How many drops are in the ISTA 3A sequence for a standard package?
+    must_cite: [kb.testing.distribution-testing]
+    must_mention: ["9", "8"]
+  - id: d4332-tropical
+    q: What is the ASTM D4332 tropical conditioning atmosphere?
+    must_cite: [kb.testing.distribution-testing, kb.testing.standards-index]
+    must_mention: ["40", "90"]
+  - id: amazon-pfp
+    q: What changed for Amazon PFP (frustration-free) enrolment in 2026?
+    must_cite: [kb.testing.distribution-testing]
+    must_mention: ["2026"]
+  - id: ppwr-empty-space
+    q: What is the maximum empty space ratio for e-commerce packaging under the EU PPWR?
+    must_cite: [kb.sustainability.regulations-and-recyclability]
+    must_mention: ["50"]
+  - id: euro-pallet
+    q: What are the dimensions and safe working load of a EUR/EPAL pallet?
+    must_cite: [kb.logistics.palletization]
+    must_mention: ["1200", "800"]
+  - id: mckee-bias
+    q: How accurate is the McKee formula compared with real box tests?
+    must_cite: [kb.performance.box-compression]
+    must_mention: ["7.6|7.64"]
+  - id: grain-carton
+    q: Which way should the grain run on an end-loading folding carton?
+    must_cite: [kb.materials.paperboard-carton, kb.styles.folding-carton-design-rules]
+  - id: allowance-scope
+    q: Which allowance factors apply to an RSC at my plant, and are they approved?
+    plant: example
+    must_mention: ["draft|not approved|unreviewed"]
+  - id: no-data-pet
+    q: What is the melting point of PET film?
+    no_data: true
+  - id: no-data-honeycomb
+    q: What flat crush strength does a 50 mm honeycomb core with 20 mm cells have?
+    no_data: true
+  - id: no-data-price
+    q: What does 32 ECT board cost per square metre this month?
+    no_data: true

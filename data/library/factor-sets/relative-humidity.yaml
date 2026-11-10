@@ -1,0 +1,50 @@
+id: lib.factors.relative-humidity
+type: factor_set
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: industry-typical
+title: BCT multipliers for relative humidity under load
+notes: >-
+  FBA BCT loss factors reproduced in [S13] (table credits USDA FPL), also [S1][S2]. Factors apply to RH
+  under load. VERIFY: FBA updated the Handbook numbers in 2019 from a Clemson study of RH under load on
+  modern containerboard [S16]; those values were not retrieved - check the current Handbook edition. Popil's
+  first-order model (SCT50/SCT_RH = 0.00945 RH + 0.51) gives 0.79 at 80 %RH vs table 0.68 (less conservative);
+  [S13] calls its ratio a 27 % loss. Use the table for design. Do not interpolate between rows without
+  a source. Cyclic RH increases loss further with no single value. Chilled storage: treat as a humidity
+  case at the cold-store RH (derived from [S13]); no frozen/freeze-thaw multiplier was retrieved (VERIFY).
+provenance:
+  method: published
+  sources: [kb.performance.environmental-factors#S13, kb.performance.environmental-factors#S1, kb.performance.environmental-factors#S2,
+    kb.performance.environmental-factors#S7, kb.performance.environmental-factors#S16]
+factors:
+  kind: relative-humidity
+  rows:
+  - condition: 50 %RH (reference)
+    value: 1.0
+    basis: lab BCT at 23 °C / 50 %RH; RH is equilibrium RH under load; multiplier = 1 - fractional loss
+    cite: &id001 [kb.performance.environmental-factors#S13, kb.performance.environmental-factors#S1, kb.performance.environmental-factors#S2]
+  - condition: 60 %RH
+    value: 0.9
+    basis: lab BCT at 23 °C / 50 %RH; RH is equilibrium RH under load; multiplier = 1 - fractional loss
+    cite: *id001
+  - condition: 70 %RH
+    value: 0.8
+    basis: lab BCT at 23 °C / 50 %RH; RH is equilibrium RH under load; multiplier = 1 - fractional loss
+    cite: [kb.performance.environmental-factors#S13]
+  - condition: 80 %RH
+    value: 0.68
+    basis: lab BCT at 23 °C / 50 %RH; RH is equilibrium RH under load; multiplier = 1 - fractional loss
+    cite: [kb.performance.environmental-factors#S13, kb.performance.environmental-factors#S2]
+  - condition: 90 %RH
+    value: 0.48
+    basis: lab BCT at 23 °C / 50 %RH; RH is equilibrium RH under load; multiplier = 1 - fractional loss
+    cite: *id001
+  - condition: 100 %RH
+    value: 0.15
+    basis: lab BCT at 23 °C / 50 %RH; RH is equilibrium RH under load; multiplier = 1 - fractional loss
+    cite: [kb.performance.environmental-factors#S13, kb.performance.environmental-factors#S2]
+  - condition: cyclic RH (no single value; loss increases further)
+    basis: lab BCT at 23 °C / 50 %RH; RH is equilibrium RH under load; multiplier = 1 - fractional loss
+    cite: [kb.performance.environmental-factors#S13, kb.performance.environmental-factors#S1]

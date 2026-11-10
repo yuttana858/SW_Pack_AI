@@ -1,0 +1,37 @@
+id: lib.formula.mckee-tops
+type: formula
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: reference
+title: McKee TOPS variant
+provenance:
+  method: published
+  sources: &id001
+  - kb.performance.box-compression#S3
+formula:
+  expression: BCT = 5.87 · ECT · Z^0.4924 · h^0.5076
+  variables:
+  - symbol: BCT
+    meaning: box compression strength
+    si_unit: N
+    us_unit: lbf
+  - symbol: ECT
+    meaning: edge crush
+    si_unit: N/mm
+    us_unit: lbf/in
+  - symbol: h
+    meaning: caliper
+    si_unit: mm
+    us_unit: in
+  - symbol: Z
+    meaning: perimeter
+    si_unit: mm
+    us_unit: in
+  validity: As simplified McKee.
+  limitations: About 4 % below the rounded form for the reference box.
+  implementation: packcalc.compression.mckee_tops
+  golden_tests:
+  - tests/test_golden_examples.py::TestMcKee::test_tops_us
+  cite: *id001

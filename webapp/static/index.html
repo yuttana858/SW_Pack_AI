@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SW Pack AI</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Sign-in -->
+  <section id="signin" class="signin" hidden>
+    <div class="signin-card">
+      <h1>SW Pack AI</h1>
+      <p class="muted">Packaging engineering assistant</p>
+      <div id="signin-oidc" hidden>
+        <button id="btn-oidc" class="primary">Sign in with company account</button>
+      </div>
+      <div id="signin-github" hidden>
+        <a id="btn-github" class="button primary" href="/auth/github/login">Sign in with GitHub</a>
+        <p class="muted small" id="github-org-note"></p>
+      </div>
+      <div id="signin-dev" hidden>
+        <p class="dev-note">Developer sign-in (no identity provider configured)</p>
+        <label for="persona">Sign in as</label>
+        <select id="persona"></select>
+        <button id="btn-dev" class="primary">Sign in</button>
+      </div>
+      <p id="signin-error" class="error" role="alert"></p>
+    </div>
+  </section>
+
+  <!-- App -->
+  <div id="app" class="app" hidden>
+    <header class="topbar">
+      <button id="btn-menu" class="icon-btn only-narrow" aria-label="Show conversations">☰</button>
+      <span class="brand">SW Pack AI</span>
+      <span id="mode-badge" class="badge"></span>
+      <span class="spacer"></span>
+      <label for="plant" class="plant-label">Plant</label>
+      <select id="plant" aria-label="Plant"></select>
+      <span id="user" class="user"></span>
+      <button id="btn-signout" class="ghost">Sign out</button>
+    </header>
+
+    <aside id="sidebar" class="sidebar">
+      <button id="btn-new" class="primary block">New conversation</button>
+      <nav>
+        <h2 class="side-h">Conversations</h2>
+        <ul id="conv-list" class="conv-list"></ul>
+      </nav>
+      <button id="btn-review" class="ghost block" hidden>Review queue <span id="review-count" class="count"></span></button>
+      <p class="side-foot muted">Knowledge release <code id="release"></code></p>
+    </aside>
+
+    <main id="main" class="main">
+      <section id="chat-view" class="chat-view">
+        <div id="thread" class="thread" aria-live="polite">
+          <div id="empty" class="empty">
+            <h2>Ask a packaging engineering question</h2>
+            <p class="muted">Answers come from the company knowledge base and tested calculators, with sources.</p>
+            <div class="examples">
+              <button class="example">What ECT do I need for a 12 kg box, 400 × 300 mm, stacked 5 high for 90 days at 80 %RH?</button>
+              <button class="example">Blank size for an RSC 400 × 300 × 250 mm inside, C flute 4.0 mm, 35 mm glue joint</button>
+              <button class="example">What are the PMMI tolerances for joint gap and fishtail?</button>
+            </div>
+          </div>
+        </div>
+        <form id="composer" class="composer">
+          <label for="question" class="sr-only">Question</label>
+          <textarea id="question" rows="2" placeholder="Ask about materials, strength, dimensions, testing, styles…" required></textarea>
+          <div class="composer-row">
+            <div class="seg" role="radiogroup" aria-label="Answer depth">
+              <label><input type="radio" name="effort" value="medium" checked> Question</label>
+              <label><input type="radio" name="effort" value="high"> Design work</label>
+            </div>
+            <button id="btn-send" class="primary" type="submit">Ask</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="review-view" class="review-view" hidden>
+        <div class="review-head">
+          <h2>Review queue</h2>
+          <button id="btn-back" class="ghost">Back to chat</button>
+        </div>
+        <ul id="proposal-list" class="proposal-list"></ul>
+      </section>
+    </main>
+
+    <aside id="source-panel" class="source-panel" hidden aria-label="Source">
+      <div class="panel-head">
+        <strong id="src-title"></strong>
+        <button id="btn-close-src" class="icon-btn" aria-label="Close source">✕</button>
+      </div>
+      <p id="src-meta" class="muted small"></p>
+      <div id="src-body" class="src-body md"></div>
+    </aside>
+  </div>
+
+  <template id="tpl-turn">
+    <article class="turn">
+      <div class="q"></div>
+      <div class="a">
+        <div class="answer md"></div>
+        <div class="warnings" hidden></div>
+        <div class="sources" hidden><h3>Sources</h3><ol></ol></div>
+        <details class="working" hidden><summary></summary><ul></ul></details>
+        <div class="feedback">
+          <button class="fb up" aria-label="Helpful">👍</button>
+          <button class="fb down" aria-label="Not helpful">👎</button>
+          <span class="fb-status muted small"></span>
+        </div>
+        <form class="fb-form" hidden>
+          <label>What was wrong? <textarea name="comment" rows="2"></textarea></label>
+          <label class="correction-field">Correct value or text (goes to the review queue) <textarea name="correction" rows="2"></textarea></label>
+          <div class="row"><button type="submit" class="primary">Send</button><button type="button" class="ghost cancel">Cancel</button></div>
+        </form>
+      </div>
+    </article>
+  </template>
+
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

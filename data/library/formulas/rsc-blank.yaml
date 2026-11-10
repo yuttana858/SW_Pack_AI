@@ -1,0 +1,33 @@
+id: lib.formula.rsc-blank
+type: formula
+version: 0.1.0
+scope: global
+tier: L1
+status: draft
+confidence: derived
+title: FEFCO 0201 RSC blank size
+provenance:
+  method: published
+  sources: &id001
+  - kb.dimensional.blank-size-formulas
+formula:
+  expression: BL = 2Ls + 2Ws + J ; BW = Hs + 2F ; F = Ws/2 + a
+  variables:
+  - symbol: Ls, Ws, Hs
+    meaning: score dimensions
+    si_unit: mm
+    us_unit: in
+  - symbol: J
+    meaning: joint width
+    si_unit: mm
+    us_unit: in
+  - symbol: F
+    meaning: flap length
+    si_unit: mm
+    us_unit: in
+  validity: RSC with equal flaps meeting at centre.
+  limitations: Plants may size joint panels differently; use house panel tables.
+  implementation: packcalc.dimensions.rsc_blank
+  golden_tests:
+  - tests/test_golden_examples.py::TestDimensions::test_rsc_blank_si
+  cite: *id001

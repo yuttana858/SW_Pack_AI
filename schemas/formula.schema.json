@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://swpack.ai/schemas/formula.schema.json",
+  "title": "Formula registry entry (implemented in packcalc)",
+  "allOf": [
+    {
+      "$ref": "envelope.schema.json"
+    }
+  ],
+  "type": "object",
+  "required": [
+    "formula"
+  ],
+  "properties": {
+    "type": {
+      "const": "formula"
+    },
+    "formula": {
+      "type": "object",
+      "required": [
+        "expression",
+        "variables",
+        "implementation"
+      ],
+      "properties": {
+        "expression": {
+          "type": "string"
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "symbol",
+              "meaning",
+              "si_unit"
+            ],
+            "properties": {
+              "symbol": {
+                "type": "string"
+              },
+              "meaning": {
+                "type": "string"
+              },
+              "si_unit": {
+                "type": "string"
+              },
+              "us_unit": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "validity": {
+          "type": "string"
+        },
+        "limitations": {
+          "type": "string"
+        },
+        "implementation": {
+          "type": "string",
+          "pattern": "^packcalc\\.[a-z_.]+$"
+        },
+        "golden_tests": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cite": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "corpus refs, e.g. kb.materials.flutes#S2"
+        }
+      }
+    }
+  }
+}

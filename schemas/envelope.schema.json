@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://swpack.ai/schemas/envelope.schema.json",
+  "title": "Record envelope shared by every data record",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "version",
+    "scope",
+    "tier",
+    "status",
+    "confidence",
+    "provenance"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._:/-]{2,159}$"
+    },
+    "type": {
+      "enum": [
+        "board_material",
+        "allowance_table",
+        "tolerance_spec",
+        "machine_spec",
+        "plant",
+        "formula",
+        "factor_set",
+        "box_style",
+        "test_result",
+        "flute_profile",
+        "grade_table"
+      ]
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "scope": {
+      "type": "string",
+      "pattern": "^(global|company|plant:[a-z0-9-]+|machine:[a-z0-9-]+/[a-z0-9-]+)$"
+    },
+    "tier": {
+      "enum": [
+        "L0",
+        "L1",
+        "L2",
+        "L3",
+        "L4"
+      ]
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "reviewed",
+        "approved",
+        "retired"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "reference",
+        "industry-typical",
+        "derived",
+        "supplier-certified",
+        "measured"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "method"
+      ],
+      "properties": {
+        "method": {
+          "enum": [
+            "published",
+            "derived",
+            "supplier-certificate",
+            "lab-test",
+            "plant-measurement",
+            "engineering-judgement"
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "corpus source refs, e.g. kb.materials.flutes#S2"
+        },
+        "measured_by": {
+          "type": "string"
+        },
+        "measured_on": {
+          "type": "string",
+          "format": "date"
+        },
+        "sample_size": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "effective_from": {
+      "type": "string",
+      "format": "date"
+    },
+    "effective_to": {
+      "type": "string",
+      "format": "date"
+    },
+    "supersedes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "approved_by": {
+      "type": "string"
+    },
+    "approved_on": {
+      "type": "string",
+      "format": "date"
+    },
+    "material_family": {
+      "type": "string",
+      "enum": [
+        "corrugated",
+        "solid-board",
+        "folding-carton",
+        "rigid-box",
+        "honeycomb",
+        "paper-tube",
+        "molded-pulp",
+        "formed-fibre",
+        "foam",
+        "flexible",
+        "wood",
+        "plastic",
+        "multi",
+        "other"
+      ],
+      "description": "Material/product family the record applies to; 'multi' for cross-family records (units, pallets, test methods). Omitted = corrugated for legacy records."
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "tier": {
+            "enum": [
+              "L3",
+              "L4"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "scope": {
+            "pattern": "^(plant|machine):"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "approved"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "approved_by",
+          "approved_on"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "confidence": {
+            "const": "supplier-certified"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "tier": {
+            "enum": [
+              "L2",
+              "L3",
+              "L4"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
