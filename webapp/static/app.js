@@ -16,7 +16,7 @@ async function api(path, opts = {}) {
   if (state.plant) headers["X-SWPack-Plant"] = state.plant;
   const res = await fetch(path, { ...opts, headers, body: opts.body ? JSON.stringify(opts.body) : undefined });
   const data = await res.json().catch(() => ({}));
-  if (res.status === 401) { signOut(data.error || "Please sign in again."); throw new Error("unauthorized"); }
+  if (res.status === 401 && !path.startsWith("/api/login")) { signOut(data.error || "Please sign in again."); throw new Error("unauthorized"); }
   if (!res.ok) throw new Error(data.error || data.detail || `Request failed (${res.status})`);
   return data;
 }
@@ -228,6 +228,14 @@ async function initAuth() {
   const a = state.config.auth;
   const frag = new URLSearchParams(location.hash.slice(1));
   if (frag.has("session") || frag.has("error")) history.replaceState({}, "", "/");   // never leave tokens in the address bar
+  if (a.mode === "password") {
+    $("#signin-password").hidden = false;
+    const saved = store.get("swpack_token");
+    if (saved) { state.token = saved; try { return await signedIn(); } catch { store.set("swpack_token", null); } }
+    $("#signin").hidden = false;
+    $("#username").focus();
+    return;
+  }
   if (a.mode === "github") {
     $("#signin-github").hidden = false;
     $("#github-org-note").textContent = a.org ? `Members of the ${a.org} GitHub organization` : "Approved GitHub accounts only";
@@ -268,6 +276,16 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (e) { $("#signin-error").textContent = e.message; }
   };
   $("#btn-oidc").onclick = () => state.oidc.signinRedirect();
+  $("#signin-password").onsubmit = async e => {
+    e.preventDefault();
+    const btn = $("#btn-login"); btn.disabled = true; $("#signin-error").textContent = "";
+    try {
+      const { token } = await api("/api/login", { method: "POST", body: { username: $("#username").value, password: $("#password").value } });
+      $("#password").value = "";
+      state.token = token; store.set("swpack_token", token); await signedIn();
+    } catch (err) { $("#signin-error").textContent = err.message; }
+    finally { btn.disabled = false; }
+  };
   $("#btn-signout").onclick = () => signOut();
   $("#composer").onsubmit = e => { e.preventDefault(); const q = $("#question").value.trim(); if (!q) return; $("#question").value = ""; ask(q); };
   $("#question").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("#composer").requestSubmit(); } });

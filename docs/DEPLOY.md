@@ -1,14 +1,17 @@
-# Deploying PACK AI to Modal (the service behind SWIS)
+# Deploying SWIS (PACK AI) to Modal
 
-PACK AI runs as a Modal app named **pack-ai**. Its main endpoint, `api`, serves SWIS. Users are signed
-in by SWIS through Azure SSO, so PACK AI needs no sign-in of its own. These steps need your accounts,
-so you run them. No secret ever goes into chat or the repository.
+PACK AI runs as a Modal app named **pack-ai** in workspace **`yuttana858`**, environment **`SWIS`**.
 
-**Where it runs:** Modal workspace **`yuttana858`**, environment **`SWIS`**. Callers use the proxy token named **SWIS AI** from that workspace. The expected address is `https://yuttana858-swis--pack-ai.modal.run`; Modal prints the exact address when you deploy, so use that one if it differs.
+| Endpoint | Address (Modal prints the exact one on deploy) | Who uses it | Protection |
+|---|---|---|---|
+| `web`: the SWIS chat page and API | `https://yuttana858-swis--pack-ai.modal.run` | You in a browser; later other systems | Your login (single user for now; Azure SSO later). Service callers use the service key |
+| `mcp_http`: knowledge tools for Claude clients (optional) | `https://yuttana858-swis--pack-ai-mcp-http.modal.run/mcp` | Claude Code / other Claude clients | The **SWIS AI** proxy token |
+
+These steps need your accounts, so you run them on your computer. No secret ever goes into chat or the repository.
 
 ---
 
-## 1. Log in to Modal on your computer
+## 1. Log in to Modal
 
 ```bash
 pip install modal
@@ -18,7 +21,7 @@ pip install modal
 python3 -m modal setup
 ```
 
-This opens your browser. Sign in, and select workspace **yuttana858**. Then make `SWIS` the default environment for your commands:
+Sign in in the browser and select workspace **yuttana858**. Then make `SWIS` your default environment:
 
 ```bash
 modal config set-environment SWIS
@@ -26,28 +29,40 @@ modal config set-environment SWIS
 
 ## 2. Give GitHub Actions a deploy token
 
-1. In the Modal dashboard, open workspace **yuttana858** and go to **Settings → API Tokens → New token**. Name it `github-actions-deploy`. Copy the token id and secret.
+1. In the Modal dashboard, open workspace **yuttana858** and go to **Settings → API Tokens → New token**. Name it `github-actions-deploy`.
 2. In GitHub, open **yuttana858/SW_Pack_AI → Settings → Secrets and variables → Actions → New repository secret**. Create:
    - `MODAL_TOKEN_ID`: the token id
    - `MODAL_TOKEN_SECRET`: the token secret
 
-## 3. Create the two Modal secrets (your computer)
+## 3. Choose your SWIS password and create the secrets
 
-**PACK AI service settings.** This generates the service key on your machine and prints it once. Store it in SWIS's server-side secrets, because SWIS sends it as `X-Service-Key`.
+**a. Make a password hash.** From the repository folder on your computer, run:
+
+```bash
+python3 -m webapp.passwords
+```
+
+Type a password of 12+ characters twice; nothing is shown. The command prints one line starting with `scrypt$…`. That's the **hash**, and only the hash goes to Modal. Copy the whole line.
+
+**b. Create the web secret.** Replace `<your-username>` with the username you'll sign in with, and paste the hash between the **single quotes**. The quotes matter, because the hash contains `$` signs.
 
 Mac or Linux:
 
 ```bash
-KEY=$(python3 -c "import secrets; print(secrets.token_urlsafe(48))"); echo "PACKAI_SERVICE_KEY for SWIS: $KEY"; modal secret create --env SWIS pack-ai-api SWPACK_ENV=production SWPACK_AUTH_MODE=proxy PACKAI_SERVICE_KEY=$KEY SWPACK_ASSISTANT_NAME=SWIS
+modal secret create --env SWIS pack-ai-web SWPACK_ENV=production SWPACK_AUTH_MODE=password PACKAI_ADMIN_USER=<your-username> PACKAI_ADMIN_PASSWORD_HASH='<paste the scrypt$… line>' SWPACK_SESSION_SECRET=$(python3 -c "import secrets; print(secrets.token_urlsafe(48))") SWPACK_ASSISTANT_NAME=SWIS
 ```
 
 Windows PowerShell:
 
 ```powershell
-$KEY = python -c "import secrets; print(secrets.token_urlsafe(48))"; Write-Output "PACKAI_SERVICE_KEY for SWIS: $KEY"; modal secret create --env SWIS pack-ai-api SWPACK_ENV=production SWPACK_AUTH_MODE=proxy PACKAI_SERVICE_KEY=$KEY SWPACK_ASSISTANT_NAME=SWIS
+$S = python -c "import secrets; print(secrets.token_urlsafe(48))"; modal secret create --env SWIS pack-ai-web SWPACK_ENV=production SWPACK_AUTH_MODE=password PACKAI_ADMIN_USER=<your-username> PACKAI_ADMIN_PASSWORD_HASH='<paste the scrypt$… line>' SWPACK_SESSION_SECRET=$S SWPACK_ASSISTANT_NAME=SWIS
 ```
 
-**Claude API key.** Until you have one, use the placeholder `none`. The service then answers in search-only mode.
+Optional extras you can add to the same command:
+- `PACKAI_ADMIN_PLANTS=<plant-id>`: which plant data you see first. Leave it out for library data only.
+- `PACKAI_SERVICE_KEY=<48+ random characters>`: lets another system call the API with `X-Service-Key` (see `docs/SWIS-INTEGRATION.md`).
+
+**c. Claude API key.** Until you have one, use the placeholder `none`; SWIS then answers in search-only mode.
 
 ```bash
 modal secret create --env SWIS anthropic ANTHROPIC_API_KEY=none
@@ -59,7 +74,7 @@ When you have a key, replace it with:
 modal secret create --env SWIS anthropic ANTHROPIC_API_KEY=<your-key> --force
 ```
 
-**Check:** in the Modal dashboard, environment **SWIS**, you should see **Secrets → pack-ai-api** and **anthropic**.
+**Check:** in the Modal dashboard, environment **SWIS**, you should see **Secrets → pack-ai-web** and **anthropic**.
 
 ## 4. Deploy
 
@@ -67,32 +82,31 @@ In GitHub, go to **Actions → deploy-modal → Run workflow**: branch `main`, M
 1. Runs every check.
 2. Builds the knowledge release into the `pack-ai-kb` Volume.
 3. Runs the retrieval eval.
-4. Deploys the app.
+4. Deploys.
 
-At the end of the deploy step, the log prints the endpoint address:
-- **SWIS API:** expected `https://yuttana858-swis--pack-ai.modal.run`
-- **MCP endpoint (optional, for Claude clients):** expected `https://yuttana858-swis--pack-ai-mcp-http.modal.run/mcp`
+The last step's log prints the addresses. Re-run the workflow after any change you want live. Conversations are kept, because they live on the Volume.
 
-Re-run the workflow after any change you want live. Conversations are kept, because they live on the Volume.
+## 5. Sign in
 
-## 5. The "SWIS AI" proxy token
+1. Open the `web` address (expected `https://yuttana858-swis--pack-ai.modal.run`).
+2. Sign in with your username and password.
+3. Ask a question, then a follow-up: SWIS keeps the conversation. Your conversations are listed on the left, and they're still there after a deploy.
 
-Use the existing proxy token **SWIS AI** from workspace yuttana858. Whatever calls PACK AI sends its id (`wk-…`) and secret (`ws-…`) as the `Modal-Key` and `Modal-Secret` headers.
+**Notes:**
+- **Sessions** last 8 hours.
+- **Failed sign-ins:** after 5 in 15 minutes, that address is locked out for the rest of the 15 minutes.
+- **Forgot the password:** repeat step 3a, re-create `pack-ai-web` with `--force` and the new hash, then re-run the deploy.
 
-If the workspace uses role-based access, the token must be allowed for environment **SWIS**: in the dashboard, open **Settings → Proxy Auth Tokens → SWIS AI**, or run `modal workspace proxy-tokens allow`.
+## 6. Optional: knowledge tools for Claude clients (MCP)
 
-## 6. Test from a terminal
-
-Replace the values in angle brackets (`<…>`):
-
-```bash
-curl -sS https://yuttana858-swis--pack-ai.modal.run/api/me -H "Modal-Key: <wk-…>" -H "Modal-Secret: <ws-…>" -H "X-Service-Key: <service key>" -H "X-User-Id: test-user" -H "X-User-Roles: engineer"
-```
-
-The expected reply contains `"name": "test-user"` and the roles. Then follow the ask examples in `docs/SWIS-INTEGRATION.md`.
+The `mcp_http` endpoint needs the **SWIS AI** proxy token. Clients send its id (`wk-…`) and secret (`ws-…`) as `Modal-Key` and `Modal-Secret` headers. If the workspace uses role-based access, allow the token for environment **SWIS** (**Settings → Proxy Auth Tokens → SWIS AI**).
 
 ---
 
-## Optional: the PACK AI page later
+## Later: Azure SSO
 
-`webapp/static/` is a complete chat page: citations, sources, feedback and a review queue. It can become the "fully functional harness". It would sign users in with Azure SSO directly, and `webapp/auth.py` already verifies Entra ID tokens (see `docs/IDENTITY-SETUP.md`). Or it can sit inside SWIS's front end. The GitHub sign-in code (`webapp/github_auth.py`) stays in the repository but is not used.
+When your Azure SSO system is ready, switch the mode in the `pack-ai-web` secret:
+- **The page signs users in with Entra ID itself:** `SWPACK_AUTH_MODE=oidc`, with `webapp/auth.yaml` filled in as described in `docs/IDENTITY-SETUP.md`.
+- **Your SSO front end calls PACK AI and passes the user:** `SWPACK_AUTH_MODE=proxy` with the service key (`docs/SWIS-INTEGRATION.md`).
+
+Conversations, the knowledge base and the page stay the same.

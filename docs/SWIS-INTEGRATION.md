@@ -24,6 +24,10 @@ Why one assistant named SWIS, rather than a separate SWIS model calling PACK AI 
 
 ---
 
+## Current setup (interim)
+
+SWIS is live as the **chat page** at the `web` address, with a **single-user login** (`docs/DEPLOY.md`). Azure SSO comes later. The page uses the same API described below, signed in with a session token instead of the service headers. Other systems can call the same address with the service key (`PACKAI_SERVICE_KEY`) and `X-User-*` headers. In this mode the endpoint is not behind Modal proxy auth, because browsers can't hold proxy tokens; the `Modal-Key` / `Modal-Secret` headers below are needed only if the endpoint is deployed with proxy auth.
+
 ## Authentication
 
 Every request carries **two** credentials, plus the signed-in user.

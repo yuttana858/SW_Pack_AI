@@ -3,18 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PACK AI</title>
+  <title>SWIS · PACK AI</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
   <!-- Sign-in -->
   <section id="signin" class="signin" hidden>
     <div class="signin-card">
-      <h1>PACK AI</h1>
-      <p class="muted">Packaging engineering assistant</p>
+      <h1>SWIS</h1>
+      <p class="muted">PACK AI packaging engineering assistant</p>
       <div id="signin-oidc" hidden>
         <button id="btn-oidc" class="primary">Sign in with company account</button>
       </div>
+      <form id="signin-password" hidden>
+        <label for="username">Username</label>
+        <input id="username" name="username" autocomplete="username" required>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+        <button id="btn-login" class="primary" type="submit">Sign in</button>
+      </form>
       <div id="signin-github" hidden>
         <a id="btn-github" class="button primary" href="/auth/github/login">Sign in with GitHub</a>
         <p class="muted small" id="github-org-note"></p>
@@ -33,7 +40,7 @@
   <div id="app" class="app" hidden>
     <header class="topbar">
       <button id="btn-menu" class="icon-btn only-narrow" aria-label="Show conversations">☰</button>
-      <span class="brand">PACK AI</span>
+      <span class="brand">SWIS</span><span class="brand-sub">PACK AI</span>
       <span id="mode-badge" class="badge"></span>
       <span class="spacer"></span>
       <label for="plant" class="plant-label">Plant</label>
@@ -56,7 +63,7 @@
       <section id="chat-view" class="chat-view">
         <div id="thread" class="thread" aria-live="polite">
           <div id="empty" class="empty">
-            <h2>Ask a packaging engineering question</h2>
+            <h2>Ask SWIS a packaging engineering question</h2>
             <p class="muted">Answers come from the company knowledge base and tested calculators, with sources.</p>
             <div class="examples">
               <button class="example">What ECT do I need for a 12 kg box, 400 × 300 mm, stacked 5 high for 90 days at 80 %RH?</button>

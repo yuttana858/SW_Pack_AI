@@ -55,6 +55,11 @@ class DevLoginIn(BaseModel):
     persona: str
 
 
+class LoginIn(BaseModel):
+    username: str = Field(min_length=1, max_length=200)
+    password: str = Field(min_length=1, max_length=500)
+
+
 def _jsonable(messages: list) -> list:
     out = []
     for m in messages:
@@ -142,6 +147,17 @@ def create_app(service: KnowledgeService, store: Store, auth: Authenticator, res
         r = RedirectResponse(target, status_code=302)
         r.delete_cookie(STATE_COOKIE, path="/auth/github")
         return r
+
+    @app.post("/api/login")
+    def login(body: LoginIn, request: Request):
+        client = request.headers.get("x-forwarded-for", "").split(",")[0].strip() or (request.client.host if request.client else "?")
+        try:
+            token = auth.password_login(body.username, body.password, client)
+        except AuthError as e:
+            store.audit("anonymous", "sign-in-failed", {"client": client, "status": e.status})
+            raise
+        store.audit(body.username.strip().lower(), "sign-in", {"client": client})
+        return {"token": token}
 
     @app.post("/api/dev/login")
     def dev_login(body: DevLoginIn):

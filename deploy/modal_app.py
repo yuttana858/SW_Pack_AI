@@ -1,9 +1,9 @@
 """Modal deployment for PACK AI (app "pack-ai" in workspace "yuttana858", environment "SWIS").
 
-SWIS API:     https://yuttana858-swis--pack-ai.modal.run   (function api, label "pack-ai", proxy auth)
+SWIS page+API: https://yuttana858-swis--pack-ai.modal.run  (function web, label "pack-ai", login / service key)
 MCP endpoint: https://yuttana858-swis--pack-ai-mcp-http.modal.run/mcp
 (Modal prints the exact URLs on deploy; non-default environments add "-<environment>" to the workspace.)
-Callers authenticate with the "SWIS AI" proxy token of this workspace/environment.
+The MCP endpoint is protected by the "SWIS AI" proxy token of this workspace/environment.
 
 NOT DEPLOYED YET: requires the company's Modal workspace. When ready:
 
@@ -119,25 +119,24 @@ def ask(question: str, plant: str | None = None, machine: str | None = None, eff
                         for m in r.messages]}
 
 
-@app.function(volumes={VOL_PATH: volume}, secrets=[modal.Secret.from_name("anthropic"), modal.Secret.from_name("pack-ai-api")],
+@app.function(volumes={VOL_PATH: volume}, secrets=[modal.Secret.from_name("anthropic"), modal.Secret.from_name("pack-ai-web")],
               max_containers=1, scaledown_window=900, timeout=900)
 @modal.concurrent(max_inputs=16)
-@modal.asgi_app(label="pack-ai", requires_proxy_auth=True)
-def api():
-    """PACK AI service for SWIS (and later the PACK AI page): conversations with session memory,
-    knowledge search/read and calculators. See docs/SWIS-INTEGRATION.md.
+@modal.asgi_app(label="pack-ai", requires_proxy_auth=False)
+def web():
+    """SWIS (PACK AI) chat page + API, with session memory. See docs/DEPLOY.md and docs/SWIS-INTEGRATION.md.
 
-    Access needs BOTH a Modal proxy token (Modal-Key / Modal-Secret headers) and the PACK AI service
-    key (X-Service-Key). The caller has already signed the user in (Azure SSO) and passes X-User-Id,
-    X-User-Name, X-User-Email, X-User-Plants and X-User-Roles.
+    Public URL (browsers cannot hold Modal proxy tokens), protected by:
+      - single-user login (interim until Azure SSO): PACKAI_ADMIN_USER + scrypt PACKAI_ADMIN_PASSWORD_HASH,
+        8-hour sessions, failed attempts rate-limited;
+      - service callers: X-Service-Key (PACKAI_SERVICE_KEY) + X-User-* headers.
 
-    Secret "pack-ai-api": SWPACK_ENV=production, SWPACK_AUTH_MODE=proxy, PACKAI_SERVICE_KEY, and
-    optionally SWPACK_ASSISTANT_NAME (default SWIS). Secret "anthropic": ANTHROPIC_API_KEY (the
-    placeholder "none" keeps search-only mode).
+    Secret "pack-ai-web": SWPACK_ENV=production, SWPACK_AUTH_MODE=password, PACKAI_ADMIN_USER,
+    PACKAI_ADMIN_PASSWORD_HASH, SWPACK_SESSION_SECRET, optional PACKAI_SERVICE_KEY, PACKAI_ADMIN_PLANTS,
+    SWPACK_ASSISTANT_NAME (default SWIS). Secret "anthropic": ANTHROPIC_API_KEY ("none" = search-only).
 
-    Session memory lives in SQLite on the Volume; every mutating request commits the Volume so
-    conversations survive restarts and redeploys. max_containers=1 keeps SQLite safe; move to
-    Postgres before scaling out.
+    Session memory lives in SQLite on the Volume; every successful write commits the Volume so
+    conversations survive restarts and redeploys. max_containers=1 keeps SQLite safe.
     """
     import os  # noqa: PLC0415
 
