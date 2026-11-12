@@ -51,6 +51,10 @@ class DecisionIn(BaseModel):
     note: str | None = Field(default=None, max_length=4000)
 
 
+class PrefsIn(BaseModel):
+    theme: Literal["system", "light", "dark"] | None = None
+
+
 class DevLoginIn(BaseModel):
     persona: str
 
@@ -203,6 +207,35 @@ def create_app(service: KnowledgeService, store: Store, auth: Authenticator, res
         return {"id": cid, "title": conv["title"], "plant": conv["plant"],
                 "messages": [{"id": m["id"], "question": m["question"], "answer": m["answer"], **m["meta"]}
                              for m in store.messages(cid)]}
+
+    # ---- knowledge base browsing --------------------------------------------------------
+    @app.get("/api/kb/documents")
+    def kb_documents(ident: Identity = Depends(identity), x_swpack_plant: str | None = Header(default=None)):
+        r = service.documents(ctx_for(ident, plant_of(ident, x_swpack_plant)))
+        return {"release_id": r["release_id"], "documents": r["result"]}
+
+    @app.get("/api/kb/documents/{doc_id:path}")
+    def kb_document(doc_id: str, ident: Identity = Depends(identity), x_swpack_plant: str | None = Header(default=None)):
+        res = service.document(ctx_for(ident, plant_of(ident, x_swpack_plant)), doc_id)["result"]
+        if "error" in res:
+            raise HTTPException(404, res["error"])
+        return res
+
+    @app.get("/api/kb/search")
+    def kb_search(q: str, k: int = 20, ident: Identity = Depends(identity), x_swpack_plant: str | None = Header(default=None)):
+        if not q.strip():
+            return {"results": []}
+        res = service.search(ctx_for(ident, plant_of(ident, x_swpack_plant)), q[:500], max(1, min(k, 25)))
+        return {"results": [{**h, "doc_id": (service.index.read(h["id"]) or {}).get("doc_id")} for h in res["result"]]}
+
+    # ---- user preferences -------------------------------------------------------------
+    @app.get("/api/prefs")
+    def get_prefs(ident: Identity = Depends(identity)):
+        return {"theme": "system", **store.get_prefs(ident.sub)}
+
+    @app.put("/api/prefs")
+    def put_prefs(body: PrefsIn, ident: Identity = Depends(identity)):
+        return {"theme": "system", **store.set_prefs(ident.sub, body.model_dump(exclude_none=True))}
 
     @app.get("/api/chunk/{chunk_id:path}")
     def chunk(chunk_id: str, ident: Identity = Depends(identity), x_swpack_plant: str | None = Header(default=None)):

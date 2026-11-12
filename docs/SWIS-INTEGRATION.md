@@ -99,6 +99,10 @@ curl -sS https://yuttana858-swis--pack-ai.modal.run/api/ask -H "Modal-Key: $MODA
 | `GET /api/chunk/{chunk_id}` | The full cited section or data card, for a "show source" panel |
 | `POST /api/feedback` | `{message_id, rating: 1 or -1, comment?, correction?}`. A correction goes to the review queue |
 | `GET /api/proposals` · `POST /api/proposals/{id}/decision` | Review queue for stewards and plant admins |
+| `GET /api/kb/documents` | Every knowledge-base document the user may see: title, topic group, status, confidence, section count |
+| `GET /api/kb/documents/{doc_id}` | One document in reading order (all sections) plus its references |
+| `GET /api/kb/search?q=…&k=20` | Ranked sections, each with its `doc_id` |
+| `GET /api/prefs` · `PUT /api/prefs` | The user's preferences, e.g. `{"theme": "system" or "light" or "dark"}` |
 | `GET /api/config` | Service mode and knowledge release (no credentials needed beyond Modal's) |
 
 ### What SWIS should show

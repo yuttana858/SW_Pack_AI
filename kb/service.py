@@ -57,6 +57,42 @@ class KnowledgeService:
         hits.sort(key=lambda h: (-h["score"], rank[h["scope"].split(":")[0]]))
         return self._envelope(hits)
 
+    # ---- browsing (knowledge base page) -----------------------------------------------
+    def documents(self, ctx: UserContext) -> dict:
+        """Every document the user may see: corpus files and data records, with section counts."""
+        allowed = set(self._scope_filter(ctx))
+        docs: dict[str, dict] = {}
+        for c in self.index.chunks:
+            if c["scope"] not in allowed:
+                continue
+            d = docs.get(c["doc_id"])
+            if d is None:
+                group = c["domain"] if c["kind"] == "corpus" else "library"
+                docs[c["doc_id"]] = d = {"id": c["doc_id"], "title": c["title"], "kind": c["kind"], "group": group,
+                                         "record_type": c["domain"] if c["kind"] == "card" else None,
+                                         "confidence": c["confidence"], "status": c["status"], "scope": c["scope"],
+                                         "material_family": c["material_family"], "path": c["path"], "sections": 0}
+            d["sections"] += 1
+        return self._envelope(sorted(docs.values(), key=lambda d: (d["group"], d["title"].lower())))
+
+    def document(self, ctx: UserContext, doc_id: str) -> dict:
+        """One document in reading order: its sections and the unique references they cite."""
+        allowed = set(self._scope_filter(ctx))
+        parts = [c for c in self.index.chunks if c["doc_id"] == doc_id and c["scope"] in allowed]
+        if not parts:
+            return self._envelope({"error": f"no document {doc_id!r} in your scope"})
+        refs: dict[str, dict] = {}
+        for c in parts:
+            for r in c.get("citations") or []:
+                refs.setdefault(r["id"], r)
+        first = parts[0]
+        return self._envelope({
+            "id": doc_id, "title": first["title"], "kind": first["kind"], "path": first["path"],
+            "confidence": first["confidence"], "status": first["status"], "scope": first["scope"],
+            "material_family": first["material_family"],
+            "sections": [{"id": c["id"], "heading": c["heading"], "text": c["text"]} for c in parts],
+            "references": sorted(refs.values(), key=lambda r: int(r["id"][1:]) if r["id"][1:].isdigit() else 0)})
+
     def read(self, ctx: UserContext, chunk_id: str) -> dict:
         c = self.index.read(chunk_id)
         if c is None or c["scope"] not in self._scope_filter(ctx):

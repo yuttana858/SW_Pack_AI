@@ -28,6 +28,8 @@ CREATE TABLE IF NOT EXISTS proposals (
   id TEXT PRIMARY KEY, kind TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'open', plant TEXT,
   message_id TEXT, target_ref TEXT, body_json TEXT NOT NULL, created_by TEXT NOT NULL, created REAL,
   decided_by TEXT, decided REAL, decision_note TEXT);
+CREATE TABLE IF NOT EXISTS prefs (
+  user_sub TEXT PRIMARY KEY, prefs_json TEXT NOT NULL DEFAULT '{}', updated REAL);
 CREATE TABLE IF NOT EXISTS audit (
   id INTEGER PRIMARY KEY AUTOINCREMENT, ts REAL, user_sub TEXT, action TEXT, detail_json TEXT);
 CREATE INDEX IF NOT EXISTS conv_user ON conversations(user_sub, updated);
@@ -92,6 +94,17 @@ class Store:
     def message(self, mid: str) -> dict | None:
         r = self._x("SELECT m.*, c.plant FROM messages m JOIN conversations c ON c.id=m.conversation_id WHERE m.id=?", (mid,)).fetchone()
         return dict(r) if r else None
+
+    # ---- user preferences ----------------------------------------------------------
+    def get_prefs(self, user: str) -> dict:
+        r = self._x("SELECT prefs_json FROM prefs WHERE user_sub=?", (user,)).fetchone()
+        return json.loads(r["prefs_json"]) if r else {}
+
+    def set_prefs(self, user: str, prefs: dict) -> dict:
+        merged = {**self.get_prefs(user), **prefs}
+        self._x("INSERT INTO prefs(user_sub,prefs_json,updated) VALUES (?,?,?) ON CONFLICT(user_sub) DO UPDATE SET "
+                "prefs_json=excluded.prefs_json, updated=excluded.updated", (user, json.dumps(merged), time.time()))
+        return merged
 
     # ---- feedback & proposals ------------------------------------------------------
     def set_feedback(self, mid: str, user: str, rating: int, comment: str | None) -> None:
