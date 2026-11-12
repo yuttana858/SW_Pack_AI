@@ -44,7 +44,11 @@ function markdown(src) {
     }
     if (/^\s*([-*]|\d+\.) /.test(l)) {
       const ordered = /^\s*\d+\./.test(l); const items = [];
-      while (i < lines.length && /^\s*([-*]|\d+\.) /.test(lines[i])) items.push(lines[i++].replace(/^\s*([-*]|\d+\.) /, ""));
+      while (i < lines.length && /^\s*([-*]|\d+\.) /.test(lines[i])) {
+        let item = lines[i++].replace(/^\s*([-*]|\d+\.) /, "");
+        while (i < lines.length && /^ {2,}\S/.test(lines[i]) && !/^\s*([-*]|\d+\.) /.test(lines[i])) item += " " + lines[i++].trim();
+        items.push(item);
+      }
       out.push(`<${ordered ? "ol" : "ul"}>` + items.map(x => `<li>${inline(x)}</li>`).join("") + `</${ordered ? "ol" : "ul"}>`);
       continue;
     }
@@ -75,6 +79,7 @@ async function openSource(chunkId) {
   try {
     const c = await api(`/api/chunk/${encodeURIComponent(chunkId)}`);
     $("#src-title").textContent = label(c);
+    Object.assign($("#src-open-doc").dataset, { doc: c.doc_id || "", section: c.id || "" });
     $("#src-meta").textContent = `${c.kind === "card" ? "Data card" : "Corpus section"} · ${c.confidence} · ${c.status} · ${c.path}`;
     const cites = (c.citations || []).filter(x => x.url).map(x => `- [${x.id}] ${x.title} — ${x.url}`).join("\n");
     $("#src-body").innerHTML = markdown(c.text + (cites ? `\n\n**References**\n\n${cites}` : ""));
@@ -176,7 +181,7 @@ async function refreshReviewCount() {
 }
 
 async function showReview() {
-  $("#chat-view").hidden = true; $("#review-view").hidden = false;
+  setView("review");
   const { proposals } = await api("/api/proposals?status=open");
   $("#proposal-list").innerHTML = proposals.length ? proposals.map(p => `
     <li class="proposal" data-id="${esc(p.id)}">
@@ -191,13 +196,114 @@ async function showReview() {
     </li>`).join("") : '<li class="muted">No open proposals.</li>';
 }
 
-function showChat() { $("#review-view").hidden = true; $("#chat-view").hidden = false; }
+function showChat() { setView("chat"); }
+
+// ---------- Views (top menu) ------------------------------------------------------------
+function setView(view) {
+  state.view = view;
+  $("#chat-view").hidden = view !== "chat";
+  $("#kb-view").hidden = view !== "kb";
+  $("#review-view").hidden = view !== "review";
+  $("#app").classList.toggle("no-sidebar", view !== "chat");
+  document.querySelectorAll(".topnav [data-view]").forEach(b => { if (b.dataset.view === view) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current"); });
+  if (view === "kb" && !state.kbLoaded) loadKB();
+}
+
+// ---------- Knowledge base browser ---------------------------------------------------------
+const KB_GROUPS = {
+  terminology: "Glossary", materials: "Materials & board grades", performance: "Strength & performance",
+  dimensional: "Dimensions & tolerances", styles: "Box & carton styles", manufacturing: "Manufacturing & machines",
+  testing: "Testing & standards", cushioning: "Cushioning", logistics: "Pallets & logistics", printing: "Printing",
+  sustainability: "Sustainability & regulations", standards: "Freight rules (Item 222 / Rule 41)",
+  reference: "Units & conversions", library: "Engineering library (data cards)", agent: "How SWIS answers",
+};
+const KB_ORDER = Object.keys(KB_GROUPS);
+const RECORD_LABEL = { formula: "Formula", flute_profile: "Flute", grade_table: "Grade table", factor_set: "Strength factors",
+  box_style: "Box style", tolerance_spec: "Tolerances", allowance_table: "Allowances", board_material: "Board", machine_spec: "Machine", plant: "Plant" };
+
+function statusTag(status, confidence) {
+  return `<span class="tag ${status !== "approved" ? "draft" : ""}">${esc(status || "")}</span>` + (confidence ? `<span class="tag">${esc(confidence)}</span>` : "");
+}
+
+async function loadKB() {
+  const { documents } = await api("/api/kb/documents");
+  state.kbLoaded = true; state.kbDocs = documents;
+  const groups = {};
+  documents.forEach(d => (groups[d.group] = groups[d.group] || []).push(d));
+  const keys = Object.keys(groups).sort((a, b) => (KB_ORDER.indexOf(a) + 1 || 99) - (KB_ORDER.indexOf(b) + 1 || 99));
+  $("#kb-count").textContent = `${documents.length} documents · ${documents.reduce((n, d) => n + d.sections, 0)} sections`;
+  $("#kb-tree").innerHTML = keys.map(g => `
+    <details${g === "library" ? "" : ""}>
+      <summary>${esc(KB_GROUPS[g] || g)}<span class="n">${groups[g].length}</span></summary>
+      <ul>${groups[g].map(d => `<li><button data-doc="${esc(d.id)}">${d.record_type ? `<span class="muted small">${esc(RECORD_LABEL[d.record_type] || d.record_type)} · </span>` : ""}${esc(d.title)}</button></li>`).join("")}</ul>
+    </details>`).join("");
+}
+
+async function openDoc(docId, sectionId) {
+  setView("kb");
+  const art = $("#kb-doc");
+  art.innerHTML = '<p class="muted">Loading…</p>';
+  document.querySelectorAll("#kb-tree [data-doc]").forEach(b => b.setAttribute("aria-current", String(b.dataset.doc === docId)));
+  try {
+    const d = await api(`/api/kb/documents/${encodeURIComponent(docId)}`);
+    const showToc = d.sections.length > 2;
+    art.innerHTML = `
+      <h1>${esc(d.title)}</h1>
+      <div class="meta">${statusTag(d.status, d.confidence)}<span class="tag">${esc(d.kind === "card" ? "data card" : "reference document")}</span>${(d.material_family || []).map(f => `<span class="tag">${esc(f)}</span>`).join("")}</div>
+      ${showToc ? `<nav class="toc" aria-label="Sections"><strong>Sections</strong><ol>${d.sections.map(x => `<li><a href="#" data-section="${esc(x.id)}">${esc(x.heading)}</a></li>`).join("")}</ol></nav>` : ""}
+      ${d.sections.map(x => `<section class="part md" id="sec-${esc(x.id)}">${markdown(x.text.replace(/^# .*\n+/, ""))}</section>`).join("")}
+      ${d.references.length ? `<section class="part refs"><h2>References</h2><ul>${d.references.map(r => `<li>[${esc(r.id)}] ${esc(r.title)}${r.url ? ` — <a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.url)}</a>` : ""}</li>`).join("")}</ul></section>` : ""}
+      <p class="muted small">Source file: <code>${esc(d.path)}</code></p>`;
+    art.scrollTop = 0;
+    if (sectionId) scrollToSection(sectionId);
+  } catch (e) { art.innerHTML = `<p class="error">${esc(e.message)}</p>`; }
+}
+
+function scrollToSection(sectionId) {
+  const el = document.getElementById(`sec-${sectionId}`);
+  if (!el) return;
+  document.querySelectorAll("#kb-doc .part.hit").forEach(x => x.classList.remove("hit"));
+  el.classList.add("hit"); el.scrollIntoView({ block: "start" });
+}
+
+let kbTimer = null;
+function kbSearch(q) {
+  clearTimeout(kbTimer);
+  kbTimer = setTimeout(async () => {
+    if (!q.trim()) { $("#kb-tree").hidden = false; $("#kb-results")?.remove(); return; }
+    const { results } = await api(`/api/kb/search?q=${encodeURIComponent(q)}&k=20`);
+    $("#kb-tree").hidden = true;
+    let ul = $("#kb-results");
+    if (!ul) { ul = document.createElement("ul"); ul.id = "kb-results"; ul.className = "kb-results"; $("#kb-tree").after(ul); }
+    ul.innerHTML = results.length ? results.map(r => `<li><button data-doc="${esc(r.doc_id || "")}" data-section="${esc(r.id)}">
+        <span class="h">${esc(r.heading)}</span><span class="s">${esc(r.title)}</span></button></li>`).join("")
+      : '<li class="muted small">No matches.</li>';
+  }, 250);
+}
+
+// ---------- Theme & user menu ----------------------------------------------------------------
+function applyTheme(theme) {
+  const t = theme === "light" || theme === "dark" ? theme : "system";
+  if (t === "system") delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = t;
+  try { localStorage.setItem("swpack_theme", t); } catch { /* storage blocked */ }
+  document.querySelectorAll('input[name="theme"]').forEach(r => { r.checked = r.value === t; });
+}
+try { applyTheme(localStorage.getItem("swpack_theme")); } catch { /* storage blocked */ }
+
+function toggleUserMenu(open) {
+  const pop = $("#user-pop"), btn = $("#btn-user");
+  const show = open ?? pop.hidden;
+  pop.hidden = !show; btn.setAttribute("aria-expanded", String(show));
+}
 
 // ---------- Sign-in ------------------------------------------------------------------
 async function signedIn() {
   state.me = await api("/api/me");
   $("#signin").hidden = true; $("#app").hidden = false;
-  $("#user").textContent = `${state.me.name} · ${state.me.roles.filter(r => r !== "viewer").join(", ") || "viewer"}`;
+  const roles = state.me.roles.filter(r => r !== "viewer").join(", ") || "viewer";
+  $("#user-name").textContent = state.me.name;
+  $("#pop-name").textContent = state.me.name; $("#pop-roles").textContent = roles;
+  api("/api/prefs").then(p => applyTheme(p.theme)).catch(() => {});
   const badge = $("#mode-badge");
   badge.textContent = state.me.responder === "assistant" ? "AI assistant" : "Search-only mode";
   badge.className = `badge ${state.me.responder}`;
@@ -206,7 +312,8 @@ async function signedIn() {
   $("#plant").innerHTML = plants.length ? plants.map(p => `<option>${esc(p)}</option>`).join("") : '<option value="">Library only</option>';
   $("#plant").disabled = plants.length < 2;
   state.plant = plants[0] || null;
-  $("#btn-review").hidden = !canReview();
+  $("#nav-review").hidden = !canReview();
+  state.kbLoaded = false; setView("chat");
   await loadConversations(); refreshReviewCount();
 }
 
@@ -292,14 +399,28 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".example").forEach(b => b.onclick = () => ask(b.textContent));
   const closeMenu = () => $("#sidebar").classList.remove("open");
   $("#btn-new").onclick = () => { closeMenu(); newConversation(); };
-  $("#btn-review").onclick = () => { closeMenu(); showReview(); };
-  $("#btn-back").onclick = showChat;
+  document.querySelectorAll(".topnav [data-view]").forEach(b => b.onclick = () => {
+    closeMenu();
+    if (b.dataset.view === "review") showReview(); else setView(b.dataset.view);
+  });
+  $("#btn-user").onclick = e => { e.stopPropagation(); toggleUserMenu(); };
+  document.addEventListener("click", e => { if (!e.target.closest(".user-menu")) toggleUserMenu(false); });
+  document.querySelectorAll('input[name="theme"]').forEach(r => r.onchange = () => {
+    applyTheme(r.value);
+    api("/api/prefs", { method: "PUT", body: { theme: r.value } }).catch(() => {});
+  });
+  $("#kb-q").addEventListener("input", e => kbSearch(e.target.value));
+  $("#src-open-doc").onclick = e => { e.preventDefault(); const d = e.currentTarget.dataset; $("#source-panel").hidden = true; if (d.doc) openDoc(d.doc, d.section); };
   $("#btn-close-src").onclick = () => { $("#source-panel").hidden = true; };
   $("#btn-menu").onclick = () => $("#sidebar").classList.toggle("open");
   $("#plant").onchange = e => { state.plant = e.target.value || null; newConversation(); };
-  document.addEventListener("keydown", e => { if (e.key === "Escape") $("#source-panel").hidden = true; });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") { $("#source-panel").hidden = true; toggleUserMenu(false); } });
 
   document.body.addEventListener("click", async e => {
+    const docBtn = e.target.closest("[data-doc]");
+    if (docBtn && docBtn.dataset.doc) { e.preventDefault(); openDoc(docBtn.dataset.doc, docBtn.dataset.section); return; }
+    const secLink = e.target.closest("#kb-doc [data-section]");
+    if (secLink) { e.preventDefault(); scrollToSection(secLink.dataset.section); return; }
     const cite = e.target.closest("[data-chunk]");
     if (cite) { e.preventDefault(); openSource(cite.dataset.chunk); return; }
     const conv = e.target.closest("[data-conv]");
