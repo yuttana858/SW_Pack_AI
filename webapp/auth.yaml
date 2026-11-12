@@ -1,9 +1,18 @@
 # Sign-in settings for PACK AI (no secrets here: those live in the Modal secret "pack-ai-web").
-# Mode: GitHub sign-in. Every ACTIVE member of the GitHub organization (SWPACK_GITHUB_ORG) can sign in
-# as a packaging engineer. Add GitHub teams below to grant extra roles or plants.
+#
+# Mode: GitHub sign-in with an APPROVED-USERS LIST (yuttana858 is a personal account, not an organization).
+# To let an engineer in: add their GitHub username under allowed_users, commit, and re-run the deploy workflow.
+# Later, with a GitHub organization: set `org` (or SWPACK_GITHUB_ORG) and every active member gets in;
+# GitHub teams can then grant roles/plants through team_roles / team_plants.
 mode: github
 github:
-  member_role: engineer          # every org member: ask questions and send corrections
-  team_roles:                    # GitHub team slug -> extra role
-    swpack-stewards: steward     #   decides on any correction (create this team when ready)
-  team_plants: {}                # GitHub team slug -> plant id, e.g.  plant-dallas: dallas
+  org: ""                        # empty = approved-users mode
+  member_role: engineer          # everyone who gets in: ask questions and send corrections
+  allowed_users:                 # GitHub usernames (not case-sensitive)
+    - yuttana858
+  user_roles:                    # username -> extra role (steward decides on corrections)
+    yuttana858: steward
+  user_plants: {}                # username -> plant id or list, e.g.  some-engineer: dallas
+  team_roles:                    # organization mode only: team slug -> extra role
+    swpack-stewards: steward
+  team_plants: {}                # organization mode only: team slug -> plant id

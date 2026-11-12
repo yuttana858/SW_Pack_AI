@@ -83,13 +83,17 @@ class AuthConfig:
                 raise RuntimeError("dev authentication is not allowed when SWPACK_ENV=production")
             cfg.dev_secret = os.environ.get("SWPACK_DEV_SECRET") or secrets.token_urlsafe(32)
         elif cfg.mode == "github":
-            g = cfg.github = {"member_role": "engineer", "team_roles": {}, "team_plants": {}, **(cfg.github or {})}
-            g["org"] = os.environ.get("SWPACK_GITHUB_ORG", g.get("org", ""))
+            g = cfg.github = {"member_role": "engineer", "team_roles": {}, "team_plants": {}, "allowed_users": [],
+                              "user_roles": {}, "user_plants": {}, **(cfg.github or {})}
+            g["org"] = os.environ.get("SWPACK_GITHUB_ORG", g.get("org") or "").strip()
+            extra = [u.strip() for u in os.environ.get("SWPACK_GITHUB_USERS", "").split(",") if u.strip()]
+            g["allowed_users"] = sorted({*(g.get("allowed_users") or []), *extra}, key=str.lower)
             g["client_id"] = os.environ.get("GITHUB_CLIENT_ID", "")
             g["client_secret"] = os.environ.get("GITHUB_CLIENT_SECRET", "")
             cfg.session_secret = os.environ.get("SWPACK_SESSION_SECRET", "")
             cfg.public_url = os.environ.get("SWPACK_PUBLIC_URL", cfg.public_url).rstrip("/")
-            missing = [n for n, v in (("SWPACK_GITHUB_ORG", g["org"]), ("GITHUB_CLIENT_ID", g["client_id"]),
+            missing = [n for n, v in (("SWPACK_GITHUB_ORG or allowed_users", g["org"] or g["allowed_users"]),
+                                      ("GITHUB_CLIENT_ID", g["client_id"]),
                                       ("GITHUB_CLIENT_SECRET", g["client_secret"]), ("SWPACK_PUBLIC_URL", cfg.public_url)) if not v]
             if missing:
                 raise RuntimeError(f"github sign-in needs: {', '.join(missing)}")
@@ -172,6 +176,6 @@ class Authenticator:
         if self.cfg.mode == "dev":
             return {"mode": "dev", "personas": {k: {"name": v["name"], "roles": v["roles"]} for k, v in DEV_PERSONAS.items()}}
         if self.cfg.mode == "github":
-            return {"mode": "github", "login_url": "/auth/github/login", "org": self.cfg.github["org"]}
+            return {"mode": "github", "login_url": "/auth/github/login", "org": self.cfg.github["org"] or None}
         o = self.cfg.oidc
         return {"mode": "oidc", "authority": o["issuer"], "client_id": o["client_id"], "scopes": o.get("scopes", "openid profile email")}

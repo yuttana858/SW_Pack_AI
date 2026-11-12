@@ -230,7 +230,7 @@ async function initAuth() {
   if (frag.has("session") || frag.has("error")) history.replaceState({}, "", "/");   // never leave tokens in the address bar
   if (a.mode === "github") {
     $("#signin-github").hidden = false;
-    $("#github-org-note").textContent = `Members of the ${a.org} GitHub organization`;
+    $("#github-org-note").textContent = a.org ? `Members of the ${a.org} GitHub organization` : "Approved GitHub accounts only";
     if (frag.get("error")) $("#signin-error").textContent = frag.get("error");
     const t = frag.get("session") || store.get("swpack_token");
     if (t) { state.token = t; store.set("swpack_token", t); try { return await signedIn(); } catch { store.set("swpack_token", null); } }

@@ -132,7 +132,9 @@ def create_app(service: KnowledgeService, store: Store, auth: Authenticator, res
             token = complete_login(code=code, state=state, cookie_nonce=request.cookies.get(STATE_COOKIE),
                                    client_id=g["client_id"], client_secret=g["client_secret"], secret=auth.cfg.session_secret,
                                    redirect_uri=_gh_redirect_uri(), org=g["org"], member_role=g["member_role"],
-                                   team_roles=g["team_roles"], team_plants=g["team_plants"], http=github_http)
+                                   team_roles=g["team_roles"], team_plants=g["team_plants"],
+                                   allowed_users=g["allowed_users"], user_roles=g["user_roles"],
+                                   user_plants=g["user_plants"], http=github_http)
             target, who = f"/#session={token}", "github-login"
         except GitHubLoginError as e:
             target, who = f"/#error={quote(str(e))}", "github-login-failed"

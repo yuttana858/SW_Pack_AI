@@ -35,7 +35,7 @@ This opens your browser. Sign in with GitHub, and create (or pick) the workspace
 
 ## 3. Register the "Sign in with GitHub" app
 
-In GitHub, go to your **organization → Settings → Developer settings → OAuth Apps → New OAuth App**:
+In GitHub, go to **your profile picture → Settings → Developer settings → OAuth Apps → New OAuth App** (or the same path under an organization's settings, if you later create one). **Done:** registered under `yuttana858`.
 
 | Field | Value |
 |---|---|
@@ -49,10 +49,10 @@ After creating the app, copy the **Client ID**, then **Generate a new client sec
 
 ## 4. Create the Modal secrets (your computer)
 
-First the web app secret. Fill in your GitHub organization name and the two values from step 3:
+First the web app secret. Fill in the two values from step 3 (Client ID and Client secret). There is no organization setting: access is controlled by the approved-users list in `webapp/auth.yaml`.
 
 ```bash
-modal secret create pack-ai-web SWPACK_ENV=production SWPACK_AUTH_MODE=github SWPACK_GITHUB_ORG=<your-github-org> GITHUB_CLIENT_ID=<client-id> GITHUB_CLIENT_SECRET=<client-secret> SWPACK_SESSION_SECRET=$(python3 -c "import secrets; print(secrets.token_urlsafe(48))") SWPACK_PUBLIC_URL=https://swis--pack-ai.modal.run
+modal secret create pack-ai-web SWPACK_ENV=production SWPACK_AUTH_MODE=github GITHUB_CLIENT_ID=<client-id> GITHUB_CLIENT_SECRET=<client-secret> SWPACK_SESSION_SECRET=$(python3 -c "import secrets; print(secrets.token_urlsafe(48))") SWPACK_PUBLIC_URL=https://swis--pack-ai.modal.run
 ```
 
 Then the Claude API key. Until you have a key, use the placeholder `none`, which keeps the app in search-only mode:
@@ -83,12 +83,34 @@ Re-run it after any change you want live. Engineers' conversations are kept, bec
 ## 6. Sign in
 
 Open `https://swis--pack-ai.modal.run` and choose **Sign in with GitHub**.
-- **Who can sign in:** every active member of your organization gets the **engineer** role.
-- **Who is refused:** non-members, and invitations not yet accepted.
+- **Who can sign in:** GitHub accounts on the `allowed_users` list in `webapp/auth.yaml`. Each gets the **engineer** role. `yuttana858` is on the list and is also a **steward**.
+- **Who is refused:** every other GitHub account. They see "not on the PACK AI access list".
 
-## 7. Later: roles and plants through GitHub teams
+## 7. Letting engineers in
 
-Create teams in your GitHub organization and map them in `webapp/auth.yaml`:
+1. Ask each engineer for their **GitHub username** (shown at `github.com/<username>`). An engineer without one creates a free account at github.com.
+2. Add the usernames to `webapp/auth.yaml` under `allowed_users`. To make someone a steward, add them under `user_roles`; to assign plants, add them under `user_plants`:
+
+   ```yaml
+   allowed_users:
+     - yuttana858
+     - jane-packaging
+   user_roles:
+     yuttana858: steward
+   user_plants:
+     jane-packaging: dallas
+   ```
+
+3. Commit the change to `main` and re-run the **deploy-modal** workflow. Engineers can sign in a minute later.
+
+To remove someone, delete their username and redeploy. Their current session ends within 8 hours.
+
+## 8. Later: a GitHub organization (optional)
+
+With a free GitHub organization (github.com/organizations/plan), membership controls access instead of a list. Steps:
+1. Set `org:` in `webapp/auth.yaml`.
+2. Invite the engineers to the organization.
+3. Create teams and map them in `webapp/auth.yaml`:
 
 | Team (example) | Effect |
 |---|---|

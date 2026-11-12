@@ -52,7 +52,7 @@ def login(c):
     assert r.status_code == 302
     q = parse_qs(urlparse(r.headers["location"]).query)
     assert q["scope"] == ["read:user user:email read:org"] and q["client_id"] == ["cid"]
-    assert q["redirect_uri"] == ["https://swis--pack-ai.modal.run/auth/github/callback"]
+    assert q["redirect_uri"][0].endswith("/auth/github/callback")
     return q["state"][0]
 
 
@@ -104,3 +104,45 @@ def test_config_requires_settings(monkeypatch):
         monkeypatch.delenv(k, raising=False)
     with pytest.raises(RuntimeError, match="github sign-in needs"):
         AuthConfig.load()
+
+
+def make_allowlist(http, monkeypatch, users=("Yuttana858",), roles=None):
+    for k, v in {"SWPACK_AUTH_MODE": "github", "GITHUB_CLIENT_ID": "cid", "GITHUB_CLIENT_SECRET": "csecret",
+                 "SWPACK_SESSION_SECRET": SECRET, "SWPACK_PUBLIC_URL": "https://swis--pack-ai.modal.run",
+                 "SWPACK_AUTH_CONFIG": "/nonexistent", "SWPACK_GITHUB_USERS": ",".join(users)}.items():
+        monkeypatch.setenv(k, v)
+    monkeypatch.delenv("SWPACK_GITHUB_ORG", raising=False)
+    cfg = AuthConfig.load()
+    cfg.github.update(user_roles=roles or {"yuttana858": "steward"}, user_plants={"yuttana858": ["dallas"]})
+    svc = KnowledgeService(HybridIndex.build(build_chunks(ROOT)), {"release_id": "t"}, DataStore([]))
+    return TestClient(create_app(svc, Store(":memory:"), Authenticator(cfg), SearchOnlyResponder(svc), github_http=http),
+                      base_url="https://swis--pack-ai.modal.run", follow_redirects=False)
+
+
+def allowlist_github(login):
+    calls = []
+    def handler(req: httpx.Request) -> httpx.Response:
+        calls.append(str(req.url))
+        if "access_token" in str(req.url):
+            return httpx.Response(200, json={"access_token": "gho_test"})
+        if str(req.url).endswith("/user"):
+            return httpx.Response(200, json={"id": 7, "login": login, "name": None, "email": None})
+        return httpx.Response(404)
+    return httpx.Client(transport=httpx.MockTransport(handler)), calls
+
+
+def test_allowlisted_user_signs_in_with_roles(monkeypatch):
+    http, calls = allowlist_github("yuttana858")
+    c = make_allowlist(http, monkeypatch)
+    assert c.get("/api/config").json()["auth"]["org"] is None
+    r = c.get("/auth/github/callback", params={"code": "abc", "state": login(c)})
+    me = c.get("/api/me", headers={"Authorization": f"Bearer {fragment(r)['session']}"}).json()
+    assert set(me["roles"]) == {"viewer", "engineer", "steward"} and me["plants"] == ["dallas"] and me["name"] == "yuttana858"
+    assert not any("memberships" in u or "/user/teams" in u for u in calls)
+
+
+def test_unlisted_user_refused(monkeypatch):
+    http, _ = allowlist_github("stranger")
+    c = make_allowlist(http, monkeypatch)
+    r = c.get("/auth/github/callback", params={"code": "abc", "state": login(c)})
+    assert "not on the PACK AI access list" in unquote(fragment(r)["error"])
