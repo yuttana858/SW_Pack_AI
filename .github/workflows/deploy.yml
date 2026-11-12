@@ -26,6 +26,8 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt "modal>=1.6,<2"
+      - name: Check the Modal deploy token (type and format, values never printed)
+        run: deploy/ci_modal.sh --version
       - name: Checks must pass before deploying
         run: |
           python tools/validate_corpus.py corpus
@@ -35,11 +37,11 @@ jobs:
       - name: Build knowledge release into the Volume
         run: |
           if [ "${{ inputs.embedder }}" = "none" ]; then
-            modal run deploy/modal_app.py::build_index
+            deploy/ci_modal.sh run deploy/modal_app.py::build_index
           else
-            modal run deploy/modal_app.py::build_index --embedder "${{ inputs.embedder }}"
+            deploy/ci_modal.sh run deploy/modal_app.py::build_index --embedder "${{ inputs.embedder }}"
           fi
       - name: Retrieval eval on the deployed release
-        run: modal run deploy/modal_app.py::retrieval_eval
+        run: deploy/ci_modal.sh run deploy/modal_app.py::retrieval_eval
       - name: Deploy web app, MCP endpoint and functions
-        run: modal deploy deploy/modal_app.py
+        run: deploy/ci_modal.sh deploy deploy/modal_app.py
