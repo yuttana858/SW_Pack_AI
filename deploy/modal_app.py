@@ -30,6 +30,8 @@ import modal
 REPO = Path(__file__).resolve().parent.parent
 APP_DIR = "/app"
 VOL_PATH = "/kb"
+PACKAGES = ("kb", "packcalc", "swdata", "agent", "mcp_server", "assistant", "webapp", "evals")
+IGNORE = ["**/__pycache__/**", "**/*.pyc", "**/results/**"]
 
 image = (
     modal.Image.debian_slim(python_version="3.12")
@@ -40,11 +42,11 @@ image = (
     .add_local_dir(str(REPO / "data"), f"{APP_DIR}/data")
     .add_local_dir(str(REPO / "rag"), f"{APP_DIR}/rag")
     .add_local_dir(str(REPO / "schemas"), f"{APP_DIR}/schemas")
-    .add_local_dir(str(REPO / "evals"), f"{APP_DIR}/evals")
-    .add_local_python_source("kb", "packcalc", "swdata", "agent", "mcp_server", "assistant", "webapp")
-    .add_local_dir(str(REPO / "webapp" / "static"), f"{APP_DIR}/webapp/static")
-    .add_local_file(str(REPO / "webapp" / "auth.yaml"), f"{APP_DIR}/webapp/auth.yaml")
 )
+# Code packages go under /app too (not Modal's default /root): the code finds corpus/, data/, rag/ and
+# webapp/static relative to its own location, so everything must share one root.
+for _pkg in PACKAGES:
+    image = image.add_local_dir(str(REPO / _pkg), f"{APP_DIR}/{_pkg}", ignore=IGNORE)
 volume = modal.Volume.from_name("pack-ai-kb", create_if_missing=True)
 app = modal.App("pack-ai", image=image)
 
