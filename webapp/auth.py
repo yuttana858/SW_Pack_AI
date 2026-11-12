@@ -1,6 +1,10 @@
 """Identity for the web app.
 
-Three modes:
+Four modes:
+  proxy   Service mode for SWIS and other front ends that already signed the user in (Azure SSO).
+          The endpoint sits behind Modal proxy auth; each request must also carry the PACK AI service
+          key (X-Service-Key) and the user context headers X-User-Id, X-User-Name, X-User-Email,
+          X-User-Plants and X-User-Roles (comma-separated).
   github  "Sign in with GitHub": server-side OAuth, organization membership required, team ->
           role/plant mapping, then a server-issued session token (webapp/github_auth.py).
   oidc  Verify the bearer JWT (RS256/ES256) from the company identity provider against its JWKS,
@@ -71,6 +75,7 @@ class AuthConfig:
     github: dict = field(default_factory=dict)      # org, member_role, team_roles, team_plants
     session_secret: str = ""
     public_url: str = ""
+    service_key: str = ""
 
     @classmethod
     def load(cls) -> "AuthConfig":
@@ -99,6 +104,10 @@ class AuthConfig:
                 raise RuntimeError(f"github sign-in needs: {', '.join(missing)}")
             if len(cfg.session_secret) < 32:
                 raise RuntimeError("SWPACK_SESSION_SECRET must be at least 32 characters")
+        elif cfg.mode == "proxy":
+            cfg.service_key = os.environ.get("PACKAI_SERVICE_KEY", "")
+            if len(cfg.service_key) < 32:
+                raise RuntimeError("proxy mode needs PACKAI_SERVICE_KEY (at least 32 characters)")
         elif cfg.mode != "oidc":
             raise RuntimeError(f"unknown auth mode {cfg.mode!r}")
         return cfg
@@ -145,6 +154,22 @@ class Authenticator:
                         roles=frozenset(roles), plants=tuple(plants))
 
     # ---- entry point ---------------------------------------------------------------
+    def authenticate_request(self, headers) -> Identity:
+        """Authenticate from request headers (all modes)."""
+        if self.cfg.mode != "proxy":
+            return self.authenticate(headers.get("authorization"))
+        key = headers.get("x-service-key") or ""
+        if not secrets.compare_digest(key.encode(), self.cfg.service_key.encode()):
+            raise AuthError(401, "missing or invalid X-Service-Key")
+        uid = (headers.get("x-user-id") or "").strip()
+        if not uid:
+            raise AuthError(400, "X-User-Id header is required (the signed-in user's stable id)")
+        split = lambda v: tuple(x.strip() for x in (v or "").split(",") if x.strip())  # noqa: E731
+        roles = frozenset({"viewer"} | {r.lower() for r in split(headers.get("x-user-roles"))} & set(ROLE_RANK))
+        return Identity(sub=f"user:{uid}", name=(headers.get("x-user-name") or uid).strip(),
+                        email=(headers.get("x-user-email") or "").strip(), roles=roles,
+                        plants=tuple(sorted(set(split(headers.get("x-user-plants"))))))
+
     def authenticate(self, authorization: str | None) -> Identity:
         if not authorization or not authorization.lower().startswith("bearer "):
             raise AuthError(401, "sign in required")
@@ -175,6 +200,8 @@ class Authenticator:
     def public_config(self) -> dict:
         if self.cfg.mode == "dev":
             return {"mode": "dev", "personas": {k: {"name": v["name"], "roles": v["roles"]} for k, v in DEV_PERSONAS.items()}}
+        if self.cfg.mode == "proxy":
+            return {"mode": "proxy"}
         if self.cfg.mode == "github":
             return {"mode": "github", "login_url": "/auth/github/login", "org": self.cfg.github["org"] or None}
         o = self.cfg.oidc

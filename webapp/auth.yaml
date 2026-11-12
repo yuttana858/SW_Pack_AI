@@ -1,10 +1,9 @@
-# Sign-in settings for PACK AI (no secrets here: those live in the Modal secret "pack-ai-web").
+# Sign-in settings for PACK AI (no secrets here).
 #
-# Mode: GitHub sign-in with an APPROVED-USERS LIST (yuttana858 is a personal account, not an organization).
-# To let an engineer in: add their GitHub username under allowed_users, commit, and re-run the deploy workflow.
-# Later, with a GitHub organization: set `org` (or SWPACK_GITHUB_ORG) and every active member gets in;
-# GitHub teams can then grant roles/plants through team_roles / team_plants.
-mode: github
+# Production (Modal, behind SWIS): the secret "pack-ai-api" sets SWPACK_AUTH_MODE=proxy, which overrides
+# the mode below; SWIS signs users in with Azure SSO and passes them in headers (docs/SWIS-INTEGRATION.md).
+# Local runs default to developer sign-in. The github block is kept for reference only (not used).
+mode: dev
 github:
   org: ""                        # empty = approved-users mode
   member_role: engineer          # everyone who gets in: ask questions and send corrections

@@ -193,6 +193,17 @@ Model: `claude-opus-5-5`, with adaptive thinking and an effort setting per route
 5. Create a proxy auth token for the Cloud AI and attach the endpoint URL + `/mcp`.
 6. Optional: `modal secret create swpack-kb VOYAGE_API_KEY=...`, then rebuild with `embedder="voyage"`.
 
+### SWIS service (2026-11-12): PACK AI as the service behind SWIS
+
+| Item | Status |
+|---|---|
+| Design | One assistant, named **SWIS**, served by PACK AI (rather than a separate SWIS model calling PACK AI for knowledge): one AI call per answer, one memory, all accuracy controls apply |
+| Service mode (`webapp/auth.py`, mode `proxy`) | Done. The caller (SWIS, Azure SSO) passes X-User-Id / Name / Email / Plants / Roles. Requires a Modal proxy token AND the PACK AI service key; unknown roles ignored; plant limited to the user's plants |
+| Session memory | Done. A conversation id returned on the first question; follow-ups replay the whole append-only history; per-user privacy; survives restarts (tested live and in tests); Modal Volume committed after every write |
+| Modal `api` endpoint | `https://<workspace>--pack-ai.modal.run`, `requires_proxy_auth=True`, secret `pack-ai-api`. Written and import-checked; not deployed |
+| Docs | `docs/SWIS-INTEGRATION.md` (headers, ask/follow-up examples, response, endpoints, what to display); `docs/DEPLOY.md` rewritten for this path |
+| GitHub sign-in | Kept in code, not used (users come from Azure SSO through SWIS) |
+
 ### Phase C3 status (2026-11-10): web app built and tested locally; identity provider to be chosen
 
 | Item | Status |

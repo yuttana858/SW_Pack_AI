@@ -1,6 +1,6 @@
 """Modal deployment for PACK AI (app "pack-ai" in workspace "swis").
 
-Web app:      https://swis--pack-ai.modal.run          (function web, label "pack-ai")
+SWIS API:     https://swis--pack-ai.modal.run          (function api, label "pack-ai", proxy auth)
 MCP endpoint: https://swis--pack-ai-mcp-http.modal.run/mcp
 
 NOT DEPLOYED YET: requires the company's Modal workspace. When ready:
@@ -117,20 +117,25 @@ def ask(question: str, plant: str | None = None, machine: str | None = None, eff
                         for m in r.messages]}
 
 
-@app.function(volumes={VOL_PATH: volume}, secrets=[modal.Secret.from_name("anthropic"), modal.Secret.from_name("pack-ai-web")],
+@app.function(volumes={VOL_PATH: volume}, secrets=[modal.Secret.from_name("anthropic"), modal.Secret.from_name("pack-ai-api")],
               max_containers=1, scaledown_window=900, timeout=900)
 @modal.concurrent(max_inputs=16)
-@modal.asgi_app(label="pack-ai")
-def web():
-    """PACK AI web app (phase C3): chat UI + JSON API, signed in through the company identity provider.
+@modal.asgi_app(label="pack-ai", requires_proxy_auth=True)
+def api():
+    """PACK AI service for SWIS (and later the PACK AI page): conversations with session memory,
+    knowledge search/read and calculators. See docs/SWIS-INTEGRATION.md.
 
-    Secret "pack-ai-web" sets SWPACK_ENV=production, SWPACK_AUTH_MODE=github, SWPACK_GITHUB_ORG,
-    GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, SWPACK_SESSION_SECRET and SWPACK_PUBLIC_URL (docs/DEPLOY.md).
-    Role/plant team mapping is in webapp/auth.yaml (baked into the image). Dev sign-in is refused in
-    production. Secret "anthropic" holds ANTHROPIC_API_KEY; the placeholder value "none" keeps the app
-    in search-only mode.
-    max_containers=1 because conversations live in SQLite on the Volume; move to Postgres (phase C4)
-    before scaling out.
+    Access needs BOTH a Modal proxy token (Modal-Key / Modal-Secret headers) and the PACK AI service
+    key (X-Service-Key). The caller has already signed the user in (Azure SSO) and passes X-User-Id,
+    X-User-Name, X-User-Email, X-User-Plants and X-User-Roles.
+
+    Secret "pack-ai-api": SWPACK_ENV=production, SWPACK_AUTH_MODE=proxy, PACKAI_SERVICE_KEY, and
+    optionally SWPACK_ASSISTANT_NAME (default SWIS). Secret "anthropic": ANTHROPIC_API_KEY (the
+    placeholder "none" keeps search-only mode).
+
+    Session memory lives in SQLite on the Volume; every mutating request commits the Volume so
+    conversations survive restarts and redeploys. max_containers=1 keeps SQLite safe; move to
+    Postgres before scaling out.
     """
     import os  # noqa: PLC0415
 
@@ -142,5 +147,14 @@ def web():
 
     volume.reload()
     service = KnowledgeService.load(_current_dir(), Path(APP_DIR) / "data")
-    store = Store(os.environ.get("SWPACK_DB", f"{VOL_PATH}/webapp.db"))
-    return create_app(service, store, Authenticator(AuthConfig.load()), make_responder(service))
+    store = Store(os.environ.get("SWPACK_DB", f"{VOL_PATH}/sessions.db"))
+    fastapi_app = create_app(service, store, Authenticator(AuthConfig.load()), make_responder(service))
+
+    @fastapi_app.middleware("http")
+    async def persist_after_writes(request, call_next):
+        response = await call_next(request)
+        if request.method in ("POST", "PUT", "PATCH", "DELETE") and response.status_code < 400:
+            volume.commit()                     # make session memory durable
+        return response
+
+    return fastapi_app

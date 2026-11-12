@@ -1,6 +1,6 @@
 # PACK AI (project SW_Pack_AI)
 
-Live address once deployed: https://swis--pack-ai.modal.run
+Engineers talk to **SWIS**, the PACK AI assistant. SWIS's front end (Azure SSO) calls the PACK AI service on Modal: `https://<workspace>--pack-ai.modal.run` (proxy-token protected). Integration contract: `docs/SWIS-INTEGRATION.md`; deployment: `docs/DEPLOY.md`.
 
 Foundation for an intelligent packaging-development assistant: a Claude-based RAG system
 that grounds answers in a cited packaging knowledge base and drives Auto3D through tools.

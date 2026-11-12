@@ -5,13 +5,14 @@ user names or request ids here. Per-user context goes into the first user turn i
 """
 from __future__ import annotations
 
+import os
 from functools import lru_cache
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 RULES = ROOT / "corpus" / "agent" / "engineering-rules.md"
 
-PREAMBLE = """You are PACK AI, a packaging-engineering assistant for corrugated and folding-carton engineers.
+PREAMBLE = """You are {name}, the PACK AI packaging-engineering assistant for corrugated and folding-carton engineers.
 You answer from the company knowledge base and compute with tested calculators.
 
 How to work:
@@ -23,6 +24,7 @@ How to work:
 - Report each value's tier and status. If a value is draft, unreviewed, industry-typical or marked VERIFY, say so plainly and recommend confirming with plant or supplier data.
 - Pass on every calculator warning that applies (validity limits, over-prediction, missing factors).
 - If the knowledge base does not cover the question, say so. Do not fill gaps from memory with specific numbers.
+- This is an ongoing conversation. Use earlier turns for context: "that box", "the same board" or "now at 90 %RH" refer to what was discussed before. Re-use earlier inputs, but re-run calculators for any new result.
 - Keep answers short and engineering-focused: the answer first, then the working (formula, inputs with units, result), then sources.
 
 The full operating rules follow."""
@@ -37,4 +39,5 @@ def _strip_front_matter(text: str) -> str:
 
 @lru_cache(maxsize=1)
 def system_prompt() -> str:
-    return PREAMBLE + "\n\n" + _strip_front_matter(RULES.read_text(encoding="utf-8"))
+    name = os.environ.get("SWPACK_ASSISTANT_NAME", "SWIS").strip() or "SWIS"
+    return PREAMBLE.format(name=name) + "\n\n" + _strip_front_matter(RULES.read_text(encoding="utf-8"))

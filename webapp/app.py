@@ -74,8 +74,8 @@ def create_app(service: KnowledgeService, store: Store, auth: Authenticator, res
     async def _auth_error(_: Request, e: AuthError):
         return JSONResponse({"error": str(e)}, status_code=e.status)
 
-    def identity(authorization: str | None = Header(default=None)) -> Identity:
-        return auth.authenticate(authorization)
+    def identity(request: Request) -> Identity:
+        return auth.authenticate_request(request.headers)
 
     def plant_of(ident: Identity, x_swpack_plant: str | None) -> str | None:
         return Authenticator.choose_plant(ident, x_swpack_plant)
