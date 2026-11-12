@@ -44,16 +44,20 @@ select, textarea { background: var(--surface); border: 1px solid var(--border); 
 /* layout */
 .app { display: grid; grid-template-columns: 260px 1fr; grid-template-rows: auto 1fr; height: 100vh; }
 .topbar { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; padding: 10px 16px; background: var(--surface); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
-.brand { font-weight: 700; font-size: 17px; }
+.brand { font-weight: 700; font-size: 17px; letter-spacing: .02em; }
+.brand-sub { font-size: 12px; color: var(--muted); margin-left: -4px; }
+#signin-password { display: grid; gap: 8px; }
+#signin-password input { font: inherit; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); }
 .badge { font-size: 12px; padding: 2px 8px; border-radius: 99px; background: var(--accent-soft); color: var(--accent); }
 .badge.search-only { background: var(--warn-bg); color: var(--warn-text); }
 .spacer { flex: 1; }
 .plant-label { font-size: 13px; color: var(--muted); }
 .user { font-size: 13px; color: var(--muted); }
-.sidebar { background: var(--surface); border-right: 1px solid var(--border); padding: 14px; display: flex; flex-direction: column; gap: 12px; overflow: auto; }
+.sidebar { background: var(--surface); border-right: 1px solid var(--border); padding: 14px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; overflow-x: hidden; min-width: 0; }
 .side-h { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 6px 0; }
-.conv-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
-.conv-list button { width: 100%; text-align: left; border: none; background: transparent; padding: 7px 8px; border-radius: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.conv-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; }
+.conv-list li { min-width: 0; }
+.conv-list button { display: block; width: 100%; text-align: left; border: none; background: transparent; padding: 7px 8px; border-radius: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .conv-list button[aria-current="true"] { background: var(--accent-soft); }
 .conv-list .plant-tag { font-size: 11px; color: var(--muted); margin-left: 4px; }
 .side-foot { margin-top: auto; font-size: 12px; }

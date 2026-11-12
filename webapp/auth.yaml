@@ -1,9 +1,17 @@
-# Sign-in settings for SW Pack AI (no secrets here: those live in the Modal secret "swpack-web").
-# Mode: GitHub sign-in. Every ACTIVE member of the GitHub organization (SWPACK_GITHUB_ORG) can sign in
-# as a packaging engineer. Add GitHub teams below to grant extra roles or plants.
-mode: github
+# Sign-in settings for PACK AI (no secrets here).
+#
+# Production (Modal, behind SWIS): the secret "pack-ai-api" sets SWPACK_AUTH_MODE=proxy, which overrides
+# the mode below; SWIS signs users in with Azure SSO and passes them in headers (docs/SWIS-INTEGRATION.md).
+# Local runs default to developer sign-in. The github block is kept for reference only (not used).
+mode: dev
 github:
-  member_role: engineer          # every org member: ask questions and send corrections
-  team_roles:                    # GitHub team slug -> extra role
-    swpack-stewards: steward     #   decides on any correction (create this team when ready)
-  team_plants: {}                # GitHub team slug -> plant id, e.g.  plant-dallas: dallas
+  org: ""                        # empty = approved-users mode
+  member_role: engineer          # everyone who gets in: ask questions and send corrections
+  allowed_users:                 # GitHub usernames (not case-sensitive)
+    - yuttana858
+  user_roles:                    # username -> extra role (steward decides on corrections)
+    yuttana858: steward
+  user_plants: {}                # username -> plant id or list, e.g.  some-engineer: dallas
+  team_roles:                    # organization mode only: team slug -> extra role
+    swpack-stewards: steward
+  team_plants: {}                # organization mode only: team slug -> plant id

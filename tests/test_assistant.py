@@ -79,7 +79,7 @@ def test_request_shape(service):
     kw = client.calls[0]
     assert kw["model"] == "claude-opus-5-5" and kw["output_config"] == {"effort": "high"}
     assert kw["fallbacks"] == "default" and kw["betas"] == ["server-side-fallback-2026-07-01"]
-    assert kw["system"][0]["cache_control"] == {"type": "ephemeral"} and "SW Pack AI" in kw["system"][0]["text"]
+    assert kw["system"][0]["cache_control"] == {"type": "ephemeral"} and "PACK AI" in kw["system"][0]["text"]
     assert "thinking" not in kw and "temperature" not in kw and "tool_choice" not in kw
     names = [t["name"] for t in kw["tools"]]
     assert "lookup_record" not in names and {"kb_search", "kb_read", "kb_resolve", "box_compression"} <= set(names)

@@ -1,6 +1,13 @@
 """Identity for the web app.
 
-Three modes:
+Five modes:
+  password  Single-user login (username + password, scrypt hash in PACKAI_ADMIN_PASSWORD_HASH),
+            8-hour session tokens, failed attempts rate-limited. Interim until Azure SSO. If
+            PACKAI_SERVICE_KEY is also set, service callers can use X-Service-Key alongside it.
+  proxy   Service mode for SWIS and other front ends that already signed the user in (Azure SSO).
+          The endpoint sits behind Modal proxy auth; each request must also carry the PACK AI service
+          key (X-Service-Key) and the user context headers X-User-Id, X-User-Name, X-User-Email,
+          X-User-Plants and X-User-Roles (comma-separated).
   github  "Sign in with GitHub": server-side OAuth, organization membership required, team ->
           role/plant mapping, then a server-issued session token (webapp/github_auth.py).
   oidc  Verify the bearer JWT (RS256/ES256) from the company identity provider against its JWKS,
@@ -71,6 +78,10 @@ class AuthConfig:
     github: dict = field(default_factory=dict)      # org, member_role, team_roles, team_plants
     session_secret: str = ""
     public_url: str = ""
+    service_key: str = ""
+    admin_user: str = ""
+    admin_password_hash: str = ""
+    admin_plants: tuple = ()
 
     @classmethod
     def load(cls) -> "AuthConfig":
@@ -83,27 +94,87 @@ class AuthConfig:
                 raise RuntimeError("dev authentication is not allowed when SWPACK_ENV=production")
             cfg.dev_secret = os.environ.get("SWPACK_DEV_SECRET") or secrets.token_urlsafe(32)
         elif cfg.mode == "github":
-            g = cfg.github = {"member_role": "engineer", "team_roles": {}, "team_plants": {}, **(cfg.github or {})}
-            g["org"] = os.environ.get("SWPACK_GITHUB_ORG", g.get("org", ""))
+            g = cfg.github = {"member_role": "engineer", "team_roles": {}, "team_plants": {}, "allowed_users": [],
+                              "user_roles": {}, "user_plants": {}, **(cfg.github or {})}
+            g["org"] = os.environ.get("SWPACK_GITHUB_ORG", g.get("org") or "").strip()
+            extra = [u.strip() for u in os.environ.get("SWPACK_GITHUB_USERS", "").split(",") if u.strip()]
+            g["allowed_users"] = sorted({*(g.get("allowed_users") or []), *extra}, key=str.lower)
             g["client_id"] = os.environ.get("GITHUB_CLIENT_ID", "")
             g["client_secret"] = os.environ.get("GITHUB_CLIENT_SECRET", "")
             cfg.session_secret = os.environ.get("SWPACK_SESSION_SECRET", "")
             cfg.public_url = os.environ.get("SWPACK_PUBLIC_URL", cfg.public_url).rstrip("/")
-            missing = [n for n, v in (("SWPACK_GITHUB_ORG", g["org"]), ("GITHUB_CLIENT_ID", g["client_id"]),
+            missing = [n for n, v in (("SWPACK_GITHUB_ORG or allowed_users", g["org"] or g["allowed_users"]),
+                                      ("GITHUB_CLIENT_ID", g["client_id"]),
                                       ("GITHUB_CLIENT_SECRET", g["client_secret"]), ("SWPACK_PUBLIC_URL", cfg.public_url)) if not v]
             if missing:
                 raise RuntimeError(f"github sign-in needs: {', '.join(missing)}")
             if len(cfg.session_secret) < 32:
                 raise RuntimeError("SWPACK_SESSION_SECRET must be at least 32 characters")
+        elif cfg.mode == "password":
+            cfg.admin_user = os.environ.get("PACKAI_ADMIN_USER", "").strip()
+            cfg.admin_password_hash = os.environ.get("PACKAI_ADMIN_PASSWORD_HASH", "").strip()
+            cfg.admin_plants = tuple(p.strip() for p in os.environ.get("PACKAI_ADMIN_PLANTS", "").split(",") if p.strip())
+            cfg.session_secret = os.environ.get("SWPACK_SESSION_SECRET", "")
+            cfg.service_key = os.environ.get("PACKAI_SERVICE_KEY", "")
+            if not cfg.admin_user or not cfg.admin_password_hash.startswith("scrypt$"):
+                raise RuntimeError("password mode needs PACKAI_ADMIN_USER and PACKAI_ADMIN_PASSWORD_HASH (from python -m webapp.passwords)")
+            if len(cfg.session_secret) < 32:
+                raise RuntimeError("SWPACK_SESSION_SECRET must be at least 32 characters")
+            if cfg.service_key and len(cfg.service_key) < 32:
+                raise RuntimeError("PACKAI_SERVICE_KEY must be at least 32 characters")
+        elif cfg.mode == "proxy":
+            cfg.service_key = os.environ.get("PACKAI_SERVICE_KEY", "")
+            if len(cfg.service_key) < 32:
+                raise RuntimeError("proxy mode needs PACKAI_SERVICE_KEY (at least 32 characters)")
         elif cfg.mode != "oidc":
             raise RuntimeError(f"unknown auth mode {cfg.mode!r}")
         return cfg
+
+
+class LoginLimiter:
+    """At most MAX_FAILS failed logins per client per WINDOW_S; then that client is locked until the window passes."""
+    MAX_FAILS, WINDOW_S = 5, 15 * 60
+
+    def __init__(self):
+        self.fails: dict[str, list[float]] = {}
+
+    def check(self, client: str) -> None:
+        now = time.time()
+        recent = [t for t in self.fails.get(client, []) if now - t < self.WINDOW_S]
+        self.fails[client] = recent
+        if len(recent) >= self.MAX_FAILS:
+            raise AuthError(429, "too many failed sign-in attempts; try again in 15 minutes")
+
+    def failed(self, client: str) -> None:
+        self.fails.setdefault(client, []).append(time.time())
+
+    def succeeded(self, client: str) -> None:
+        self.fails.pop(client, None)
 
 
 class Authenticator:
     def __init__(self, cfg: AuthConfig, jwk_client: jwt.PyJWKClient | None = None):
         self.cfg = cfg
         self._jwks = jwk_client
+        self.limiter = LoginLimiter()
+
+    # ---- single-user password login -----------------------------------------------
+    def password_login(self, username: str, password: str, client: str) -> str:
+        from .passwords import verify_password  # noqa: PLC0415
+        if self.cfg.mode != "password":
+            raise AuthError(404, "password sign-in is not enabled")
+        self.limiter.check(client)
+        user_ok = secrets.compare_digest(username.strip().lower().encode(), self.cfg.admin_user.lower().encode())
+        pw_ok = verify_password(password, self.cfg.admin_password_hash)      # always run, even for a wrong user
+        if not (user_ok and pw_ok):
+            self.limiter.failed(client)
+            raise AuthError(401, "wrong username or password")
+        self.limiter.succeeded(client)
+        now = int(time.time())
+        return jwt.encode({"iss": "swpack-session", "sub": f"local:{self.cfg.admin_user.lower()}", "iat": now,
+                           "exp": now + 8 * 3600, "name": self.cfg.admin_user, "email": self.cfg.admin_user,
+                           "roles": ["engineer", "steward"], "plants": list(self.cfg.admin_plants)},
+                          self.cfg.session_secret, algorithm="HS256")
 
     # ---- dev ---------------------------------------------------------------------
     def issue_dev_token(self, persona: str, ttl_s: int = 8 * 3600) -> str:
@@ -141,13 +212,32 @@ class Authenticator:
                         roles=frozenset(roles), plants=tuple(plants))
 
     # ---- entry point ---------------------------------------------------------------
+    def authenticate_request(self, headers) -> Identity:
+        """Authenticate from request headers (all modes)."""
+        service_call = self.cfg.mode == "proxy" or (self.cfg.mode == "password" and self.cfg.service_key
+                                                     and headers.get("x-service-key") is not None)
+        if not service_call:
+            return self.authenticate(headers.get("authorization"))
+        key = headers.get("x-service-key") or ""
+        if not secrets.compare_digest(key.encode(), self.cfg.service_key.encode()):
+            raise AuthError(401, "missing or invalid X-Service-Key")
+        uid = (headers.get("x-user-id") or "").strip()
+        if not uid:
+            raise AuthError(400, "X-User-Id header is required (the signed-in user's stable id)")
+        split = lambda v: tuple(x.strip() for x in (v or "").split(",") if x.strip())  # noqa: E731
+        roles = frozenset({"viewer"} | {r.lower() for r in split(headers.get("x-user-roles"))} & set(ROLE_RANK))
+        return Identity(sub=f"user:{uid}", name=(headers.get("x-user-name") or uid).strip(),
+                        email=(headers.get("x-user-email") or "").strip(), roles=roles,
+                        plants=tuple(sorted(set(split(headers.get("x-user-plants"))))))
+
     def authenticate(self, authorization: str | None) -> Identity:
         if not authorization or not authorization.lower().startswith("bearer "):
             raise AuthError(401, "sign in required")
         token = authorization.split(" ", 1)[1].strip()
         try:
-            if self.cfg.mode in ("dev", "github"):
-                secret, iss = (self.cfg.dev_secret, "swpack-dev") if self.cfg.mode == "dev" else (self.cfg.session_secret, "swpack-github")
+            if self.cfg.mode in ("dev", "github", "password"):
+                secret, iss = {"dev": (self.cfg.dev_secret, "swpack-dev"), "github": (self.cfg.session_secret, "swpack-github"),
+                               "password": (self.cfg.session_secret, "swpack-session")}[self.cfg.mode]
                 claims = jwt.decode(token, secret, algorithms=["HS256"], issuer=iss, options={"require": ["exp", "sub"]})
                 return Identity(sub=claims["sub"], name=claims.get("name", ""), email=claims.get("email", ""),
                                 roles=frozenset({"viewer", *claims.get("roles", [])}), plants=tuple(claims.get("plants", [])))
@@ -171,7 +261,11 @@ class Authenticator:
     def public_config(self) -> dict:
         if self.cfg.mode == "dev":
             return {"mode": "dev", "personas": {k: {"name": v["name"], "roles": v["roles"]} for k, v in DEV_PERSONAS.items()}}
+        if self.cfg.mode == "proxy":
+            return {"mode": "proxy"}
+        if self.cfg.mode == "password":
+            return {"mode": "password"}
         if self.cfg.mode == "github":
-            return {"mode": "github", "login_url": "/auth/github/login", "org": self.cfg.github["org"]}
+            return {"mode": "github", "login_url": "/auth/github/login", "org": self.cfg.github["org"] or None}
         o = self.cfg.oidc
         return {"mode": "oidc", "authority": o["issuer"], "client_id": o["client_id"], "scopes": o.get("scopes", "openid profile email")}

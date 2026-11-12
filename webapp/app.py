@@ -1,4 +1,4 @@
-"""SW Pack AI web app (phase C3).
+"""PACK AI web app (phase C3).
 
   python -m webapp.app                      # http://127.0.0.1:8080 (dev sign-in, search-only without API key)
   SWPACK_AUTH_MODE=oidc python -m webapp.app
@@ -55,6 +55,11 @@ class DevLoginIn(BaseModel):
     persona: str
 
 
+class LoginIn(BaseModel):
+    username: str = Field(min_length=1, max_length=200)
+    password: str = Field(min_length=1, max_length=500)
+
+
 def _jsonable(messages: list) -> list:
     out = []
     for m in messages:
@@ -68,14 +73,14 @@ def _jsonable(messages: list) -> list:
 
 def create_app(service: KnowledgeService, store: Store, auth: Authenticator, responder: Responder,
                github_http=None) -> FastAPI:
-    app = FastAPI(title="SW Pack AI", docs_url=None, redoc_url=None)
+    app = FastAPI(title="PACK AI", docs_url=None, redoc_url=None)
 
     @app.exception_handler(AuthError)
     async def _auth_error(_: Request, e: AuthError):
         return JSONResponse({"error": str(e)}, status_code=e.status)
 
-    def identity(authorization: str | None = Header(default=None)) -> Identity:
-        return auth.authenticate(authorization)
+    def identity(request: Request) -> Identity:
+        return auth.authenticate_request(request.headers)
 
     def plant_of(ident: Identity, x_swpack_plant: str | None) -> str | None:
         return Authenticator.choose_plant(ident, x_swpack_plant)
@@ -132,7 +137,9 @@ def create_app(service: KnowledgeService, store: Store, auth: Authenticator, res
             token = complete_login(code=code, state=state, cookie_nonce=request.cookies.get(STATE_COOKIE),
                                    client_id=g["client_id"], client_secret=g["client_secret"], secret=auth.cfg.session_secret,
                                    redirect_uri=_gh_redirect_uri(), org=g["org"], member_role=g["member_role"],
-                                   team_roles=g["team_roles"], team_plants=g["team_plants"], http=github_http)
+                                   team_roles=g["team_roles"], team_plants=g["team_plants"],
+                                   allowed_users=g["allowed_users"], user_roles=g["user_roles"],
+                                   user_plants=g["user_plants"], http=github_http)
             target, who = f"/#session={token}", "github-login"
         except GitHubLoginError as e:
             target, who = f"/#error={quote(str(e))}", "github-login-failed"
@@ -140,6 +147,17 @@ def create_app(service: KnowledgeService, store: Store, auth: Authenticator, res
         r = RedirectResponse(target, status_code=302)
         r.delete_cookie(STATE_COOKIE, path="/auth/github")
         return r
+
+    @app.post("/api/login")
+    def login(body: LoginIn, request: Request):
+        client = request.headers.get("x-forwarded-for", "").split(",")[0].strip() or (request.client.host if request.client else "?")
+        try:
+            token = auth.password_login(body.username, body.password, client)
+        except AuthError as e:
+            store.audit("anonymous", "sign-in-failed", {"client": client, "status": e.status})
+            raise
+        store.audit(body.username.strip().lower(), "sign-in", {"client": client})
+        return {"token": token}
 
     @app.post("/api/dev/login")
     def dev_login(body: DevLoginIn):
