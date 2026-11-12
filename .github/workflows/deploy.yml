@@ -5,6 +5,9 @@ name: deploy-modal
 on:
   workflow_dispatch:
     inputs:
+      modal_environment:
+        description: "Modal environment in workspace yuttana858"
+        default: "SWIS"
       embedder:
         description: "Dense embedder for the index build (none or voyage)"
         default: "none"
@@ -16,6 +19,7 @@ jobs:
     env:
       MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
       MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
+      MODAL_ENVIRONMENT: ${{ inputs.modal_environment }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

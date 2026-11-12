@@ -1,7 +1,9 @@
-"""Modal deployment for PACK AI (app "pack-ai" in workspace "swis").
+"""Modal deployment for PACK AI (app "pack-ai" in workspace "yuttana858", environment "SWIS").
 
-SWIS API:     https://swis--pack-ai.modal.run          (function api, label "pack-ai", proxy auth)
-MCP endpoint: https://swis--pack-ai-mcp-http.modal.run/mcp
+SWIS API:     https://yuttana858-swis--pack-ai.modal.run   (function api, label "pack-ai", proxy auth)
+MCP endpoint: https://yuttana858-swis--pack-ai-mcp-http.modal.run/mcp
+(Modal prints the exact URLs on deploy; non-default environments add "-<environment>" to the workspace.)
+Callers authenticate with the "SWIS AI" proxy token of this workspace/environment.
 
 NOT DEPLOYED YET: requires the company's Modal workspace. When ready:
 
