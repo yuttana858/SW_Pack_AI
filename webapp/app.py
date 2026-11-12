@@ -1,4 +1,4 @@
-"""SW Pack AI web app (phase C3).
+"""PACK AI web app (phase C3).
 
   python -m webapp.app                      # http://127.0.0.1:8080 (dev sign-in, search-only without API key)
   SWPACK_AUTH_MODE=oidc python -m webapp.app
@@ -68,7 +68,7 @@ def _jsonable(messages: list) -> list:
 
 def create_app(service: KnowledgeService, store: Store, auth: Authenticator, responder: Responder,
                github_http=None) -> FastAPI:
-    app = FastAPI(title="SW Pack AI", docs_url=None, redoc_url=None)
+    app = FastAPI(title="PACK AI", docs_url=None, redoc_url=None)
 
     @app.exception_handler(AuthError)
     async def _auth_error(_: Request, e: AuthError):

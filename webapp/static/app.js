@@ -1,5 +1,5 @@
 "use strict";
-// SW Pack AI web client. Vanilla JS, no build step. Talks to the JSON API in webapp/app.py.
+// PACK AI web client. Vanilla JS, no build step. Talks to the JSON API in webapp/app.py.
 
 const $ = (s, r = document) => r.querySelector(s);
 const state = { token: null, me: null, config: null, plant: null, conversation: null, oidc: null };

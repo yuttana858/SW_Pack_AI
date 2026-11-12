@@ -44,7 +44,7 @@ Set:
 - `SWPACK_AUTH_MODE=oidc`
 - `SWPACK_AUTH_CONFIG=<path to auth.yaml>`
 
-On Modal these go in the `swpack-web` secret. Developer sign-in is refused when `SWPACK_ENV=production`.
+On Modal these go in the `pack-ai-web` secret. Developer sign-in is refused when `SWPACK_ENV=production`.
 
 ## What we need from you
 

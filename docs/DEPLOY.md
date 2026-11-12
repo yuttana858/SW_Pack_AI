@@ -1,11 +1,13 @@
-# Deploying SW Pack AI to Modal (workspace "SWIS") with GitHub sign-in
+# Deploying PACK AI to Modal (workspace "SWIS") with GitHub sign-in
+
+App address once deployed: **https://swis--pack-ai.modal.run**
 
 These steps need your accounts, so you run them. No secret ever needs to be pasted into chat or
 committed to the repository.
 
 **Two GitHub logins:**
 - **Logging into Modal** with GitHub is how *you* administer the workspace.
-- **"Sign in with GitHub" on SW Pack AI** is how *engineers* use the app.
+- **"Sign in with GitHub" on PACK AI** is how *engineers* use the app.
 
 Both use the same GitHub identities, so engineers need nothing new.
 
@@ -37,11 +39,11 @@ In GitHub, go to your **organization → Settings → Developer settings → OAu
 
 | Field | Value |
 |---|---|
-| Application name | SW Pack AI |
-| Homepage URL | `https://swis--swpack-kb-web.modal.run` |
-| Authorization callback URL | `https://swis--swpack-kb-web.modal.run/auth/github/callback` |
+| Application name | PACK AI |
+| Homepage URL | `https://swis--pack-ai.modal.run` |
+| Authorization callback URL | `https://swis--pack-ai.modal.run/auth/github/callback` |
 
-The URL pattern is `https://<workspace>--<app>-<function>.modal.run`. Modal prints the real URL on the first deploy; if it differs, update both fields here and `SWPACK_PUBLIC_URL` in step 4.
+The web function is labelled `pack-ai`, so its address is `https://<workspace>--pack-ai.modal.run`. Modal prints the real URL on the first deploy; if it differs (for example, a different workspace name), update both fields here and `SWPACK_PUBLIC_URL` in step 4.
 
 After creating the app, copy the **Client ID**, then **Generate a new client secret** and copy it.
 
@@ -50,7 +52,7 @@ After creating the app, copy the **Client ID**, then **Generate a new client sec
 First the web app secret. Fill in your GitHub organization name and the two values from step 3:
 
 ```bash
-modal secret create swpack-web SWPACK_ENV=production SWPACK_AUTH_MODE=github SWPACK_GITHUB_ORG=<your-github-org> GITHUB_CLIENT_ID=<client-id> GITHUB_CLIENT_SECRET=<client-secret> SWPACK_SESSION_SECRET=$(python3 -c "import secrets; print(secrets.token_urlsafe(48))") SWPACK_PUBLIC_URL=https://swis--swpack-kb-web.modal.run
+modal secret create pack-ai-web SWPACK_ENV=production SWPACK_AUTH_MODE=github SWPACK_GITHUB_ORG=<your-github-org> GITHUB_CLIENT_ID=<client-id> GITHUB_CLIENT_SECRET=<client-secret> SWPACK_SESSION_SECRET=$(python3 -c "import secrets; print(secrets.token_urlsafe(48))") SWPACK_PUBLIC_URL=https://swis--pack-ai.modal.run
 ```
 
 Then the Claude API key. Until you have a key, use the placeholder `none`, which keeps the app in search-only mode:
@@ -69,7 +71,7 @@ modal secret create anthropic ANTHROPIC_API_KEY=<your-key> --force
 
 In GitHub, go to **Actions → deploy-modal → Run workflow**. The workflow:
 1. Runs every check.
-2. Builds the knowledge release into the `swpack-kb` Volume.
+2. Builds the knowledge release into the `pack-ai-kb` Volume.
 3. Runs the retrieval eval.
 4. Deploys:
    - the web app (`web`)
@@ -80,7 +82,7 @@ Re-run it after any change you want live. Engineers' conversations are kept, bec
 
 ## 6. Sign in
 
-Open `https://swis--swpack-kb-web.modal.run` and choose **Sign in with GitHub**.
+Open `https://swis--pack-ai.modal.run` and choose **Sign in with GitHub**.
 - **Who can sign in:** every active member of your organization gets the **engineer** role.
 - **Who is refused:** non-members, and invitations not yet accepted.
 
@@ -99,4 +101,4 @@ Commit the change and re-run the deploy workflow. Team changes take effect at an
 
 - **MCP endpoint (`mcp_http`):** protected by Modal proxy auth. To let a Claude client use it, create a proxy auth token in the Modal dashboard.
 - **Single container:** the web app runs as one container because conversations are stored in SQLite on the Volume. Postgres (phase C4) lifts this.
-- **Rotating the GitHub client secret:** generate a new one in the OAuth App, re-create `swpack-web` with `--force`, and re-run the deploy.
+- **Rotating the GitHub client secret:** generate a new one in the OAuth App, re-create `pack-ai-web` with `--force`, and re-run the deploy.

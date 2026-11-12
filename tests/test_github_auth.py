@@ -38,13 +38,13 @@ def github_mock(member_state="active", teams=("swpack-stewards", "plant-dallas")
 def make(http, monkeypatch):
     for k, v in {"SWPACK_AUTH_MODE": "github", "SWPACK_GITHUB_ORG": "swis", "GITHUB_CLIENT_ID": "cid",
                  "GITHUB_CLIENT_SECRET": "csecret", "SWPACK_SESSION_SECRET": SECRET,
-                 "SWPACK_PUBLIC_URL": "https://swis--swpack-kb-web.modal.run", "SWPACK_AUTH_CONFIG": "/nonexistent"}.items():
+                 "SWPACK_PUBLIC_URL": "https://swis--pack-ai.modal.run", "SWPACK_AUTH_CONFIG": "/nonexistent"}.items():
         monkeypatch.setenv(k, v)
     cfg = AuthConfig.load()
     cfg.github.update(team_roles={"swpack-stewards": "steward"}, team_plants={"plant-dallas": "dallas"})
     svc = KnowledgeService(HybridIndex.build(build_chunks(ROOT)), {"release_id": "t"}, DataStore([]))
     return TestClient(create_app(svc, Store(":memory:"), Authenticator(cfg), SearchOnlyResponder(svc), github_http=http),
-                      base_url="https://swis--swpack-kb-web.modal.run", follow_redirects=False)
+                      base_url="https://swis--pack-ai.modal.run", follow_redirects=False)
 
 
 def login(c):
@@ -52,7 +52,7 @@ def login(c):
     assert r.status_code == 302
     q = parse_qs(urlparse(r.headers["location"]).query)
     assert q["scope"] == ["read:user user:email read:org"] and q["client_id"] == ["cid"]
-    assert q["redirect_uri"] == ["https://swis--swpack-kb-web.modal.run/auth/github/callback"]
+    assert q["redirect_uri"] == ["https://swis--pack-ai.modal.run/auth/github/callback"]
     return q["state"][0]
 
 

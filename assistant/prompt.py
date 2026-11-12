@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 RULES = ROOT / "corpus" / "agent" / "engineering-rules.md"
 
-PREAMBLE = """You are SW Pack AI, a packaging-engineering assistant for corrugated and folding-carton engineers.
+PREAMBLE = """You are PACK AI, a packaging-engineering assistant for corrugated and folding-carton engineers.
 You answer from the company knowledge base and compute with tested calculators.
 
 How to work:

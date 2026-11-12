@@ -1,4 +1,7 @@
-"""Modal deployment for the swpack-kb knowledge service (phase C1).
+"""Modal deployment for PACK AI (app "pack-ai" in workspace "swis").
+
+Web app:      https://swis--pack-ai.modal.run          (function web, label "pack-ai")
+MCP endpoint: https://swis--pack-ai-mcp-http.modal.run/mcp
 
 NOT DEPLOYED YET: requires the company's Modal workspace. When ready:
 
@@ -6,14 +9,14 @@ NOT DEPLOYED YET: requires the company's Modal workspace. When ready:
     modal run deploy/modal_app.py::build_index              # build a release into the Volume
     modal run deploy/modal_app.py::retrieval_eval           # recall@k on evals/retrieval_seed.yaml
 
-Layout on the `swpack-kb` Volume:
+Layout on the `pack-ai-kb` Volume:
     /kb/releases/<release_id>/index.json, manifest.json
     /kb/CURRENT                         -> text file holding the active release id (atomic swap)
 
 Access: the endpoint uses Modal proxy auth (requires_proxy_auth=True), so only callers with a
 Modal proxy token (Modal-Key / Modal-Secret headers) reach it. Per-user SSO identity and plant
 scope replace the environment-variable context in phase C3.
-Secrets: modal.Secret "swpack-kb" holds VOYAGE_API_KEY (only if the voyage embedder is used);
+Secrets: modal.Secret "pack-ai-kb" holds VOYAGE_API_KEY (only if the voyage embedder is used);
 modal.Secret "anthropic" holds ANTHROPIC_API_KEY for the assistant (`ask`).
 """
 from __future__ import annotations
@@ -40,8 +43,8 @@ image = (
     .add_local_dir(str(REPO / "webapp" / "static"), f"{APP_DIR}/webapp/static")
     .add_local_file(str(REPO / "webapp" / "auth.yaml"), f"{APP_DIR}/webapp/auth.yaml")
 )
-volume = modal.Volume.from_name("swpack-kb", create_if_missing=True)
-app = modal.App("swpack-kb", image=image)
+volume = modal.Volume.from_name("pack-ai-kb", create_if_missing=True)
+app = modal.App("pack-ai", image=image)
 
 
 def _current_dir() -> Path:
@@ -114,14 +117,14 @@ def ask(question: str, plant: str | None = None, machine: str | None = None, eff
                         for m in r.messages]}
 
 
-@app.function(volumes={VOL_PATH: volume}, secrets=[modal.Secret.from_name("anthropic"), modal.Secret.from_name("swpack-web")],
+@app.function(volumes={VOL_PATH: volume}, secrets=[modal.Secret.from_name("anthropic"), modal.Secret.from_name("pack-ai-web")],
               max_containers=1, scaledown_window=900, timeout=900)
 @modal.concurrent(max_inputs=16)
-@modal.asgi_app()
+@modal.asgi_app(label="pack-ai")
 def web():
-    """SW Pack AI web app (phase C3): chat UI + JSON API, signed in through the company identity provider.
+    """PACK AI web app (phase C3): chat UI + JSON API, signed in through the company identity provider.
 
-    Secret "swpack-web" sets SWPACK_ENV=production, SWPACK_AUTH_MODE=github, SWPACK_GITHUB_ORG,
+    Secret "pack-ai-web" sets SWPACK_ENV=production, SWPACK_AUTH_MODE=github, SWPACK_GITHUB_ORG,
     GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, SWPACK_SESSION_SECRET and SWPACK_PUBLIC_URL (docs/DEPLOY.md).
     Role/plant team mapping is in webapp/auth.yaml (baked into the image). Dev sign-in is refused in
     production. Secret "anthropic" holds ANTHROPIC_API_KEY; the placeholder value "none" keeps the app

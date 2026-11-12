@@ -1,4 +1,6 @@
-# SW Pack AI
+# PACK AI (project SW_Pack_AI)
+
+Live address once deployed: https://swis--pack-ai.modal.run
 
 Foundation for an intelligent packaging-development assistant: a Claude-based RAG system
 that grounds answers in a cited packaging knowledge base and drives Auto3D through tools.

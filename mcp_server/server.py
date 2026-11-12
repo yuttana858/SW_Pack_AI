@@ -26,7 +26,7 @@ from mcp.types import ToolAnnotations
 from agent.tools import TOOLS as CALC_TOOLS
 from kb.service import CALC_NAMES, KnowledgeService, UserContext
 
-INSTRUCTIONS = """Packaging-engineering knowledge base for SW Pack AI.
+INSTRUCTIONS = """Packaging-engineering knowledge base for PACK AI.
 - Search with kb_search, then read full sections with kb_read before relying on them; cite the chunk ids and source titles.
 - For governing numbers (materials, allowances, tolerances, factors, machines) use kb_resolve: it applies the user's plant/machine scope.
 - Never do engineering arithmetic yourself: call calc with the right calculator (list them with calc_list).
@@ -42,7 +42,7 @@ def context_from_env() -> UserContext:
 
 
 def create_server(service: KnowledgeService, ctx: UserContext) -> MCPServer:
-    server = MCPServer(name="swpack-kb", title="SW Pack AI knowledge base", instructions=INSTRUCTIONS,
+    server = MCPServer(name="swpack-kb", title="PACK AI knowledge base", instructions=INSTRUCTIONS,
                        version=service.manifest["release_id"])
 
     def kb_search(query: str, k: int = 8, kinds: list[str] | None = None, material_families: list[str] | None = None,
