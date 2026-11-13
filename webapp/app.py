@@ -110,6 +110,10 @@ def create_app(service: KnowledgeService, store: Store, auth: Authenticator, res
         return out
 
     # ---- public --------------------------------------------------------------------
+    @app.get("/healthz")
+    def healthz():
+        return {"ok": True, "release_id": service.manifest.get("release_id"), "responder": responder.mode}
+
     @app.get("/api/config")
     def config():
         return {"auth": auth.public_config(), "responder": responder.mode, "release_id": service.manifest.get("release_id")}

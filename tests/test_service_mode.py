@@ -102,3 +102,12 @@ def test_assistant_is_named_swis(monkeypatch):
     system_prompt.cache_clear()
     assert system_prompt().startswith("You are Pack Buddy,")
     system_prompt.cache_clear()
+
+
+def test_store_backup_restore_roundtrip(tmp_path):
+    s = Store(tmp_path / "live.db")
+    cid = s.create_conversation("u", "p", "title")
+    s.save_turn(cid, "u", "q", "a", {}, [{"role": "user", "content": "q"}])
+    s.backup_to(tmp_path / "durable.db")
+    restored = Store(tmp_path / "durable.db")
+    assert restored.history(cid) == [{"role": "user", "content": "q"}]

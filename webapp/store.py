@@ -49,6 +49,18 @@ class Store:
         self.db.executescript(SCHEMA)
         self.lock = threading.Lock()
 
+    def backup_to(self, path: str | Path) -> None:
+        """Write a consistent copy of the whole database to `path` (atomic replace)."""
+        path = Path(path)
+        tmp = path.with_suffix(path.suffix + ".tmp")
+        with self.lock:
+            dst = sqlite3.connect(str(tmp))
+            try:
+                self.db.backup(dst)
+            finally:
+                dst.close()
+        tmp.replace(path)
+
     def _x(self, sql: str, args: tuple = ()) -> sqlite3.Cursor:
         with self.lock, self.db:
             return self.db.execute(sql, args)

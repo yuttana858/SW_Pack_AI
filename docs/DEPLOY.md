@@ -4,8 +4,8 @@ PACK AI runs as a Modal app named **pack-ai** in workspace **`yuttana858`**, env
 
 | Endpoint | Address (Modal prints the exact one on deploy) | Who uses it | Protection |
 |---|---|---|---|
-| `web`: the SWIS chat page and API | `https://yuttana858-swis--pack-ai.modal.run` | You in a browser; later other systems | Your login (single user for now; Azure SSO later). Service callers use the service key |
-| `mcp_http`: knowledge tools for Claude clients (optional) | `https://yuttana858-swis--pack-ai-mcp-http.modal.run/mcp` | Claude Code / other Claude clients | The **SWIS AI** proxy token |
+| `web`: the SWIS chat page and API | `https://yuttana858-swis--pack-ai.us-east.modal.run` | You in a browser; later other systems | Your login (single user for now; Azure SSO later). Service callers use the service key |
+| `mcp_http`: knowledge tools for Claude clients (optional) | `https://yuttana858-swis--pack-ai-mcp-http.us-east.modal.run/mcp` | Claude Code / other Claude clients | The **SWIS AI** proxy token |
 
 These steps need your accounts, so you run them on your computer. No secret ever goes into chat or the repository.
 
@@ -88,7 +88,7 @@ The last step's log prints the addresses. Re-run the workflow after any change y
 
 ## 5. Sign in
 
-1. Open the `web` address (expected `https://yuttana858-swis--pack-ai.modal.run`).
+1. Open the `web` address (expected `https://yuttana858-swis--pack-ai.us-east.modal.run`).
 2. Sign in with your username and password.
 3. Ask a question, then a follow-up: SWIS keeps the conversation. Your conversations are listed on the left, and they're still there after a deploy.
 

@@ -8,7 +8,7 @@ later the PACK AI page) sends each question to the PACK AI service and shows the
 Engineer ──Azure SSO──► SWIS front end ──────────────────────────────────────────┐
                         (signs the user in, shows answers)                       │ HTTPS
                                                                                  ▼
-             https://yuttana858-swis--pack-ai.modal.run   (Modal proxy auth + service key)
+             https://yuttana858-swis--pack-ai.us-east.modal.run   (Modal proxy auth + service key)
              ┌──────────────────────────────────────────────────────────────────────────┐
              │ PACK AI service                                                          │
              │  /api/ask ─► assistant "SWIS" (claude-opus-5-5) ─► knowledge base + calcs│
@@ -61,13 +61,13 @@ Every request carries **two** credentials, plus the signed-in user.
 ### Ask (first question)
 
 ```bash
-curl -sS https://yuttana858-swis--pack-ai.modal.run/api/ask -H "Modal-Key: $MODAL_KEY" -H "Modal-Secret: $MODAL_SECRET" -H "X-Service-Key: $PACKAI_SERVICE_KEY" -H "X-User-Id: 6f1c…" -H "X-User-Name: Jane Engineer" -H "X-User-Plants: dallas" -H "X-User-Roles: engineer" -H "Content-Type: application/json" -d '{"question": "What ECT do I need for a 12 kg box, 400 x 300 mm, 5 layers of 8 on a 25 kg pallet, 2 pallets high, 90 days at 80 %RH?", "effort": "medium"}'
+curl -sS https://yuttana858-swis--pack-ai.us-east.modal.run/api/ask -H "Modal-Key: $MODAL_KEY" -H "Modal-Secret: $MODAL_SECRET" -H "X-Service-Key: $PACKAI_SERVICE_KEY" -H "X-User-Id: 6f1c…" -H "X-User-Name: Jane Engineer" -H "X-User-Plants: dallas" -H "X-User-Roles: engineer" -H "Content-Type: application/json" -d '{"question": "What ECT do I need for a 12 kg box, 400 x 300 mm, 5 layers of 8 on a 25 kg pallet, 2 pallets high, 90 days at 80 %RH?", "effort": "medium"}'
 ```
 
 ### Ask (follow-up in the same conversation)
 
 ```bash
-curl -sS https://yuttana858-swis--pack-ai.modal.run/api/ask -H "Modal-Key: $MODAL_KEY" -H "Modal-Secret: $MODAL_SECRET" -H "X-Service-Key: $PACKAI_SERVICE_KEY" -H "X-User-Id: 6f1c…" -H "X-User-Plants: dallas" -H "X-User-Roles: engineer" -H "Content-Type: application/json" -d '{"question": "And if it is stored at 90 %RH instead?", "conversation_id": "<id from the first answer>"}'
+curl -sS https://yuttana858-swis--pack-ai.us-east.modal.run/api/ask -H "Modal-Key: $MODAL_KEY" -H "Modal-Secret: $MODAL_SECRET" -H "X-Service-Key: $PACKAI_SERVICE_KEY" -H "X-User-Id: 6f1c…" -H "X-User-Plants: dallas" -H "X-User-Roles: engineer" -H "Content-Type: application/json" -d '{"question": "And if it is stored at 90 %RH instead?", "conversation_id": "<id from the first answer>"}'
 ```
 
 ### Response
