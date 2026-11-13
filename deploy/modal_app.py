@@ -137,18 +137,41 @@ def web():
     PACKAI_ADMIN_PASSWORD_HASH, SWPACK_SESSION_SECRET, optional PACKAI_SERVICE_KEY, PACKAI_ADMIN_PLANTS,
     SWPACK_ASSISTANT_NAME (default SWIS). Secret "anthropic": ANTHROPIC_API_KEY ("none" = search-only).
 
-    Session memory lives in SQLite on the Volume; every successful write commits the Volume so
-    conversations survive restarts and redeploys. max_containers=1 keeps SQLite safe.
+    Session memory: SQLite on the container's local disk, restored from the Volume at start and backed
+    up to the Volume (then committed) after every write. max_containers=1 keeps one writer.
+    Any startup error is caught: the endpoint then answers 503 with the reason instead of crash-looping.
     """
+    try:
+        return _build_web_app()
+    except Exception as e:  # noqa: BLE001 - stay up and say why, instead of crash-looping
+        import traceback  # noqa: PLC0415
+
+        from fastapi import FastAPI  # noqa: PLC0415
+        from fastapi.responses import JSONResponse  # noqa: PLC0415
+
+        traceback.print_exc()
+        reason = f"{type(e).__name__}: {e}"[:500]
+        print(f"pack-ai web: FAILED TO START: {reason}", flush=True)
+        broken = FastAPI()
+
+        @broken.api_route("/{path:path}", methods=["GET", "POST", "PUT", "DELETE"])
+        def startup_failed(path: str):
+            return JSONResponse({"error": "SWIS failed to start", "reason": reason,
+                                 "help": "Fix the cause (often a Modal secret value), then re-run the deploy workflow."},
+                                status_code=503)
+
+        return broken
+
+
+def _build_web_app():
     import os  # noqa: PLC0415
+    import shutil  # noqa: PLC0415
 
     from kb.service import KnowledgeService  # noqa: PLC0415
     from webapp.app import create_app  # noqa: PLC0415
     from webapp.auth import AuthConfig, Authenticator  # noqa: PLC0415
     from webapp.responders import make_responder  # noqa: PLC0415
     from webapp.store import Store  # noqa: PLC0415
-
-    import shutil  # noqa: PLC0415
 
     print("pack-ai web: starting", flush=True)
     volume.reload()
@@ -160,10 +183,22 @@ def web():
     durable = Path(VOL_PATH) / "sessions.db"
     live = Path(os.environ.get("SWPACK_DB", "/tmp/pack-ai/sessions.db"))
     live.parent.mkdir(parents=True, exist_ok=True)
-    if durable.exists():
+    import sqlite3  # noqa: PLC0415
+
+    restored = False
+    if durable.exists() and durable.stat().st_size > 0:
         shutil.copyfile(durable, live)
-    store = Store(live)
-    print(f"pack-ai web: session store ready ({'restored' if durable.exists() else 'new'})", flush=True)
+        restored = True
+    try:
+        store = Store(live)
+        store.list_conversations("__startup_check__")
+    except sqlite3.DatabaseError as e:            # unreadable backup: keep it aside, start fresh
+        print(f"pack-ai web: session backup unreadable ({e}); starting a new session store", flush=True)
+        live.unlink(missing_ok=True)
+        if durable.exists():
+            durable.rename(durable.with_name(f"sessions.unreadable-{int(__import__('time').time())}.db"))
+        store, restored = Store(live), False
+    print(f"pack-ai web: session store ready ({'restored' if restored else 'new'})", flush=True)
     fastapi_app = create_app(service, store, Authenticator(AuthConfig.load()), make_responder(service))
 
     @fastapi_app.middleware("http")
