@@ -1,6 +1,6 @@
 # PACK AI (project SW_Pack_AI)
 
-Engineers talk to **SWIS**, the PACK AI assistant. Today SWIS is the PACK AI chat page at `https://yuttana858-swis--pack-ai.modal.run`, with a single-user login (Azure SSO later). Integration contract: `docs/SWIS-INTEGRATION.md`; deployment: `docs/DEPLOY.md`.
+Engineers talk to **SWIS**, the PACK AI assistant. Today SWIS is the PACK AI chat page at `https://yuttana858-swis--pack-ai.us-east.modal.run`, with a single-user login (Azure SSO later). Integration contract: `docs/SWIS-INTEGRATION.md`; deployment: `docs/DEPLOY.md`.
 
 Foundation for an intelligent packaging-development assistant: a Claude-based RAG system
 that grounds answers in a cited packaging knowledge base and drives Auto3D through tools.

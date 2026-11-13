@@ -1,7 +1,7 @@
 """Modal deployment for PACK AI (app "pack-ai" in workspace "yuttana858", environment "SWIS").
 
-SWIS page+API: https://yuttana858-swis--pack-ai.modal.run  (function web, label "pack-ai", login / service key)
-MCP endpoint: https://yuttana858-swis--pack-ai-mcp-http.modal.run/mcp
+SWIS page+API: https://yuttana858-swis--pack-ai.us-east.modal.run  (function web, label "pack-ai", login / service key)
+MCP endpoint: https://yuttana858-swis--pack-ai-mcp-http.us-east.modal.run/mcp
 (Modal prints the exact URLs on deploy; non-default environments add "-<environment>" to the workspace.)
 The MCP endpoint is protected by the "SWIS AI" proxy token of this workspace/environment.
 
