@@ -148,16 +148,31 @@ def web():
     from webapp.responders import make_responder  # noqa: PLC0415
     from webapp.store import Store  # noqa: PLC0415
 
+    import shutil  # noqa: PLC0415
+
+    print("pack-ai web: starting", flush=True)
     volume.reload()
     service = KnowledgeService.load(_current_dir(), Path(APP_DIR) / "data")
-    store = Store(os.environ.get("SWPACK_DB", f"{VOL_PATH}/sessions.db"))
+    print(f"pack-ai web: knowledge release {service.manifest.get('release_id')} loaded", flush=True)
+
+    # SQLite needs file locking, which Modal Volumes do not fully provide. Run the live database on the
+    # container's local disk, restore it from the Volume at start, and back it up to the Volume after writes.
+    durable = Path(VOL_PATH) / "sessions.db"
+    live = Path(os.environ.get("SWPACK_DB", "/tmp/pack-ai/sessions.db"))
+    live.parent.mkdir(parents=True, exist_ok=True)
+    if durable.exists():
+        shutil.copyfile(durable, live)
+    store = Store(live)
+    print(f"pack-ai web: session store ready ({'restored' if durable.exists() else 'new'})", flush=True)
     fastapi_app = create_app(service, store, Authenticator(AuthConfig.load()), make_responder(service))
 
     @fastapi_app.middleware("http")
     async def persist_after_writes(request, call_next):
         response = await call_next(request)
         if request.method in ("POST", "PUT", "PATCH", "DELETE") and response.status_code < 400:
-            volume.commit()                     # make session memory durable
+            store.backup_to(durable)          # consistent copy of session memory
+            volume.commit()                   # make it durable on the Volume
         return response
 
+    print("pack-ai web: ready", flush=True)
     return fastapi_app
